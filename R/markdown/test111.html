@@ -1,0 +1,1239 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>body
+{
+  font-size:15px;
+  line-height:1.7;
+  overflow-x:hidden;
+
+    background-color: white;
+    border-radius: 3px;
+    border: 3px solid #EEE;
+    box-shadow: inset 0 0 0 1px #CECECE;
+    font-family: Helvetica, arial, freesans, clean, sans-serif;
+    max-width: 912px;
+    padding: 30px;
+    margin: 2em auto;
+
+    color:#333333;
+}
+
+
+.body-classic{
+  color:#444;
+  font-family:Georgia, Palatino, 'Palatino Linotype', Times, 'Times New Roman', "Hiragino Sans GB", "STXihei", "微软雅黑", serif;
+  font-size:16px;
+  line-height:1.5em;
+  background:#fefefe;
+  width: 45em;
+  margin: 10px auto;
+  padding: 1em;
+  outline: 1300px solid #FAFAFA;
+}
+
+body>:first-child
+{
+  margin-top:0!important;
+}
+
+body>:last-child
+{
+  margin-bottom:0!important;
+}
+
+blockquote,dl,ol,p,pre,table,ul {
+  border: 0;
+  margin: 15px 0;
+  padding: 0;
+}
+
+body a {
+  color: #4183c4;
+  text-decoration: none;
+}
+
+body a:hover {
+  text-decoration: underline;
+}
+
+body a.absent
+{
+  color:#c00;
+}
+
+body a.anchor
+{
+  display:block;
+  padding-left:30px;
+  margin-left:-30px;
+  cursor:pointer;
+  position:absolute;
+  top:0;
+  left:0;
+  bottom:0
+}
+
+/*h4,h5,h6{ font-weight: bold; }*/
+
+.octicon{
+  font:normal normal 16px sans-serif;
+  width: 1em;
+  height: 1em;
+  line-height:1;
+  display:inline-block;
+  text-decoration:none;
+  -webkit-font-smoothing:antialiased
+}
+
+.octicon-link {
+  background: url("data:image/svg+xml;utf8,<?xml version='1.0' standalone='no'?> <!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'> <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 832'> <metadata>Copyright (C) 2013 by GitHub</metadata> <!-- scale(0.01565557729941) --> <path transform='' d='M768 64h-192s-254 0-256 256c0 22 3 43 8 64h137c-11-19-18-41-18-64 0-128 128-128 128-128h192s128 0 128 128-128 128-128 128 0 64-64 128h64s256 0 256-256-256-256-256-256z m-72 192h-137c11 19 18 41 18 64 0 128-128 128-128 128h-192s-128 0-128-128 128-128 128-128-4-65 66-128h-66s-256 0-256 256 256 256 256 256h192s256 0 256-256c0-22-4-44-8-64z'/> </svg>");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: bottom;
+}
+
+.octicon-link:before{
+  content:'\a0';
+}
+
+body h1,body h2,body h3,body h4,body h5,body h6{
+  margin:1em 0 15px;
+  padding:0;
+  font-weight:bold;
+  line-height:1.7;
+  cursor:text;
+  position:relative
+}
+
+body h1 .octicon-link,body h2 .octicon-link,body h3 .octicon-link,body h4 .octicon-link,body h5 .octicon-link,body h6 .octicon-link{
+  display:none;
+  color:#000
+}
+
+body h1:hover a.anchor,body h2:hover a.anchor,body h3:hover a.anchor,body h4:hover a.anchor,body h5:hover a.anchor,body h6:hover a.anchor{
+  text-decoration:none;
+  line-height:1;
+  padding-left:0;
+  margin-left:-22px;
+  top:15%
+}
+
+body h1:hover a.anchor .octicon-link,body h2:hover a.anchor .octicon-link,body h3:hover a.anchor .octicon-link,body h4:hover a.anchor .octicon-link,body h5:hover a.anchor .octicon-link,body h6:hover a.anchor .octicon-link{
+  display:inline-block
+}
+
+body h1 tt,body h1 code,body h2 tt,body h2 code,body h3 tt,body h3 code,body h4 tt,body h4 code,body h5 tt,body h5 code,body h6 tt,body h6 code{
+  font-size:inherit
+}
+
+body h1{
+  font-size:2.5em;
+  border-bottom:1px solid #ddd
+}
+
+body h2{
+  font-size:2em;
+  border-bottom:1px solid #eee
+}
+
+body h3{
+  font-size:1.5em
+}
+
+body h4{
+  font-size:1.2em
+}
+
+body h5{
+  font-size:1em
+}
+
+body h6{
+  color:#777;
+  font-size:1em
+}
+
+body p,body blockquote,body ul,body ol,body dl,body table,body pre{
+  margin:15px 0
+}
+
+body h1 tt,body h1 code,body h2 tt,body h2 code,body h3 tt,body h3 code,body h4 tt,body h4 code,body h5 tt,body h5 code,body h6 tt,body h6 code
+{
+  font-size:inherit;
+}
+
+
+body hr
+{
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAECAYAAACtBE5DAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OENDRjNBN0E2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OENDRjNBN0I2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4Q0NGM0E3ODY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4Q0NGM0E3OTY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PqqezsUAAAAfSURBVHjaYmRABcYwBiM2QSA4y4hNEKYDQxAEAAIMAHNGAzhkPOlYAAAAAElFTkSuQmCC);
+  background-repeat: repeat-x;
+  /*background:transparent url(http://overblown.net/files/markdown/dirty-shade.png) repeat-x 0 0;*/
+  background-color: transparent;
+  background-position: 0;
+  border:0 none;
+  color:#ccc;
+  height:4px;
+  margin:15px 0;
+  padding:0;
+}
+
+body li p.first
+{
+  display:inline-block;
+}
+
+body ul,body ol
+{
+  padding-left:30px;
+}
+
+body ul.no-list,body ol.no-list
+{
+  list-style-type:none;
+  padding:0;
+}
+
+body ul ul,body ul ol,body ol ol,body ol ul
+{
+  margin-bottom:0;
+  margin-top:0;
+}
+
+body dl
+{
+  padding:0;
+}
+
+body dl dt
+{
+  font-size:14px;
+  font-style:italic;
+  font-weight:700;
+  margin-top:15px;
+  padding:0;
+}
+
+body dl dd
+{
+  margin-bottom:15px;
+  padding:0 15px;
+}
+
+body blockquote
+{
+  border-left:4px solid #DDD;
+  color:#777;
+  padding:0 15px;
+}
+
+body blockquote>:first-child
+{
+  margin-top:0;
+}
+
+body blockquote>:last-child
+{
+  margin-bottom:0;
+}
+
+body table
+{
+  display:block;
+  overflow:auto;
+  width:100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  padding: 0;
+}
+
+body table th
+{
+  font-weight:700;
+}
+
+body table th,body table td
+{
+  border:1px solid #ddd;
+  padding:6px 13px;
+}
+
+body table tr
+{
+  background-color:#fff;
+  border-top:1px solid #ccc;
+}
+
+body table tr:nth-child(2n)
+{
+  background-color:#f8f8f8;
+}
+
+body img
+{
+  -moz-box-sizing:border-box;
+  box-sizing:border-box;
+  max-width:100%;
+}
+
+body span.frame
+{
+  display:block;
+  overflow:hidden;
+}
+
+body span.frame>span
+{
+  border:1px solid #ddd;
+  display:block;
+  float:left;
+  margin:13px 0 0;
+  overflow:hidden;
+  padding:7px;
+  width:auto;
+}
+
+body span.frame span img
+{
+  display:block;
+  float:left;
+}
+
+body span.frame span span
+{
+  clear:both;
+  color:#333;
+  display:block;
+  padding:5px 0 0;
+}
+
+body span.align-center
+{
+  clear:both;
+  display:block;
+  overflow:hidden;
+}
+
+body span.align-center>span
+{
+  display:block;
+  margin:13px auto 0;
+  overflow:hidden;
+  text-align:center;
+}
+
+body span.align-center span img
+{
+  margin:0 auto;
+  text-align:center;
+}
+
+body span.align-right
+{
+  clear:both;
+  display:block;
+  overflow:hidden;
+}
+
+body span.align-right>span
+{
+  display:block;
+  margin:13px 0 0;
+  overflow:hidden;
+  text-align:right;
+}
+
+body span.align-right span img
+{
+  margin:0;
+  text-align:right;
+}
+
+body span.float-left
+{
+  display:block;
+  float:left;
+  margin-right:13px;
+  overflow:hidden;
+}
+
+body span.float-left span
+{
+  margin:13px 0 0;
+}
+
+body span.float-right
+{
+  display:block;
+  float:right;
+  margin-left:13px;
+  overflow:hidden;
+}
+
+body span.float-right>span
+{
+  display:block;
+  margin:13px auto 0;
+  overflow:hidden;
+  text-align:right;
+}
+
+body code,body tt
+{
+  background-color:#f8f8f8;
+  border:1px solid #ddd;
+  border-radius:3px;
+  margin:0 2px;
+  padding:0 5px;
+}
+
+body code
+{
+  white-space:nowrap;
+}
+
+
+code,pre{
+  font-family:Consolas, "Liberation Mono", Courier, monospace;
+  font-size:12px
+}
+
+body pre>code
+{
+  background:transparent;
+  border:none;
+  margin:0;
+  padding:0;
+  white-space:pre;
+}
+
+body .highlight pre,body pre
+{
+  background-color:#f8f8f8;
+  border:1px solid #ddd;
+  font-size:13px;
+  line-height:19px;
+  overflow:auto;
+  padding:6px 10px;
+  border-radius:3px
+}
+
+body pre code,body pre tt
+{
+  background-color:transparent;
+  border:none;
+  margin:0;
+  padding:0;
+}
+
+body .task-list{
+  list-style-type:none;
+  padding-left:10px
+}
+
+.task-list-item{
+  padding-left:20px
+}
+
+.task-list-item label{
+  font-weight:normal
+}
+
+.task-list-item.enabled label{
+  cursor:pointer
+}
+
+.task-list-item+.task-list-item{
+  margin-top:5px
+}
+
+.task-list-item-checkbox{
+  float:left;
+  margin-left:-20px;
+  margin-top:7px
+}
+
+
+.highlight{
+  background:#ffffff
+}
+
+.highlight .c{
+  color:#999988;
+  font-style:italic
+}
+
+.highlight .err{
+  color:#a61717;
+  background-color:#e3d2d2
+}
+
+.highlight .k{
+  font-weight:bold
+}
+
+.highlight .o{
+  font-weight:bold
+}
+
+.highlight .cm{
+  color:#999988;
+  font-style:italic
+}
+
+.highlight .cp{
+  color:#999999;
+  font-weight:bold
+}
+
+.highlight .c1{
+  color:#999988;
+  font-style:italic
+}
+
+.highlight .cs{
+  color:#999999;
+  font-weight:bold;
+  font-style:italic
+}
+
+.highlight .gd{
+  color:#000000;
+  background-color:#ffdddd
+}
+
+.highlight .gd .x{
+  color:#000000;
+  background-color:#ffaaaa
+}
+
+.highlight .ge{
+  font-style:italic
+}
+
+.highlight .gr{
+  color:#aa0000
+}
+
+.highlight .gh{
+  color:#999999
+}
+
+.highlight .gi{
+  color:#000000;
+  background-color:#ddffdd
+}
+
+.highlight .gi .x{
+  color:#000000;
+  background-color:#aaffaa
+}
+
+.highlight .go{
+  color:#888888
+}
+
+.highlight .gp{
+  color:#555555
+}
+
+.highlight .gs{
+  font-weight:bold
+}
+
+.highlight .gu{
+  color:#800080;
+  font-weight:bold
+}
+
+.highlight .gt{
+  color:#aa0000
+}
+
+.highlight .kc{
+  font-weight:bold
+}
+
+.highlight .kd{
+  font-weight:bold
+}
+
+.highlight .kn{
+  font-weight:bold
+}
+
+.highlight .kp{
+  font-weight:bold
+}
+
+.highlight .kr{
+  font-weight:bold
+}
+
+.highlight .kt{
+  color:#445588;
+  font-weight:bold
+}
+
+.highlight .m{
+  color:#009999
+}
+
+.highlight .s{
+  color:#d14
+}
+
+.highlight .n{
+  color:#333333
+}
+
+.highlight .na{
+  color:#008080
+}
+
+.highlight .nb{
+  color:#0086B3
+}
+
+.highlight .nc{
+  color:#445588;
+  font-weight:bold
+}
+
+.highlight .no{
+  color:#008080
+}
+
+.highlight .ni{
+  color:#800080
+}
+
+.highlight .ne{
+  color:#990000;
+  font-weight:bold
+}
+
+.highlight .nf{
+  color:#990000;
+  font-weight:bold
+}
+
+.highlight .nn{
+  color:#555555
+}
+
+.highlight .nt{
+  color:#000080
+}
+
+.highlight .nv{
+  color:#008080
+}
+
+.highlight .ow{
+  font-weight:bold
+}
+
+.highlight .w{
+  color:#bbbbbb
+}
+
+.highlight .mf{
+  color:#009999
+}
+
+.highlight .mh{
+  color:#009999
+}
+
+.highlight .mi{
+  color:#009999
+}
+
+.highlight .mo{
+  color:#009999
+}
+
+.highlight .sb{
+  color:#d14
+}
+
+.highlight .sc{
+  color:#d14
+}
+
+.highlight .sd{
+  color:#d14
+}
+
+.highlight .s2{
+  color:#d14
+}
+
+.highlight .se{
+  color:#d14
+}
+
+.highlight .sh{
+  color:#d14
+}
+
+.highlight .si{
+  color:#d14
+}
+
+.highlight .sx{
+  color:#d14
+}
+
+.highlight .sr{
+  color:#009926
+}
+
+.highlight .s1{
+  color:#d14
+}
+
+.highlight .ss{
+  color:#990073
+}
+
+.highlight .bp{
+  color:#999999
+}
+
+.highlight .vc{
+  color:#008080
+}
+
+.highlight .vg{
+  color:#008080
+}
+
+.highlight .vi{
+  color:#008080
+}
+
+.highlight .il{
+  color:#009999
+}
+
+.highlight .gc{
+  color:#999;
+  background-color:#EAF2F5
+}
+
+.type-csharp .highlight .k{
+  color:#0000FF
+}
+
+.type-csharp .highlight .kt{
+  color:#0000FF
+}
+
+.type-csharp .highlight .nf{
+  color:#000000;
+  font-weight:normal
+}
+
+.type-csharp .highlight .nc{
+  color:#2B91AF
+}
+
+.type-csharp .highlight .nn{
+  color:#000000
+}
+
+.type-csharp .highlight .s{
+  color:#A31515
+}
+
+.type-csharp .highlight .sc{
+  color:#A31515
+}
+</style><title>Understanding_ggplot2</title></head><body><h1>
+<a name="user-content-r-%ED%8C%A8%ED%82%A4%EC%A7%80-ggplot2%EC%9D%98-%EC%9D%B4%ED%95%B4" class="anchor" href="#r-%ED%8C%A8%ED%82%A4%EC%A7%80-ggplot2%EC%9D%98-%EC%9D%B4%ED%95%B4" aria-hidden="true"><span class="octicon octicon-link"></span></a>R 패키지 ggplot2의 이해</h1>
+
+<p>Version 2014-01-18</p>
+
+<h2>
+<a name="user-content-1-%EB%AA%A9%EC%A0%81" class="anchor" href="#1-%EB%AA%A9%EC%A0%81" aria-hidden="true"><span class="octicon octicon-link"></span></a>1. 목적</h2>
+
+<ul>
+<li><p>ggplot2는 데이터 시각화를 위한 그래픽 라이브러리로는 현재까지 가장 많이 사용되고 있음</p></li>
+<li>
+<p>명령어 형식의 ggplot2의 특징은 </p>
+
+<ul>
+<li>ggplot2(Grammer of Graphic)의 약자와 같이 grammer 기반의 명령어를 제공하여 </li>
+<li>문장 형성을 통해  사용자는 데이터 시각화를 가능하게 함</li>
+<li>지속적인 update와 </li>
+<li>커뮤니티를 통한 우스한 사례 공유가 가능함</li>
+</ul>
+</li>
+<li><p>ggplot2의 활용 예를 통해 데이터 시각화의 컴포넌트와 실제 데이터와의 연결을 이해함</p></li>
+</ul><h2>
+<a name="user-content-2-%EC%9B%90%EB%A6%AC-%EB%B0%8F-%EC%9A%A9%EC%96%B4" class="anchor" href="#2-%EC%9B%90%EB%A6%AC-%EB%B0%8F-%EC%9A%A9%EC%96%B4" aria-hidden="true"><span class="octicon octicon-link"></span></a>2. 원리 및 용어</h2>
+
+<ul>
+<li><p><strong>ggplot</strong> : 메인 함수로 데이터 셋과 표현할 데이터 변수명을 정의함</p></li>
+<li>
+<p><strong>geoms</strong> : 실제 어떤 데이터 시각화를 할지 정의하는 기하학적 객체</p>
+
+<ul>
+<li>geom_point(), geom_bar(), geom_density(), geom_line(), geom_area() </li>
+</ul>
+</li>
+<li>
+<p><strong>aes</strong> : aesthetics (미학적)</p>
+
+<ul>
+<li>형태, 투명도, 색상, 채우기, 라인의 형태 등을 정의</li>
+</ul>
+</li>
+<li>
+<p><strong>scales</strong> : 데이터가 어떻게 표현될지를 정의</p>
+
+<ul>
+<li>연속형, 이산형, log 등</li>
+</ul>
+</li>
+</ul><h2>
+<a name="user-content-3-ggplot2%EC%9D%98-%ED%99%9C%EC%9A%A9-%EC%9D%B4%ED%95%B4" class="anchor" href="#3-ggplot2%EC%9D%98-%ED%99%9C%EC%9A%A9-%EC%9D%B4%ED%95%B4" aria-hidden="true"><span class="octicon octicon-link"></span></a>3. ggplot2의 활용 이해</h2>
+
+<h3>
+<a name="user-content-31-iris-%EB%8D%B0%EC%9D%B4%ED%84%B0" class="anchor" href="#31-iris-%EB%8D%B0%EC%9D%B4%ED%84%B0" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.1 iris 데이터</h3>
+
+<ul>
+<li>iris 데이터는 3가지 종(species)에 대하여 4가치 측정치(변수)에 대하여 각각 50회 반복 측정한 데이터임</li>
+<li>즉, 3개의 종 (Setosa, Versicolor, Virginica)에 대하여 Sepal length, Sepal width, Petal length, Petal width에 대하여 가각 50회씩 측정한 데이터임</li>
+</ul><div class="highlight highlight-r"><pre>str<span class="p">(</span>iris<span class="p">)</span>
+iris
+</pre></div>
+
+<h3>
+<a name="user-content-32-example%EC%9D%84-%ED%86%B5%ED%95%9C-%EA%B8%B0%EC%B4%88-%EC%9D%B4%ED%95%B4" class="anchor" href="#32-example%EC%9D%84-%ED%86%B5%ED%95%9C-%EA%B8%B0%EC%B4%88-%EC%9D%B4%ED%95%B4" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.2 Example을 통한 기초 이해</h3>
+
+<div class="highlight highlight-r"><pre><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span>
+ggplot<span class="p">(</span>data <span class="o">=</span> iris<span class="p">,</span> aes<span class="p">(</span>x <span class="o">=</span> Sepal.Length<span class="p">,</span> y <span class="o">=</span> Sepal.Width<span class="p">))</span> <span class="o">+</span> geom_point<span class="p">()</span>
+</pre></div>
+
+<h3>
+<a name="user-content-33-%EA%B8%B0%EC%B4%88-%EA%B5%AC%EC%A1%B0%EC%9D%98-%EC%9D%B4%ED%95%B4" class="anchor" href="#33-%EA%B8%B0%EC%B4%88-%EA%B5%AC%EC%A1%B0%EC%9D%98-%EC%9D%B4%ED%95%B4" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.3 기초 구조의 이해</h3>
+
+<pre><code>myplot &lt;- ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width))
+myplot + geom_point()
+</code></pre>
+
+<ul>
+<li>함수 <code>ggplot</code> 안에서 데이터와 변수를 정의함</li>
+<li>일종의 백지 위에 그림을 그릴 대상을 정의한 즉, 데이터 시각화를 위한 셋팅 부분임</li>
+<li>그 이후 어떤 시각화를 할지의 구체적인 데이터 시각화 컴포넌트 대상, 통계모형, 판넬(panels) 등을 백지 상에 레이어 형태로 그림을 그리는 것임 </li>
+</ul><h3>
+<a name="user-content-34-further-examples" class="anchor" href="#34-further-examples" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.4 Further examples</h3>
+
+<h4>
+<a name="user-content-341-increase-the-size-of-points" class="anchor" href="#341-increase-the-size-of-points" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.4.1 Increase the size of points</h4>
+
+<div class="highlight highlight-r"><pre>ggplot<span class="p">(</span>data <span class="o">=</span> iris<span class="p">,</span> aes<span class="p">(</span>x <span class="o">=</span> Sepal.Length<span class="p">,</span> y <span class="o">=</span> Sepal.Width<span class="p">))</span> <span class="o">+</span> geom_point<span class="p">(</span>size <span class="o">=</span> <span class="m">3</span><span class="p">)</span>
+</pre></div>
+
+<h4>
+<a name="user-content-342-add-some-color" class="anchor" href="#342-add-some-color" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.4.2 Add some color</h4>
+
+<div class="highlight highlight-r"><pre>ggplot<span class="p">(</span>iris<span class="p">,</span> aes<span class="p">(</span>Sepal.Length<span class="p">,</span> Sepal.Width<span class="p">,</span> color <span class="o">=</span> Species<span class="p">))</span> <span class="o">+</span> geom_point<span class="p">(</span>size <span class="o">=</span> <span class="m">3</span><span class="p">)</span>
+</pre></div>
+
+<h4>
+<a name="user-content-343-differentiate-points-by-shape" class="anchor" href="#343-differentiate-points-by-shape" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.4.3 Differentiate points by shape</h4>
+
+<div class="highlight highlight-r"><pre>ggplot<span class="p">(</span>iris<span class="p">,</span> aes<span class="p">(</span>Sepal.Length<span class="p">,</span> Sepal.Width<span class="p">,</span> color <span class="o">=</span> Species<span class="p">))</span> <span class="o">+</span> geom_point<span class="p">(</span>aes<span class="p">(</span>shape <span class="o">=</span> Species<span class="p">),</span> size <span class="o">=</span> <span class="m">3</span><span class="p">)</span>
+</pre></div>
+
+<h2>
+<a name="user-content-4-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%8B%9C%EA%B0%81%ED%99%94-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8%EB%93%A4" class="anchor" href="#4-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%8B%9C%EA%B0%81%ED%99%94-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8%EB%93%A4" aria-hidden="true"><span class="octicon octicon-link"></span></a>4. 데이터 시각화 컴포넌트들</h2>
+
+<h3>
+<a name="user-content-41-box-plots" class="anchor" href="#41-box-plots" aria-hidden="true"><span class="octicon octicon-link"></span></a>4.1 Box plots</h3>
+
+<div class="highlight highlight-r"><pre><span class="kn">library</span><span class="p">(</span>MASS<span class="p">)</span>
+str<span class="p">(</span>birthwt<span class="p">)</span>
+<span class="kp">head</span><span class="p">(</span>birthwt<span class="p">)</span>
+ggplot<span class="p">(</span>birthwt<span class="p">,</span> aes<span class="p">(</span><span class="kp">factor</span><span class="p">(</span>race<span class="p">),</span> bwt<span class="p">))</span> <span class="o">+</span> geom_boxplot<span class="p">()</span>
+</pre></div>
+
+<h3>
+<a name="user-content-42-histograms" class="anchor" href="#42-histograms" aria-hidden="true"><span class="octicon octicon-link"></span></a>4.2 Histograms</h3>
+
+<div class="highlight highlight-r"><pre>str<span class="p">(</span>faithful<span class="p">)</span>
+<span class="kp">head</span><span class="p">(</span>faithful<span class="p">)</span>
+h <span class="o">&lt;-</span> ggplot<span class="p">(</span>faithful<span class="p">,</span> aes<span class="p">(</span>x <span class="o">=</span> waiting<span class="p">))</span>
+h <span class="o">+</span> geom_histogram<span class="p">(</span>binwidth <span class="o">=</span> <span class="m">30</span><span class="p">,</span> colour <span class="o">=</span> <span class="s">"black"</span><span class="p">)</span>
+</pre></div>
+
+<div class="highlight highlight-r"><pre>h <span class="o">&lt;-</span> ggplot<span class="p">(</span>faithful<span class="p">,</span> aes<span class="p">(</span>x <span class="o">=</span> waiting<span class="p">))</span>
+h <span class="o">+</span> geom_histogram<span class="p">(</span>binwidth <span class="o">=</span> <span class="m">8</span><span class="p">,</span> fill <span class="o">=</span> <span class="s">"steelblue"</span><span class="p">,</span> colour <span class="o">=</span> <span class="s">"black"</span><span class="p">)</span>
+</pre></div>
+
+<div class="highlight highlight-r"><pre>h <span class="o">&lt;-</span> ggplot<span class="p">(</span>faithful<span class="p">,</span> aes<span class="p">(</span>x <span class="o">=</span> waiting<span class="p">))</span>
+h <span class="o">+</span> geom_histogram<span class="p">(</span>binwidth <span class="o">=</span> <span class="m">8</span><span class="p">,</span> fill <span class="o">=</span> <span class="s">"steelblue"</span><span class="p">,</span> colour <span class="o">=</span> <span class="s">"yellow"</span><span class="p">)</span>
+</pre></div>
+
+<h3>
+<a name="user-content-43-line-plots" class="anchor" href="#43-line-plots" aria-hidden="true"><span class="octicon octicon-link"></span></a>4.3 Line plots</h3>
+
+<div class="highlight highlight-r"><pre>climate <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">"climate.csv"</span><span class="p">,</span> header <span class="o">=</span> <span class="bp">T</span><span class="p">)</span>
+str<span class="p">(</span>climate<span class="p">)</span>
+<span class="kp">head</span><span class="p">(</span>climate<span class="p">)</span>
+ggplot<span class="p">(</span>climate<span class="p">,</span> aes<span class="p">(</span>Year<span class="p">,</span> Anomaly10y<span class="p">))</span> <span class="o">+</span> geom_line<span class="p">()</span>
+</pre></div>
+
+<div class="highlight highlight-r"><pre>dfn <span class="o">&lt;-</span> read.table<span class="p">(</span>header<span class="o">=</span><span class="bp">T</span><span class="p">,</span> text<span class="o">=</span><span class="s">'</span>
+<span class="s">supp dose length</span>
+<span class="s">  OJ  0.5  13.23</span>
+<span class="s">  OJ  1.0  22.70</span>
+<span class="s">  OJ  2.0  26.06</span>
+<span class="s">  VC  0.5   7.98</span>
+<span class="s">  VC  1.0  16.77</span>
+<span class="s">  VC  2.0  26.14</span>
+<span class="s">'</span><span class="p">)</span>
+
+dfn
+
+ggplot<span class="p">(</span>data<span class="o">=</span>dfn<span class="p">,</span> aes<span class="p">(</span>x<span class="o">=</span>dose<span class="p">,</span> y<span class="o">=</span><span class="kp">length</span><span class="p">,</span> group<span class="o">=</span>supp<span class="p">,</span> colour<span class="o">=</span>supp<span class="p">))</span> <span class="o">+</span> geom_line<span class="p">()</span> <span class="o">+</span> geom_point<span class="p">()</span>
+</pre></div>
+
+<div class="highlight highlight-r"><pre>ggplot<span class="p">(</span>climate<span class="p">,</span> aes<span class="p">(</span>Year<span class="p">,</span> Anomaly10y<span class="p">))</span> <span class="o">+</span> geom_ribbon<span class="p">(</span>aes<span class="p">(</span>ymin <span class="o">=</span> Anomaly10y <span class="o">-</span> Unc10y<span class="p">,</span> ymax <span class="o">=</span> Anomaly10y <span class="o">+</span> Unc10y<span class="p">),</span>
+   fill <span class="o">=</span> <span class="s">"blue"</span><span class="p">,</span> alpha <span class="o">=</span> <span class="m">.1</span><span class="p">)</span> <span class="o">+</span>
+   geom_line<span class="p">(</span>color <span class="o">=</span> <span class="s">"steelblue"</span><span class="p">)</span>
+</pre></div>
+
+<div class="highlight highlight-r"><pre>cplot <span class="o">&lt;-</span> ggplot<span class="p">(</span>climate<span class="p">,</span> aes<span class="p">(</span>Year<span class="p">,</span> Anomaly10y<span class="p">))</span>
+cplot <span class="o">&lt;-</span> cplot <span class="o">+</span> geom_line<span class="p">(</span>size <span class="o">=</span> <span class="m">0.7</span><span class="p">,</span> color <span class="o">=</span> <span class="s">"black"</span><span class="p">)</span>
+cplot <span class="o">&lt;-</span> cplot <span class="o">+</span> geom_line<span class="p">(</span>aes<span class="p">(</span>Year<span class="p">,</span> Anomaly10y <span class="o">+</span> Unc10y<span class="p">),</span> linetype <span class="o">=</span> <span class="s">"dashed"</span><span class="p">,</span> size <span class="o">=</span> <span class="m">0.7</span><span class="p">,</span> color <span class="o">=</span> <span class="s">"red"</span><span class="p">)</span>
+cplot <span class="o">&lt;-</span> cplot <span class="o">+</span> geom_line<span class="p">(</span>aes<span class="p">(</span>Year<span class="p">,</span> Anomaly10y <span class="o">-</span> Unc10y<span class="p">),</span> linetype <span class="o">=</span> <span class="s">"dashed"</span><span class="p">,</span> size <span class="o">=</span> <span class="m">0.7</span><span class="p">,</span> color <span class="o">=</span> <span class="s">"red"</span><span class="p">)</span>
+cplot <span class="o">+</span> theme_gray<span class="p">()</span>
+</pre></div>
+
+<h3>
+<a name="user-content-45-bar-plots" class="anchor" href="#45-bar-plots" aria-hidden="true"><span class="octicon octicon-link"></span></a>4.5 Bar plots</h3>
+
+<h4>
+<a name="user-content-451-plyr%EA%B3%BC-reshape" class="anchor" href="#451-plyr%EA%B3%BC-reshape" aria-hidden="true"><span class="octicon octicon-link"></span></a>4.5.1 plyr과 reshape</h4>
+
+<ul>
+<li>R에서 매우 유용한 두 가지 패키지는 다음과 같음
+
+<ul>
+<li>
+<strong>plyr</strong>  - <code>ddply</code>, <code>llply</code>, <code>join</code>
+</li>
+<li>
+<strong>reshape</strong>  - <code>melt</code>, <code>dcast</code>, <code>acast</code> </li>
+</ul>
+</li>
+</ul><div class="highlight highlight-r"><pre>ggplot<span class="p">(</span>iris<span class="p">,</span> aes<span class="p">(</span>Species<span class="p">,</span> Sepal.Length<span class="p">))</span> <span class="o">+</span> geom_bar<span class="p">(</span>stat <span class="o">=</span> <span class="s">"identity"</span><span class="p">)</span>
+</pre></div>
+
+<div class="highlight highlight-r"><pre><span class="kn">library</span><span class="p">(</span>reshape<span class="p">)</span>
+df <span class="o">&lt;-</span> melt<span class="p">(</span>iris<span class="p">,</span> id.vars <span class="o">=</span> <span class="s">"Species"</span><span class="p">)</span>
+df
+ggplot<span class="p">(</span>df<span class="p">,</span> aes<span class="p">(</span>Species<span class="p">,</span> value<span class="p">,</span> fill <span class="o">=</span> variable<span class="p">))</span> <span class="o">+</span> geom_bar<span class="p">(</span>stat <span class="o">=</span> <span class="s">"identity"</span><span class="p">)</span>
+</pre></div>
+
+<div class="highlight highlight-r"><pre>ggplot<span class="p">(</span>df<span class="p">,</span> aes<span class="p">(</span>Species<span class="p">,</span> value<span class="p">,</span> fill <span class="o">=</span> variable<span class="p">))</span> <span class="o">+</span>
+geom_bar<span class="p">(</span>stat <span class="o">=</span> <span class="s">"identity"</span><span class="p">,</span> position <span class="o">=</span> <span class="s">"dodge"</span><span class="p">)</span>
+</pre></div>
+
+<h4>
+<a name="user-content-452-bar-graph-%EA%B8%B0%EB%B3%B8" class="anchor" href="#452-bar-graph-%EA%B8%B0%EB%B3%B8" aria-hidden="true"><span class="octicon octicon-link"></span></a>4.5.2 Bar graph 기본</h4>
+
+<ul>
+<li>Bar plots를 그리는데 y축이 해당 x-축 값에 대한 count와 column의 값으로 표현되는 방법이 있음</li>
+</ul><table>
+<thead><tr>
+<th>x축</th>
+<th>y축 값의 높이</th>
+<th>데이터 시각화 방법</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>연속형(numeric)</td>
+<td>Count</td>
+<td>Histogram</td>
+</tr>
+<tr>
+<td>이산형(factor)</td>
+<td>Count</td>
+<td>Bar plot</td>
+</tr>
+<tr>
+<td>연속형(numeric)</td>
+<td>Value</td>
+<td>Bar plot</td>
+</tr>
+<tr>
+<td>이산형(factor)</td>
+<td>Value</td>
+<td>Bar plot</td>
+</tr>
+</tbody>
+</table><div class="highlight highlight-r"><pre>df <span class="o">&lt;-</span> <span class="kt">data.frame</span><span class="p">(</span>time <span class="o">=</span> <span class="kp">factor</span><span class="p">(</span><span class="kt">c</span><span class="p">(</span><span class="s">"Lunch"</span><span class="p">,</span><span class="s">"Dinner"</span><span class="p">),</span> levels<span class="o">=</span><span class="kt">c</span><span class="p">(</span><span class="s">"Lunch"</span><span class="p">,</span><span class="s">"Dinner"</span><span class="p">)),</span>
+                 total_bill <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">14.89</span><span class="p">,</span> <span class="m">17.23</span><span class="p">))</span>
+df
+</pre></div>
+
+<div class="highlight highlight-r"><pre><span class="c1"># Add a black outline</span>
+ggplot<span class="p">(</span>data<span class="o">=</span>df<span class="p">,</span> aes<span class="p">(</span>x<span class="o">=</span>time<span class="p">,</span> y<span class="o">=</span>total_bill<span class="p">,</span> fill<span class="o">=</span>time<span class="p">))</span> <span class="o">+</span> geom_bar<span class="p">(</span>colour<span class="o">=</span><span class="s">"black"</span><span class="p">,</span> stat<span class="o">=</span><span class="s">"identity"</span><span class="p">)</span>
+
+<span class="c1"># No legend, since the information is redundant</span>
+ggplot<span class="p">(</span>data<span class="o">=</span>df<span class="p">,</span> aes<span class="p">(</span>x<span class="o">=</span>time<span class="p">,</span> y<span class="o">=</span>total_bill<span class="p">,</span> fill<span class="o">=</span>time<span class="p">))</span> <span class="o">+</span>
+    geom_bar<span class="p">(</span>colour<span class="o">=</span><span class="s">"black"</span><span class="p">,</span> stat<span class="o">=</span><span class="s">"identity"</span><span class="p">)</span> <span class="o">+</span>
+    guides<span class="p">(</span>fill<span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span>
+</pre></div>
+
+<div class="highlight highlight-r"><pre><span class="kn">library</span><span class="p">(</span>reshape2<span class="p">)</span>
+str<span class="p">(</span>tips<span class="p">)</span>
+<span class="kp">head</span><span class="p">(</span>tips<span class="p">)</span>
+</pre></div>
+
+<div class="highlight highlight-r"><pre><span class="c1"># Bar graph of counts</span>
+ggplot<span class="p">(</span>data<span class="o">=</span>tips<span class="p">,</span> aes<span class="p">(</span>x<span class="o">=</span>day<span class="p">))</span> <span class="o">+</span> geom_bar<span class="p">(</span>stat<span class="o">=</span><span class="s">"bin"</span><span class="p">)</span>
+<span class="c1"># Equivalent to this, since stat="bin" is the default:</span>
+ggplot<span class="p">(</span>data<span class="o">=</span>tips<span class="p">,</span> aes<span class="p">(</span>x<span class="o">=</span>day<span class="p">))</span> <span class="o">+</span> geom_bar<span class="p">()</span>
+</pre></div>
+
+<h4>
+<a name="user-content-453-more-examples" class="anchor" href="#453-more-examples" aria-hidden="true"><span class="octicon octicon-link"></span></a>4.5.3 More examples</h4>
+
+<div class="highlight highlight-r"><pre>df1 <span class="o">&lt;-</span> <span class="kt">data.frame</span><span class="p">(</span>sex       <span class="o">=</span> <span class="kp">factor</span><span class="p">(</span><span class="kt">c</span><span class="p">(</span><span class="s">"Female"</span><span class="p">,</span><span class="s">"Female"</span><span class="p">,</span><span class="s">"Male"</span><span class="p">,</span><span class="s">"Male"</span><span class="p">)),</span>
+                 time       <span class="o">=</span> <span class="kp">factor</span><span class="p">(</span><span class="kt">c</span><span class="p">(</span><span class="s">"Lunch"</span><span class="p">,</span><span class="s">"Dinner"</span><span class="p">,</span><span class="s">"Lunch"</span><span class="p">,</span><span class="s">"Dinner"</span><span class="p">),</span> levels<span class="o">=</span><span class="kt">c</span><span class="p">(</span><span class="s">"Lunch"</span><span class="p">,</span><span class="s">"Dinner"</span><span class="p">)),</span>
+                 total_bill <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">13.53</span><span class="p">,</span> <span class="m">16.81</span><span class="p">,</span> <span class="m">16.24</span><span class="p">,</span> <span class="m">17.42</span><span class="p">))</span>
+df1
+</pre></div>
+
+<div class="highlight highlight-r"><pre><span class="c1"># Stacked bar graph -- this is probably not what you want</span>
+ggplot<span class="p">(</span>data<span class="o">=</span>df1<span class="p">,</span> aes<span class="p">(</span>x<span class="o">=</span>time<span class="p">,</span> y<span class="o">=</span>total_bill<span class="p">,</span> fill<span class="o">=</span>sex<span class="p">))</span> <span class="o">+</span> geom_bar<span class="p">(</span>stat<span class="o">=</span><span class="s">"identity"</span><span class="p">)</span>
+
+<span class="c1"># Bar graph, time on x-axis, color fill grouped by sex -- use position_dodge()</span>
+ggplot<span class="p">(</span>data<span class="o">=</span>df1<span class="p">,</span> aes<span class="p">(</span>x<span class="o">=</span>time<span class="p">,</span> y<span class="o">=</span>total_bill<span class="p">,</span> fill<span class="o">=</span>sex<span class="p">))</span> <span class="o">+</span> geom_bar<span class="p">(</span>stat<span class="o">=</span><span class="s">"identity"</span><span class="p">,</span> position<span class="o">=</span>position_dodge<span class="p">())</span>
+</pre></div>
+
+<div class="highlight highlight-r"><pre>d2 <span class="o">&lt;-</span> diamonds<span class="p">[</span><span class="kp">sample</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="kp">dim</span><span class="p">(</span>diamonds<span class="p">)[</span><span class="m">1</span><span class="p">],</span> <span class="m">1000</span><span class="p">),</span> <span class="p">]</span>
+<span class="kp">head</span><span class="p">(</span>d2<span class="p">)</span>
+ggplot<span class="p">(</span>d2<span class="p">,</span> aes<span class="p">(</span>clarity<span class="p">,</span> fill <span class="o">=</span> <span class="kp">cut</span><span class="p">))</span> <span class="o">+</span>
+geom_bar<span class="p">(</span>position <span class="o">=</span> <span class="s">"dodge"</span><span class="p">,</span>stat <span class="o">=</span> <span class="s">"bin"</span><span class="p">)</span> <span class="o">+</span> theme_gray<span class="p">()</span>
+</pre></div>
+
+<div class="highlight highlight-r"><pre>climate<span class="o">$</span>sign <span class="o">&lt;-</span> <span class="kp">ifelse</span><span class="p">(</span>climate<span class="o">$</span>Anomaly10y<span class="o">&lt;</span><span class="m">0</span><span class="p">,</span> <span class="kc">FALSE</span><span class="p">,</span> <span class="kc">TRUE</span><span class="p">)</span>
+<span class="c1"># or as simple as</span>
+<span class="c1"># clim$sign &lt;- climate$Anomaly10y &lt; 0</span>
+<span class="kp">head</span><span class="p">(</span>climate<span class="p">)</span>
+ggplot<span class="p">(</span>climate<span class="p">,</span> aes<span class="p">(</span>Year<span class="p">,</span> Anomaly10y<span class="p">))</span> <span class="o">+</span> geom_bar<span class="p">(</span>stat <span class="o">=</span> <span class="s">"identity"</span><span class="p">,</span> aes<span class="p">(</span>fill <span class="o">=</span> <span class="kp">sign</span><span class="p">))</span> <span class="o">+</span> theme_gray<span class="p">()</span>
+</pre></div>
+
+<h4>
+<a name="user-content-454-line-plots%EC%99%80%EC%9D%98-%EA%B4%80%EA%B3%84" class="anchor" href="#454-line-plots%EC%99%80%EC%9D%98-%EA%B4%80%EA%B3%84" aria-hidden="true"><span class="octicon octicon-link"></span></a>4.5.4 Line plots와의 관계</h4>
+
+<div class="highlight highlight-r"><pre><span class="c1"># Basic line graph. These both have the same result.</span>
+ggplot<span class="p">(</span>data<span class="o">=</span>df<span class="p">,</span> aes<span class="p">(</span>x<span class="o">=</span>time<span class="p">,</span> y<span class="o">=</span>total_bill<span class="p">,</span> group<span class="o">=</span><span class="m">1</span><span class="p">))</span> <span class="o">+</span> geom_line<span class="p">()</span>
+
+<span class="c1"># Add points</span>
+ggplot<span class="p">(</span>data<span class="o">=</span>df<span class="p">,</span> aes<span class="p">(</span>x<span class="o">=</span>time<span class="p">,</span> y<span class="o">=</span>total_bill<span class="p">,</span> group<span class="o">=</span><span class="m">1</span><span class="p">))</span> <span class="o">+</span> geom_line<span class="p">()</span> <span class="o">+</span> geom_point<span class="p">()</span>
+
+<span class="c1"># Change color of both line and points</span>
+<span class="c1"># Change line type and point type, and use thicker line and larger points</span>
+<span class="c1"># Change points to circles with white fill</span>
+ggplot<span class="p">(</span>data<span class="o">=</span>df<span class="p">,</span> aes<span class="p">(</span>x<span class="o">=</span>time<span class="p">,</span> y<span class="o">=</span>total_bill<span class="p">,</span> group<span class="o">=</span><span class="m">1</span><span class="p">))</span> <span class="o">+</span> 
+    geom_line<span class="p">(</span>colour<span class="o">=</span><span class="s">"red"</span><span class="p">,</span> linetype<span class="o">=</span><span class="s">"dotted"</span><span class="p">,</span> size<span class="o">=</span><span class="m">1.5</span><span class="p">)</span> <span class="o">+</span> 
+    geom_point<span class="p">(</span>colour<span class="o">=</span><span class="s">"red"</span><span class="p">,</span> size<span class="o">=</span><span class="m">4</span><span class="p">,</span> shape<span class="o">=</span><span class="m">21</span><span class="p">,</span> fill<span class="o">=</span><span class="s">"white"</span><span class="p">)</span>
+</pre></div>
+
+<h3>
+<a name="user-content-46-density-plots" class="anchor" href="#46-density-plots" aria-hidden="true"><span class="octicon octicon-link"></span></a>4.6 Density plots</h3>
+
+<div class="highlight highlight-r"><pre><span class="kp">head</span><span class="p">(</span>faithful<span class="p">)</span>
+ggplot<span class="p">(</span>faithful<span class="p">,</span> aes<span class="p">(</span>waiting<span class="p">))</span> <span class="o">+</span> geom_density<span class="p">()</span>
+</pre></div>
+
+<div class="highlight highlight-r"><pre>ggplot<span class="p">(</span>faithful<span class="p">,</span> aes<span class="p">(</span>waiting<span class="p">))</span> <span class="o">+</span>
+geom_density<span class="p">(</span>fill <span class="o">=</span> <span class="s">"blue"</span><span class="p">,</span> alpha <span class="o">=</span> <span class="m">0.1</span><span class="p">)</span>
+</pre></div>
+
+<div class="highlight highlight-r"><pre>ggplot<span class="p">(</span>faithful<span class="p">,</span> aes<span class="p">(</span>waiting<span class="p">))</span> <span class="o">+</span>
+geom_line<span class="p">(</span>stat <span class="o">=</span> <span class="s">"density"</span><span class="p">)</span>
+</pre></div>
+
+<h3>
+<a name="user-content-47-polar-coordinates" class="anchor" href="#47-polar-coordinates" aria-hidden="true"><span class="octicon octicon-link"></span></a>4.7 Polar coordinates</h3>
+
+<div class="highlight highlight-r"><pre><span class="kp">head</span><span class="p">(</span>mtcars<span class="p">)</span>
+</pre></div>
+
+<div class="highlight highlight-r"><pre>p.tmp <span class="o">&lt;-</span> ggplot<span class="p">(</span>mtcars<span class="p">,</span> aes<span class="p">(</span>x<span class="o">=</span><span class="kp">factor</span><span class="p">(</span><span class="m">1</span><span class="p">),</span> fill<span class="o">=</span><span class="kp">factor</span><span class="p">(</span>cyl<span class="p">)))</span> <span class="o">+</span> geom_bar<span class="p">(</span>width<span class="o">=</span><span class="m">1</span><span class="p">)</span>
+p.tmp
+p.tmp <span class="o">+</span> coord_polar<span class="p">(</span>theta<span class="o">=</span><span class="s">"y"</span><span class="p">)</span>
+p.tmp <span class="o">+</span> coord_polar<span class="p">(</span>theta<span class="o">=</span><span class="s">"x"</span><span class="p">)</span>
+ggplot<span class="p">(</span>mtcars<span class="p">,</span> aes<span class="p">(</span><span class="kp">factor</span><span class="p">(</span>cyl<span class="p">),</span> fill<span class="o">=</span><span class="kp">factor</span><span class="p">(</span>cyl<span class="p">)))</span> <span class="o">+</span> geom_bar<span class="p">(</span>width<span class="o">=</span><span class="m">1</span><span class="p">)</span> <span class="o">+</span> coord_polar<span class="p">()</span>
+</pre></div>
+
+<div class="highlight highlight-r"><pre><span class="c1"># Hadley's favourite pie chart</span>
+df <span class="o">&lt;-</span> <span class="kt">data.frame</span><span class="p">(</span>
+  variable <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">"resembles"</span><span class="p">,</span> <span class="s">"does not resemble"</span><span class="p">),</span>
+  value <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">80</span><span class="p">,</span> <span class="m">20</span><span class="p">)</span>
+<span class="p">)</span>
+ggplot<span class="p">(</span>df<span class="p">,</span> aes<span class="p">(</span>x <span class="o">=</span> <span class="s">""</span><span class="p">,</span> y <span class="o">=</span> value<span class="p">,</span> fill <span class="o">=</span> variable<span class="p">))</span> <span class="o">+</span>
+  geom_bar<span class="p">(</span>width <span class="o">=</span> <span class="m">1</span><span class="p">,</span> stat <span class="o">=</span> <span class="s">"identity"</span><span class="p">)</span> <span class="o">+</span>
+  scale_fill_manual<span class="p">(</span>values <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">"red"</span><span class="p">,</span> <span class="s">"yellow"</span><span class="p">))</span> <span class="o">+</span>
+  coord_polar<span class="p">(</span><span class="s">"y"</span><span class="p">,</span> start <span class="o">=</span> <span class="kc">pi</span> <span class="o">/</span> <span class="m">3</span><span class="p">)</span> <span class="o">+</span>
+  labs<span class="p">(</span>title <span class="o">=</span> <span class="s">"Pac man"</span><span class="p">)</span>
+</pre></div>
+
+<h2>
+<a name="user-content-5-%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%9D%98-%EB%B3%80%ED%98%95---reshape%EB%A5%BC-%EC%A4%91%EC%8B%AC%EC%9C%BC%EB%A1%9C" class="anchor" href="#5-%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%9D%98-%EB%B3%80%ED%98%95---reshape%EB%A5%BC-%EC%A4%91%EC%8B%AC%EC%9C%BC%EB%A1%9C" aria-hidden="true"><span class="octicon octicon-link"></span></a>5. 데이터의 변형 - reshape를 중심으로</h2>
+
+<ul>
+<li><p><strong>reshape</strong> 패키지는 데이터 형태의 재배열, coningency table 생성, 데이터 summarising등을 할 수 있게 해줌</p></li>
+<li><p>사용하는 data frame은 <strong>reshape</strong> 패키지 내의 <em>smiths</em> 데이터를 사용함</p></li>
+<li><p>본 내용은 <a href="http://www.jstatsoft.org/v21/i12/paper">Journal of Stiatical Software</a>에 게재된 내용을 <a href="http://rpubs.com/chayong/reshape">차 용</a>이 정리한 것을 바탕으로 작성함</p></li>
+</ul><h3>
+<a name="user-content-51-melt" class="anchor" href="#51-melt" aria-hidden="true"><span class="octicon octicon-link"></span></a>5.1 <code>melt()</code>
+</h3>
+
+<ul>
+<li>
+<code>melt()</code> function을 사용할 때 <strong>identifier</strong>(이하 id)와 <strong>measured variable</strong>을 구분하는 것은 매우 중요함</li>
+<li>
+<p>즉, 어떤 변수가 <strong>measured variable</strong>인지 <strong>id variable</strong>인지 알아야 할 필요가 있음</p>
+
+<ul>
+<li>
+<strong>identifier</strong>(id variable) : 보통 이산형이나 고정값. 특별히 지정해 주지 않으면 factor or integer column을 id variable로 인식한다.</li>
+<li>
+<strong>measured variable</strong> : 측정 대상이 되는 변수. 쉽게 말하면 categorize되는 변수</li>
+</ul>
+</li>
+<li><p><code>melt()</code> 는 <strong>id variable</strong>을 기준으로 하고 <strong>measured variable</strong>를 categorize하여 <code>variable</code>이라는 새로운 column을 생성하고 <code>value</code>라는 column에 Variable에 해당하는 값들을 넣어 주어 새로이 Data frame을 만들어 줌</p></li>
+</ul><div class="highlight highlight-r"><pre>smiths
+</pre></div>
+
+<ul>
+<li>위의 데이터를 <code>melt()</code>를 이용하여 변환되는 것을 살펴봄</li>
+</ul><div class="highlight highlight-r"><pre>melt<span class="p">(</span>smiths<span class="p">,</span> id <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">"subject"</span><span class="p">,</span> <span class="s">"time"</span><span class="p">),</span> measured <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">"age"</span><span class="p">,</span> <span class="s">"weight"</span><span class="p">,</span> <span class="s">"height"</span><span class="p">))</span>
+</pre></div>
+
+<ul>
+<li>
+<code>id</code>로 지정된 변수에 대하여 <code>measured</code>에 해당하는 변수들에 대하여 melted된 데이터에는 
+
+<ul>
+<li>
+<code>variable</code>에는 해당 변수이름이 값으로 채워지고 </li>
+<li>
+<code>value</code>라는 변수에는 <code>variable</code>에 해당하는 변수의 값이 채워짐</li>
+</ul>
+</li>
+</ul><div class="highlight highlight-r"><pre>melt<span class="p">(</span>smiths<span class="p">,</span> id <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">"subject"</span><span class="p">,</span> <span class="s">"time"</span><span class="p">))</span>
+</pre></div>
+
+<ul>
+<li>
+<code>measured</code>를 지정하지 않으면 data frame 내에 <code>id</code> 이외의 모든 다른 변수들이 사용됨</li>
+</ul><div class="highlight highlight-r"><pre>melt<span class="p">(</span>smiths<span class="p">,</span> id <span class="o">=</span> <span class="m">1</span><span class="o">:</span><span class="m">2</span><span class="p">,</span> na.rm <span class="o">=</span> <span class="bp">T</span><span class="p">)</span>
+</pre></div>
+
+<ul>
+<li>옵션 <code>na.rm=T</code> 은 melted된 <strong>value</strong> 가 NA인 케이스를 remove함을 의미함</li>
+</ul><h3>
+<a name="user-content-52-cast" class="anchor" href="#52-cast" aria-hidden="true"><span class="octicon octicon-link"></span></a>5.2 <code>cast()</code>
+</h3>
+
+<ul>
+<li>
+<code>cast()</code>는 <code>melt()</code> function을 적용한 data frame(혹은 object)을 사용자가 원하는 모양으로 재배열을 할 수 있게 해주는 함수임</li>
+</ul><pre><code>&gt; two required arguments
+  - data : the molten data set to reshape
+  - formula : basic form (col_var_1 + col_var_2 ~ row_var_1 + row_var_2)
+  - 만약 formula를 지정해 주지 않으면 
+    1. measured variables in the columns,
+    2. all other id variables in the rows.
+&gt; optional arguments
+  - fun.aggregate : length(default), mean, sum, ...
+  - margins : sub total, grand total ("grand_row", "grand_col")
+&gt; Basic use
+  - '.' corresponds to no variable. ex) '. ~ x' or 'x ~ .', that is, a single row or column.
+  - '...' represents all variables
+</code></pre>
+
+<ul>
+<li> <code>melt()</code>에서 melting한 데이터를 중심으로 살펴봄</li>
+</ul><div class="highlight highlight-r"><pre>smithsm <span class="o">&lt;-</span> melt<span class="p">(</span>smiths<span class="p">,</span> id <span class="o">=</span> <span class="m">1</span><span class="o">:</span><span class="m">2</span><span class="p">)</span>  <span class="c1"># smithsm : molten data 'smiths'</span>
+smithsm
+</pre></div>
+
+<div class="highlight highlight-r"><pre>cast<span class="p">(</span>smithsm<span class="p">,</span> subject <span class="o">+</span> time <span class="o">~</span> variable<span class="p">)</span>
+</pre></div>
+
+<ul>
+<li>즉, <code>subject</code>와 <code>time</code>별로 <code>variable</code>의 변수 값을 나열하라는 의미임</li>
+<li>
+<code>subject</code>와 <code>time</code> 조합은 열 방향, variable 값은 행 방향의 변수명을 구성함</li>
+</ul><div class="highlight highlight-r"><pre>cast<span class="p">(</span>smithsm<span class="p">,</span> <span class="kc">...</span> <span class="o">~</span> subject<span class="p">,</span> <span class="kp">sum</span><span class="p">,</span> margins <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">"grand_row"</span><span class="p">,</span> <span class="s">"grand_col"</span><span class="p">))</span>
+</pre></div>
+
+<ul>
+<li>
+<code>subject</code>를 제외한 <code>time</code>과 <code>variable</code>에 대하여 <code>subject</code>의 값을 변수명으로 펼쳐 sum을 계산하라는 의미임</li>
+<li>
+<code>margin</code>은 행, 열방향의 합을 구하라는 것임</li>
+</ul><h3>
+<a name="user-content-53-cast-example" class="anchor" href="#53-cast-example" aria-hidden="true"><span class="octicon octicon-link"></span></a>5.3 <code>cast()</code> example</h3>
+
+<div class="highlight highlight-r"><pre><span class="c1">#Air quality example</span>
+<span class="kp">names</span><span class="p">(</span>airquality<span class="p">)</span> <span class="o">&lt;-</span> <span class="kp">tolower</span><span class="p">(</span><span class="kp">names</span><span class="p">(</span>airquality<span class="p">))</span>
+<span class="kp">head</span><span class="p">(</span>airquality<span class="p">)</span>
+aqm <span class="o">&lt;-</span> melt<span class="p">(</span>airquality<span class="p">,</span> id<span class="o">=</span><span class="kt">c</span><span class="p">(</span><span class="s">"month"</span><span class="p">,</span> <span class="s">"day"</span><span class="p">),</span> na.rm<span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
+<span class="kp">head</span><span class="p">(</span>aqm<span class="p">)</span>
+</pre></div>
+
+<div class="highlight highlight-r"><pre>cast<span class="p">(</span>aqm<span class="p">,</span> day <span class="o">~</span> month <span class="o">~</span> variable<span class="p">)</span>
+cast<span class="p">(</span>aqm<span class="p">,</span> month <span class="o">~</span> variable<span class="p">,</span> <span class="kp">mean</span><span class="p">)</span>
+cast<span class="p">(</span>aqm<span class="p">,</span> month <span class="o">~</span> <span class="m">.</span> <span class="o">|</span> variable<span class="p">,</span> <span class="kp">mean</span><span class="p">)</span>
+cast<span class="p">(</span>aqm<span class="p">,</span> month <span class="o">~</span> variable<span class="p">,</span> <span class="kp">mean</span><span class="p">,</span> margins<span class="o">=</span><span class="kt">c</span><span class="p">(</span><span class="s">"grand_row"</span><span class="p">,</span> <span class="s">"grand_col"</span><span class="p">))</span>
+cast<span class="p">(</span>aqm<span class="p">,</span> day <span class="o">~</span> month<span class="p">,</span> <span class="kp">mean</span><span class="p">,</span> subset<span class="o">=</span>variable<span class="o">==</span><span class="s">"ozone"</span><span class="p">)</span>
+cast<span class="p">(</span>aqm<span class="p">,</span> month <span class="o">~</span> variable<span class="p">,</span> <span class="kp">range</span><span class="p">)</span>
+cast<span class="p">(</span>aqm<span class="p">,</span> month <span class="o">~</span> variable <span class="o">+</span> result_variable<span class="p">,</span> <span class="kp">range</span><span class="p">)</span>
+cast<span class="p">(</span>aqm<span class="p">,</span> variable <span class="o">~</span> month <span class="o">~</span> result_variable<span class="p">,</span><span class="kp">range</span><span class="p">)</span>
+</pre></div>
+
+<h2>
+<a name="user-content-6-trellis-graphics" class="anchor" href="#6-trellis-graphics" aria-hidden="true"><span class="octicon octicon-link"></span></a>6. Trellis graphics</h2>
+
+<ul>
+<li>Trellis란 정원에 장미 덩굴 등을 올리기 위한 격가 모양의 틀로 다차원의 데이터를 disply하기 위한 일종의 framework임</li>
+<li>다차원의 데이터를 2차원으로 표현하는데 있어 조건(R의 factor 레벨)으로 격자를 이룬 후 같은 스케일로 동일한 그래프를 고려 비교하는 것이 특징임</li>
+<li>
+<code>ggplot2</code> 패키지에서는 <strong>facet</strong> 계열 명령어를 통해 Trellis display를 구현할 수 있음</li>
+</ul><h3>
+<a name="user-content-61-facet_wrap--facet_grid-example" class="anchor" href="#61-facet_wrap--facet_grid-example" aria-hidden="true"><span class="octicon octicon-link"></span></a>6.1 <code>facet_wrap</code> / <code>facet_grid</code> example</h3>
+
+<div class="highlight highlight-r"><pre>p.tmp <span class="o">&lt;-</span> ggplot<span class="p">(</span>mtcars<span class="p">,</span> aes<span class="p">(</span>mpg<span class="p">,</span> wt<span class="p">))</span> <span class="o">+</span> geom_point<span class="p">()</span>
+p.tmp <span class="o">+</span> facet_wrap<span class="p">(</span><span class="o">~</span>cyl<span class="p">)</span>
+p.tmp <span class="o">+</span> facet_wrap<span class="p">(</span><span class="o">~</span>cyl<span class="p">,</span> nrow<span class="o">=</span><span class="m">3</span><span class="p">)</span>
+p.tmp <span class="o">+</span> facet_grid<span class="p">(</span>gear<span class="o">~</span>cyl<span class="p">)</span>
+p.tmp <span class="o">+</span> facet_wrap<span class="p">(</span><span class="o">~</span>cyl<span class="o">+</span>gear<span class="p">)</span>
+</pre></div>
+
+<h3>
+<a name="user-content-62-controlling-scales-in-facets-default-scales%EF%AC%81xed" class="anchor" href="#62-controlling-scales-in-facets-default-scales%EF%AC%81xed" aria-hidden="true"><span class="octicon octicon-link"></span></a>6.2 controlling scales in facets (default: <code>scales="ﬁxed"</code>)</h3>
+
+<ul>
+<li>
+<code>ggplot2</code>에서는 전통적인 Trellis와는 달리 scale을 데이터 분포에 따라 변경하는 것임</li>
+<li>기본적으로는 <strong>facet</strong>은 <code>scales="fixed"</code>가 사용됨</li>
+</ul><div class="highlight highlight-r"><pre>p.tmp <span class="o">+</span> facet_wrap<span class="p">(</span><span class="o">~</span>cyl<span class="p">,</span> scales<span class="o">=</span><span class="s">"free"</span><span class="p">)</span>
+p.tmp <span class="o">+</span> facet_wrap<span class="p">(</span><span class="o">~</span>cyl<span class="p">,</span> scales<span class="o">=</span><span class="s">"free_x"</span><span class="p">)</span>
+p.tmp <span class="o">+</span> facet_wrap<span class="p">(</span><span class="o">~</span>cyl<span class="p">,</span> scales<span class="o">=</span><span class="s">"fixed"</span><span class="p">)</span>
+</pre></div>
+
+<div class="highlight highlight-r"><pre><span class="c1"># contstraint on facet_grid (all rows,columns same scale)</span>
+p.tmp <span class="o">+</span> facet_grid<span class="p">(</span>gear<span class="o">~</span>cyl<span class="p">,</span> scales<span class="o">=</span><span class="s">"free_x"</span><span class="p">)</span>
+p.tmp <span class="o">+</span> facet_grid<span class="p">(</span>gear<span class="o">~</span>cyl<span class="p">,</span> scales<span class="o">=</span><span class="s">"free"</span><span class="p">,</span> space<span class="o">=</span><span class="s">"free"</span><span class="p">)</span>
+</pre></div></body></html>

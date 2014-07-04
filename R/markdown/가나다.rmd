@@ -1,0 +1,12 @@
+---
+title: "ggplot"
+output: html_document
+---
+
+```{r}
+library(ggplot2)
+ggplot(iris, aes(Species, Sepal.Width)) + geom_boxplot()
+```
+
+
+가나다 123 라마바

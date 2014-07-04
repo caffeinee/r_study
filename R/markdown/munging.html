@@ -1,0 +1,1642 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=9" >
+
+<title>Data Munging</title>
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 12px;
+   margin: 8px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 { 
+   font-size:2.2em; 
+}
+
+h2 { 
+   font-size:1.8em; 
+}
+
+h3 { 
+   font-size:1.4em; 
+}
+
+h4 { 
+   font-size:1.0em; 
+}
+
+h5 { 
+   font-size:0.9em; 
+}
+
+h6 { 
+   font-size:0.8em; 
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre {	
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px solid #ccc;
+   white-space: pre-wrap;
+}
+
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code.r, code.cpp {
+   background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * { 
+      background: transparent !important; 
+      color: black !important; 
+      filter:none !important; 
+      -ms-filter: none !important; 
+   }
+
+   body { 
+      font-size:12pt; 
+      max-width:100%; 
+   }
+       
+   a, a:visited { 
+      text-decoration: underline; 
+   }
+
+   hr { 
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote { 
+      padding-right: 1em; 
+      page-break-inside: avoid; 
+   }
+
+   tr, img { 
+      page-break-inside: avoid; 
+   }
+
+   img { 
+      max-width: 100% !important; 
+   }
+
+   @page :left { 
+      margin: 15mm 20mm 15mm 10mm; 
+   }
+     
+   @page :right { 
+      margin: 15mm 10mm 15mm 20mm; 
+   }
+
+   p, h2, h3 { 
+      orphans: 3; widows: 3; 
+   }
+
+   h2, h3 { 
+      page-break-after: avoid; 
+   }
+}
+
+</style>
+
+<!-- Styles for R syntax highlighter -->
+<style type="text/css">
+   pre .operator,
+   pre .paren {
+     color: rgb(104, 118, 135)
+   }
+
+   pre .literal {
+     color: rgb(88, 72, 246)
+   }
+
+   pre .number {
+     color: rgb(0, 0, 205);
+   }
+
+   pre .comment {
+     color: rgb(76, 136, 107);
+   }
+
+   pre .keyword {
+     color: rgb(0, 0, 255);
+   }
+
+   pre .identifier {
+     color: rgb(0, 0, 0);
+   }
+
+   pre .string {
+     color: rgb(3, 106, 7);
+   }
+</style>
+
+<!-- R syntax highlighter -->
+<script type="text/javascript">
+var hljs=new function(){function m(p){return p.replace(/&/gm,"&amp;").replace(/</gm,"&lt;")}function f(r,q,p){return RegExp(q,"m"+(r.cI?"i":"")+(p?"g":""))}function b(r){for(var p=0;p<r.childNodes.length;p++){var q=r.childNodes[p];if(q.nodeName=="CODE"){return q}if(!(q.nodeType==3&&q.nodeValue.match(/\s+/))){break}}}function h(t,s){var p="";for(var r=0;r<t.childNodes.length;r++){if(t.childNodes[r].nodeType==3){var q=t.childNodes[r].nodeValue;if(s){q=q.replace(/\n/g,"")}p+=q}else{if(t.childNodes[r].nodeName=="BR"){p+="\n"}else{p+=h(t.childNodes[r])}}}if(/MSIE [678]/.test(navigator.userAgent)){p=p.replace(/\r/g,"\n")}return p}function a(s){var r=s.className.split(/\s+/);r=r.concat(s.parentNode.className.split(/\s+/));for(var q=0;q<r.length;q++){var p=r[q].replace(/^language-/,"");if(e[p]){return p}}}function c(q){var p=[];(function(s,t){for(var r=0;r<s.childNodes.length;r++){if(s.childNodes[r].nodeType==3){t+=s.childNodes[r].nodeValue.length}else{if(s.childNodes[r].nodeName=="BR"){t+=1}else{if(s.childNodes[r].nodeType==1){p.push({event:"start",offset:t,node:s.childNodes[r]});t=arguments.callee(s.childNodes[r],t);p.push({event:"stop",offset:t,node:s.childNodes[r]})}}}}return t})(q,0);return p}function k(y,w,x){var q=0;var z="";var s=[];function u(){if(y.length&&w.length){if(y[0].offset!=w[0].offset){return(y[0].offset<w[0].offset)?y:w}else{return w[0].event=="start"?y:w}}else{return y.length?y:w}}function t(D){var A="<"+D.nodeName.toLowerCase();for(var B=0;B<D.attributes.length;B++){var C=D.attributes[B];A+=" "+C.nodeName.toLowerCase();if(C.value!==undefined&&C.value!==false&&C.value!==null){A+='="'+m(C.value)+'"'}}return A+">"}while(y.length||w.length){var v=u().splice(0,1)[0];z+=m(x.substr(q,v.offset-q));q=v.offset;if(v.event=="start"){z+=t(v.node);s.push(v.node)}else{if(v.event=="stop"){var p,r=s.length;do{r--;p=s[r];z+=("</"+p.nodeName.toLowerCase()+">")}while(p!=v.node);s.splice(r,1);while(r<s.length){z+=t(s[r]);r++}}}}return z+m(x.substr(q))}function j(){function q(x,y,v){if(x.compiled){return}var u;var s=[];if(x.k){x.lR=f(y,x.l||hljs.IR,true);for(var w in x.k){if(!x.k.hasOwnProperty(w)){continue}if(x.k[w] instanceof Object){u=x.k[w]}else{u=x.k;w="keyword"}for(var r in u){if(!u.hasOwnProperty(r)){continue}x.k[r]=[w,u[r]];s.push(r)}}}if(!v){if(x.bWK){x.b="\\b("+s.join("|")+")\\s"}x.bR=f(y,x.b?x.b:"\\B|\\b");if(!x.e&&!x.eW){x.e="\\B|\\b"}if(x.e){x.eR=f(y,x.e)}}if(x.i){x.iR=f(y,x.i)}if(x.r===undefined){x.r=1}if(!x.c){x.c=[]}x.compiled=true;for(var t=0;t<x.c.length;t++){if(x.c[t]=="self"){x.c[t]=x}q(x.c[t],y,false)}if(x.starts){q(x.starts,y,false)}}for(var p in e){if(!e.hasOwnProperty(p)){continue}q(e[p].dM,e[p],true)}}function d(B,C){if(!j.called){j();j.called=true}function q(r,M){for(var L=0;L<M.c.length;L++){if((M.c[L].bR.exec(r)||[null])[0]==r){return M.c[L]}}}function v(L,r){if(D[L].e&&D[L].eR.test(r)){return 1}if(D[L].eW){var M=v(L-1,r);return M?M+1:0}return 0}function w(r,L){return L.i&&L.iR.test(r)}function K(N,O){var M=[];for(var L=0;L<N.c.length;L++){M.push(N.c[L].b)}var r=D.length-1;do{if(D[r].e){M.push(D[r].e)}r--}while(D[r+1].eW);if(N.i){M.push(N.i)}return f(O,M.join("|"),true)}function p(M,L){var N=D[D.length-1];if(!N.t){N.t=K(N,E)}N.t.lastIndex=L;var r=N.t.exec(M);return r?[M.substr(L,r.index-L),r[0],false]:[M.substr(L),"",true]}function z(N,r){var L=E.cI?r[0].toLowerCase():r[0];var M=N.k[L];if(M&&M instanceof Array){return M}return false}function F(L,P){L=m(L);if(!P.k){return L}var r="";var O=0;P.lR.lastIndex=0;var M=P.lR.exec(L);while(M){r+=L.substr(O,M.index-O);var N=z(P,M);if(N){x+=N[1];r+='<span class="'+N[0]+'">'+M[0]+"</span>"}else{r+=M[0]}O=P.lR.lastIndex;M=P.lR.exec(L)}return r+L.substr(O,L.length-O)}function J(L,M){if(M.sL&&e[M.sL]){var r=d(M.sL,L);x+=r.keyword_count;return r.value}else{return F(L,M)}}function I(M,r){var L=M.cN?'<span class="'+M.cN+'">':"";if(M.rB){y+=L;M.buffer=""}else{if(M.eB){y+=m(r)+L;M.buffer=""}else{y+=L;M.buffer=r}}D.push(M);A+=M.r}function G(N,M,Q){var R=D[D.length-1];if(Q){y+=J(R.buffer+N,R);return false}var P=q(M,R);if(P){y+=J(R.buffer+N,R);I(P,M);return P.rB}var L=v(D.length-1,M);if(L){var O=R.cN?"</span>":"";if(R.rE){y+=J(R.buffer+N,R)+O}else{if(R.eE){y+=J(R.buffer+N,R)+O+m(M)}else{y+=J(R.buffer+N+M,R)+O}}while(L>1){O=D[D.length-2].cN?"</span>":"";y+=O;L--;D.length--}var r=D[D.length-1];D.length--;D[D.length-1].buffer="";if(r.starts){I(r.starts,"")}return R.rE}if(w(M,R)){throw"Illegal"}}var E=e[B];var D=[E.dM];var A=0;var x=0;var y="";try{var s,u=0;E.dM.buffer="";do{s=p(C,u);var t=G(s[0],s[1],s[2]);u+=s[0].length;if(!t){u+=s[1].length}}while(!s[2]);if(D.length>1){throw"Illegal"}return{r:A,keyword_count:x,value:y}}catch(H){if(H=="Illegal"){return{r:0,keyword_count:0,value:m(C)}}else{throw H}}}function g(t){var p={keyword_count:0,r:0,value:m(t)};var r=p;for(var q in e){if(!e.hasOwnProperty(q)){continue}var s=d(q,t);s.language=q;if(s.keyword_count+s.r>r.keyword_count+r.r){r=s}if(s.keyword_count+s.r>p.keyword_count+p.r){r=p;p=s}}if(r.language){p.second_best=r}return p}function i(r,q,p){if(q){r=r.replace(/^((<[^>]+>|\t)+)/gm,function(t,w,v,u){return w.replace(/\t/g,q)})}if(p){r=r.replace(/\n/g,"<br>")}return r}function n(t,w,r){var x=h(t,r);var v=a(t);var y,s;if(v){y=d(v,x)}else{return}var q=c(t);if(q.length){s=document.createElement("pre");s.innerHTML=y.value;y.value=k(q,c(s),x)}y.value=i(y.value,w,r);var u=t.className;if(!u.match("(\\s|^)(language-)?"+v+"(\\s|$)")){u=u?(u+" "+v):v}if(/MSIE [678]/.test(navigator.userAgent)&&t.tagName=="CODE"&&t.parentNode.tagName=="PRE"){s=t.parentNode;var p=document.createElement("div");p.innerHTML="<pre><code>"+y.value+"</code></pre>";t=p.firstChild.firstChild;p.firstChild.cN=s.cN;s.parentNode.replaceChild(p.firstChild,s)}else{t.innerHTML=y.value}t.className=u;t.result={language:v,kw:y.keyword_count,re:y.r};if(y.second_best){t.second_best={language:y.second_best.language,kw:y.second_best.keyword_count,re:y.second_best.r}}}function o(){if(o.called){return}o.called=true;var r=document.getElementsByTagName("pre");for(var p=0;p<r.length;p++){var q=b(r[p]);if(q){n(q,hljs.tabReplace)}}}function l(){if(window.addEventListener){window.addEventListener("DOMContentLoaded",o,false);window.addEventListener("load",o,false)}else{if(window.attachEvent){window.attachEvent("onload",o)}else{window.onload=o}}}var e={};this.LANGUAGES=e;this.highlight=d;this.highlightAuto=g;this.fixMarkup=i;this.highlightBlock=n;this.initHighlighting=o;this.initHighlightingOnLoad=l;this.IR="[a-zA-Z][a-zA-Z0-9_]*";this.UIR="[a-zA-Z_][a-zA-Z0-9_]*";this.NR="\\b\\d+(\\.\\d+)?";this.CNR="\\b(0[xX][a-fA-F0-9]+|(\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)";this.BNR="\\b(0b[01]+)";this.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|\\.|-|-=|/|/=|:|;|<|<<|<<=|<=|=|==|===|>|>=|>>|>>=|>>>|>>>=|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~";this.ER="(?![\\s\\S])";this.BE={b:"\\\\.",r:0};this.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[this.BE],r:0};this.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[this.BE],r:0};this.CLCM={cN:"comment",b:"//",e:"$"};this.CBLCLM={cN:"comment",b:"/\\*",e:"\\*/"};this.HCM={cN:"comment",b:"#",e:"$"};this.NM={cN:"number",b:this.NR,r:0};this.CNM={cN:"number",b:this.CNR,r:0};this.BNM={cN:"number",b:this.BNR,r:0};this.inherit=function(r,s){var p={};for(var q in r){p[q]=r[q]}if(s){for(var q in s){p[q]=s[q]}}return p}}();hljs.LANGUAGES.cpp=function(){var a={keyword:{"false":1,"int":1,"float":1,"while":1,"private":1,"char":1,"catch":1,"export":1,virtual:1,operator:2,sizeof:2,dynamic_cast:2,typedef:2,const_cast:2,"const":1,struct:1,"for":1,static_cast:2,union:1,namespace:1,unsigned:1,"long":1,"throw":1,"volatile":2,"static":1,"protected":1,bool:1,template:1,mutable:1,"if":1,"public":1,friend:2,"do":1,"return":1,"goto":1,auto:1,"void":2,"enum":1,"else":1,"break":1,"new":1,extern:1,using:1,"true":1,"class":1,asm:1,"case":1,typeid:1,"short":1,reinterpret_cast:2,"default":1,"double":1,register:1,explicit:1,signed:1,typename:1,"try":1,"this":1,"switch":1,"continue":1,wchar_t:1,inline:1,"delete":1,alignof:1,char16_t:1,char32_t:1,constexpr:1,decltype:1,noexcept:1,nullptr:1,static_assert:1,thread_local:1,restrict:1,_Bool:1,complex:1},built_in:{std:1,string:1,cin:1,cout:1,cerr:1,clog:1,stringstream:1,istringstream:1,ostringstream:1,auto_ptr:1,deque:1,list:1,queue:1,stack:1,vector:1,map:1,set:1,bitset:1,multiset:1,multimap:1,unordered_set:1,unordered_map:1,unordered_multiset:1,unordered_multimap:1,array:1,shared_ptr:1}};return{dM:{k:a,i:"</",c:[hljs.CLCM,hljs.CBLCLM,hljs.QSM,{cN:"string",b:"'\\\\?.",e:"'",i:"."},{cN:"number",b:"\\b(\\d+(\\.\\d*)?|\\.\\d+)(u|U|l|L|ul|UL|f|F)"},hljs.CNM,{cN:"preprocessor",b:"#",e:"$"},{cN:"stl_container",b:"\\b(deque|list|queue|stack|vector|map|set|bitset|multiset|multimap|unordered_map|unordered_set|unordered_multiset|unordered_multimap|array)\\s*<",e:">",k:a,r:10,c:["self"]}]}}}();hljs.LANGUAGES.r={dM:{c:[hljs.HCM,{cN:"number",b:"\\b0[xX][0-9a-fA-F]+[Li]?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+(?:[eE][+\\-]?\\d*)?L\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+\\.(?!\\d)(?:i\\b)?",e:hljs.IMMEDIATE_RE,r:1},{cN:"number",b:"\\b\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\.\\d+(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"keyword",b:"(?:tryCatch|library|setGeneric|setGroupGeneric)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\.",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\d+(?![\\w.])",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\b(?:function)",e:hljs.IMMEDIATE_RE,r:2},{cN:"keyword",b:"(?:if|in|break|next|repeat|else|for|return|switch|while|try|stop|warning|require|attach|detach|source|setMethod|setClass)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"literal",b:"(?:NA|NA_integer_|NA_real_|NA_character_|NA_complex_)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"literal",b:"(?:NULL|TRUE|FALSE|T|F|Inf|NaN)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"identifier",b:"[a-zA-Z.][a-zA-Z0-9._]*\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"<\\-(?!\\s*\\d)",e:hljs.IMMEDIATE_RE,r:2},{cN:"operator",b:"\\->|<\\-",e:hljs.IMMEDIATE_RE,r:1},{cN:"operator",b:"%%|~",e:hljs.IMMEDIATE_RE},{cN:"operator",b:">=|<=|==|!=|\\|\\||&&|=|\\+|\\-|\\*|/|\\^|>|<|!|&|\\||\\$|:",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"%",e:"%",i:"\\n",r:1},{cN:"identifier",b:"`",e:"`",r:0},{cN:"string",b:'"',e:'"',c:[hljs.BE],r:0},{cN:"string",b:"'",e:"'",c:[hljs.BE],r:0},{cN:"paren",b:"[[({\\])}]",e:hljs.IMMEDIATE_RE,r:0}]}};
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+
+</head>
+
+<body>
+<h1>Data Munging</h1>
+
+<p>Version 2014-06-12</p>
+
+<h2>1. What Data Munging</h2>
+
+<ul>
+<li>munging =  mash until no good에서 파생된 단어</li>
+<li>전처리, 파싱, 필터링과 같이 데이터를 핸들링 한다는 것을 뜻함</li>
+<li>이와 동일한 작업을 할 수 있는 데이터 패키지로는 <code>data.table</code>, <code>sqldf</code>, <code>plyr</code> 패키지가 있음</li>
+</ul>
+
+<h2>2. 단정한 데이터 (tidy data)</h2>
+
+<ul>
+<li>데이터 전처리를 위해 패턴화한 데이터</li>
+<li>단정한 데이터의 기준
+
+<ol>
+<li>각 변수의 개별 column(열)이 있다.<br/></li>
+<li>각 관측치는 row(행)을 구성한다.<br/></li>
+<li>각 테이블은 단 하나의 관측기준에 따라 조직된 데이터를 저장한다.<br/></li>
+<li>단정한 데이터를 만들기 위해 reshaping하여야 함</li>
+</ol></li>
+</ul>
+
+<h3>2-1. <code>melt()</code></h3>
+
+<pre><code class="r">load(&quot;D:/SDSEDU/munging/pew.RData&quot;)
+head(raw, 5)
+</code></pre>
+
+<pre><code>##             religion &lt;$10k $10-20k $20-30k $30-40k $40-50k $50-75k
+## 1           Agnostic    27      34      60      81      76     137
+## 2            Atheist    12      27      37      52      35      70
+## 3           Buddhist    27      21      30      34      33      58
+## 4           Catholic   418     617     732     670     638    1116
+## 5 Don&#39;t know/refused    15      14      15      11      10      35
+##   $75-100k $100-150k &gt;150k Don&#39;t know/refused
+## 1      122       109    84                 96
+## 2       73        59    74                 76
+## 3       62        39    53                 54
+## 4      949       792   633               1489
+## 5       21        17    18                116
+</code></pre>
+
+<ul>
+<li>위의 자료는 &#39;단정한 데이터&#39;가 아님</li>
+<li>수입(income)에 대해 세분화한 열을 제공함으로써, 단정한 데이터의 첫번째 기준을 위반했기 때문임 </li>
+<li>따라서 이 데이터를 &#39;단정한 데이터&#39;로 변환해 줄 필요가 있음</li>
+</ul>
+
+<pre><code class="r">library(reshape2)
+melt.raw &lt;- melt(raw, measure.vars = c(2, 3, 4, 5, 6, 7, 8, 9, 10, 11), variable = &quot;income&quot;, 
+    value = &quot;freq&quot;)
+head(melt.raw, 10)
+</code></pre>
+
+<pre><code>##                   religion income value
+## 1                 Agnostic  &lt;$10k    27
+## 2                  Atheist  &lt;$10k    12
+## 3                 Buddhist  &lt;$10k    27
+## 4                 Catholic  &lt;$10k   418
+## 5       Don&#39;t know/refused  &lt;$10k    15
+## 6         Evangelical Prot  &lt;$10k   575
+## 7                    Hindu  &lt;$10k     1
+## 8  Historically Black Prot  &lt;$10k   228
+## 9        Jehovah&#39;s Witness  &lt;$10k    20
+## 10                  Jewish  &lt;$10k    19
+</code></pre>
+
+<ul>
+<li>melt() 함수를 사용하여 각 변수에 해당하는 column을 만듦으로써, 단정한 데이터가 된 것을 확인 할 수 있음 </li>
+</ul>
+
+<pre><code class="r">data(french_fries)
+head(french_fries, 3)
+</code></pre>
+
+<pre><code>##    time treatment subject rep potato buttery grassy rancid painty
+## 61    1         1       3   1    2.9     0.0      0    0.0    5.5
+## 25    1         1       3   2   14.0     0.0      0    1.1    0.0
+## 62    1         1      10   1   11.0     6.4      0    0.0    0.0
+</code></pre>
+
+<ul>
+<li>reshape2 패키지에 내장되어 있는 french_fries데이터에 melt함수를 적용함 
+
+<ul>
+<li>treatment(1,2,3) : 서로 다른 3개의 frying oil</li>
+<li>rep (1,2) : 각 frying oil 별 다른 2개의 fryers</li>
+<li>subject(1,2, …, 12) : 실험에 참가한 12명의 참가자</li>
+<li>time(1,2, …,10) : 참가자들이 실험을 한 각기 다른 10개의 날</li>
+<li>id variable: 보통 이산형이나 고정값을 말하는데 특별히 지정해주지 않으면 factor 혹은 integer column을 id variable로 인식함</li>
+<li>measure variable: categorize되는 변수임</li>
+</ul></li>
+<li><code>melt</code> 함수를 적용한 french_fries data는 다음과 같이 변형됨 </li>
+</ul>
+
+<pre><code class="r">library(data.table)
+french.melt &lt;- melt(french_fries, id = c(1:4), measure = c(5:9), na.rm = T)
+head(french.melt, 20)
+</code></pre>
+
+<pre><code>##    time treatment subject rep variable value
+## 1     1         1       3   1   potato   2.9
+## 2     1         1       3   2   potato  14.0
+## 3     1         1      10   1   potato  11.0
+## 4     1         1      10   2   potato   9.9
+## 5     1         1      15   1   potato   1.2
+## 6     1         1      15   2   potato   8.8
+## 7     1         1      16   1   potato   9.0
+## 8     1         1      16   2   potato   8.2
+## 9     1         1      19   1   potato   7.0
+## 10    1         1      19   2   potato  13.0
+## 11    1         1      31   1   potato  12.2
+## 12    1         1      31   2   potato  12.8
+## 13    1         1      51   1   potato   8.6
+## 14    1         1      51   2   potato  10.2
+## 15    1         1      52   1   potato   5.8
+## 16    1         1      52   2   potato   7.0
+## 17    1         1      63   1   potato   8.3
+## 18    1         1      63   2   potato   2.9
+## 19    1         1      78   1   potato   4.9
+## 20    1         1      78   2   potato   8.8
+</code></pre>
+
+<pre><code class="r">french.dt &lt;- data.table(french.melt)
+</code></pre>
+
+<ul>
+<li> <code>melt()</code> 는 id variable를 기준으로 measure variable을 범주화 하여 
+
+<ul>
+<li><code>variable</code> 이라는 새로운 column 만들고 </li>
+<li>그에 따른 <code>value</code> 에는  해당 데이터 값들을 넣어 새로은 data frame (: 여기서는 data table)을 생성함</li>
+</ul></li>
+</ul>
+
+<pre><code class="r">str(french_fries)
+</code></pre>
+
+<pre><code>## &#39;data.frame&#39;:    696 obs. of  9 variables:
+##  $ time     : Factor w/ 10 levels &quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;4&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ treatment: Factor w/ 3 levels &quot;1&quot;,&quot;2&quot;,&quot;3&quot;: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ subject  : Factor w/ 12 levels &quot;3&quot;,&quot;10&quot;,&quot;15&quot;,..: 1 1 2 2 3 3 4 4 5 5 ...
+##  $ rep      : num  1 2 1 2 1 2 1 2 1 2 ...
+##  $ potato   : num  2.9 14 11 9.9 1.2 8.8 9 8.2 7 13 ...
+##  $ buttery  : num  0 0 6.4 5.9 0.1 3 2.6 4.4 3.2 0 ...
+##  $ grassy   : num  0 0 0 2.9 0 3.6 0.4 0.3 0 3.1 ...
+##  $ rancid   : num  0 1.1 0 2.2 1.1 1.5 0.1 1.4 4.9 4.3 ...
+##  $ painty   : num  5.5 0 0 0 5.1 2.3 0.2 4 3.2 10.3 ...
+</code></pre>
+
+<pre><code class="r">str(french.dt)
+</code></pre>
+
+<pre><code>## Classes &#39;data.table&#39; and &#39;data.frame&#39;:   3471 obs. of  6 variables:
+##  $ time     : Factor w/ 10 levels &quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;4&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ treatment: Factor w/ 3 levels &quot;1&quot;,&quot;2&quot;,&quot;3&quot;: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ subject  : Factor w/ 12 levels &quot;3&quot;,&quot;10&quot;,&quot;15&quot;,..: 1 1 2 2 3 3 4 4 5 5 ...
+##  $ rep      : num  1 2 1 2 1 2 1 2 1 2 ...
+##  $ variable : Factor w/ 5 levels &quot;potato&quot;,&quot;buttery&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ value    : num  2.9 14 11 9.9 1.2 8.8 9 8.2 7 13 ...
+##  - attr(*, &quot;.internal.selfref&quot;)=&lt;externalptr&gt;
+</code></pre>
+
+<ul>
+<li>&#39;potato&#39;, &hellip; ,&#39;painty&#39;를 <code>melt()</code>를 이용하여 numeric을  categorize 해준 결과  factor인자로 바뀐 것을 확인 할 수 있음<br/></li>
+</ul>
+
+<h3>2-2. <code>cast()</code></h3>
+
+<ul>
+<li>V1은 treatment와 variable별 value의 평균을 나타냄 </li>
+</ul>
+
+<pre><code class="r">value &lt;- as.numeric(french.dt$value)
+head(value)
+</code></pre>
+
+<pre><code>## [1]  2.9 14.0 11.0  9.9  1.2  8.8
+</code></pre>
+
+<pre><code class="r">mean &lt;- french.dt[, mean(value), by = c(&quot;treatment&quot;, &quot;variable&quot;)]
+head(mean, 10)
+</code></pre>
+
+<pre><code>##     treatment variable     V1
+##  1:         1   potato 6.8879
+##  2:         2   potato 7.0017
+##  3:         3   potato 6.9680
+##  4:         1  buttery 1.7801
+##  5:         2  buttery 1.9739
+##  6:         3  buttery 1.7177
+##  7:         1   grassy 0.6491
+##  8:         2   grassy 0.6629
+##  9:         3   grassy 0.6805
+## 10:         1   rancid 4.0655
+</code></pre>
+
+<ul>
+<li><code>cast()</code>는 <code>melt</code> function을 이용해 만든 data frame을, 사용자가 원하는 모양으로 재배열 할 수 있게 해주는  함수임 </li>
+<li>즉, (아래의) data는 각 treatment와 variable에 따른 평균을 나타낸 표로 재구성될 수 있음</li>
+</ul>
+
+<pre><code class="r">cast(mean, treatment ~ variable)
+</code></pre>
+
+<pre><code>##   treatment potato buttery grassy rancid painty
+## 1         1  6.888   1.780 0.6491  4.066  2.584
+## 2         2  7.002   1.974 0.6629  3.625  2.456
+## 3         3  6.968   1.718 0.6805  3.867  2.526
+</code></pre>
+
+<h3>2.3 Graph</h3>
+
+<ul>
+<li><code>ggplot2</code> 패키지를 사용하기 위선 단정한 데이터가 필요하기 때문에 위의 과정들을 실행했다고 볼 수 있음</li>
+</ul>
+
+<hr/>
+
+<h3>종교에 따른 소득 분포</h3>
+
+<pre><code class="r">library(ggplot2)
+head(melt.raw)
+</code></pre>
+
+<pre><code>##             religion income value
+## 1           Agnostic  &lt;$10k    27
+## 2            Atheist  &lt;$10k    12
+## 3           Buddhist  &lt;$10k    27
+## 4           Catholic  &lt;$10k   418
+## 5 Don&#39;t know/refused  &lt;$10k    15
+## 6   Evangelical Prot  &lt;$10k   575
+</code></pre>
+
+<pre><code class="r">ggplot(melt.raw, aes(religion, value)) + geom_bar(aes(fill = income), stat = &quot;identity&quot;) + 
+    theme(axis.text.x = element_text(angle = 45))
+</code></pre>
+
+<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-6"/> </p>
+
+<hr/>
+
+<h3>종교별 소득 비율</h3>
+
+<pre><code class="r">library(plyr)
+melt.raw &lt;- ddply(melt.raw, .(religion), mutate, freq_sum = sum(value))
+head(melt.raw)
+</code></pre>
+
+<pre><code>##   religion  income value freq_sum
+## 1 Agnostic   &lt;$10k    27      826
+## 2 Agnostic $10-20k    34      826
+## 3 Agnostic $20-30k    60      826
+## 4 Agnostic $30-40k    81      826
+## 5 Agnostic $40-50k    76      826
+## 6 Agnostic $50-75k   137      826
+</code></pre>
+
+<pre><code class="r">melt.freq &lt;- ddply(melt.raw, .(religion, income), summarise, freq_percent = value/freq_sum)
+head(melt.freq)
+</code></pre>
+
+<pre><code>##   religion  income freq_percent
+## 1 Agnostic   &lt;$10k      0.03269
+## 2 Agnostic $10-20k      0.04116
+## 3 Agnostic $20-30k      0.07264
+## 4 Agnostic $30-40k      0.09806
+## 5 Agnostic $40-50k      0.09201
+## 6 Agnostic $50-75k      0.16586
+</code></pre>
+
+<pre><code class="r">ggplot(melt.freq, aes(religion, freq_percent)) + geom_bar(aes(fill = income), 
+    stat = &quot;identity&quot;) + theme(axis.text.x = element_text(angle = 45))
+</code></pre>
+
+<p><img src="data:image/png;base64,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" alt="plot of chunk block11"/> </p>
+
+<h2>3. <code>tapply</code>/ <code>aggregate</code>/ <code>by</code> Function</h2>
+
+<ul>
+<li>R은 특정 데이터 집단에 함수를 적용하는 <code>tapply</code>,<code>by</code>,<code>aggregate</code>등의 함수를 제공함</li>
+<li>이들의 원리는 <strong>split-apply-comebine</strong> 이라는 전략을 사용함</li>
+<li>즉, 특정 기준에 따라 데이터를 나눠(<strong>split</strong>) 그룹화 한 후,  개별적으로 처리해(<strong>apply</strong>) 마지막에 남은 결과를 결합(<strong>combine</strong>)하는 효율적인 방식임</li>
+</ul>
+
+<blockquote>
+<p><strong>MapReduce개념과도 비슷함</strong></p>
+</blockquote>
+
+<hr/>
+
+<h3>Market price</h3>
+
+<ul>
+<li>서울시의 전통시장과 대형마트에서 생필품이 얼마나 판매되고 있는지를 조사한 자료임 </li>
+</ul>
+
+<pre><code class="r">name.ENG &lt;- c(&quot;P_SEQ&quot;, &quot;M_SEQ&quot;, &quot;M_NAME&quot;, &quot;A_SEQ&quot;, &quot;A_NAME&quot;, &quot;A_UNIT&quot;, &quot;A_PRICE&quot;, 
+    &quot;P_YEAR_MONTH&quot;, &quot;ADD_COL&quot;, &quot;M_TYPE_CODE&quot;, &quot;M_TYPE_NAME&quot;, &quot;M_GU_CODE&quot;, &quot;M_GU_NAME&quot;)
+name.KOR &lt;- c(&quot;일련번호&quot;, &quot;시장/마트번호&quot;, &quot;시장/마트이름&quot;, &quot;품목번호&quot;, &quot;품목이름&quot;, 
+    &quot;실판매규격&quot;, &quot;가격&quot;, &quot;월-년도&quot;, &quot;비고&quot;, &quot;시장유형구분코드&quot;, &quot;시장유형구분이름&quot;, 
+    &quot;자치구 코드&quot;, &quot;자치구이름&quot;)
+name &lt;- matrix(c(name.ENG, name.KOR), 13, 2)
+name
+</code></pre>
+
+<pre><code>##       [,1]           [,2]              
+##  [1,] &quot;P_SEQ&quot;        &quot;일련번호&quot;        
+##  [2,] &quot;M_SEQ&quot;        &quot;시장/마트번호&quot;   
+##  [3,] &quot;M_NAME&quot;       &quot;시장/마트이름&quot;   
+##  [4,] &quot;A_SEQ&quot;        &quot;품목번호&quot;        
+##  [5,] &quot;A_NAME&quot;       &quot;품목이름&quot;        
+##  [6,] &quot;A_UNIT&quot;       &quot;실판매규격&quot;      
+##  [7,] &quot;A_PRICE&quot;      &quot;가격&quot;            
+##  [8,] &quot;P_YEAR_MONTH&quot; &quot;월-년도&quot;         
+##  [9,] &quot;ADD_COL&quot;      &quot;비고&quot;            
+## [10,] &quot;M_TYPE_CODE&quot;  &quot;시장유형구분코드&quot;
+## [11,] &quot;M_TYPE_NAME&quot;  &quot;시장유형구분이름&quot;
+## [12,] &quot;M_GU_CODE&quot;    &quot;자치구 코드&quot;     
+## [13,] &quot;M_GU_NAME&quot;    &quot;자치구이름&quot;
+</code></pre>
+
+<hr/>
+
+<pre><code class="r">market_price &lt;- read.csv(&quot;d:/SDSEDU/munging/requisites.csv&quot;, fileEncoding = &quot;euc-kr&quot;)
+head(market_price)
+</code></pre>
+
+<pre><code>##    P_SEQ M_SEQ       M_NAME A_SEQ           A_NAME A_UNIT A_PRICE
+## 1 319572   199 서울중앙시장   305 사과(부사, 300g)    1개    2500
+## 2 319573   199 서울중앙시장   306   배(신고, 600g)    1개    3000
+## 3 319574   199 서울중앙시장   307    배추(2.5~3kg)  1포기    5000
+## 4 319575   199 서울중앙시장   308          무(1kg)    1개    1500
+## 5 319576   199 서울중앙시장   309    양파(1.5kg망)    1망    2000
+## 6 319577   199 서울중앙시장    23             상추   100g    1200
+##   P_YEAR_MONTH ADD_COL M_TYPE_CODE M_TYPE_NAME M_GU_CODE M_GU_NAME
+## 1       Jul-12  국내산           1    전통시장    140000      중구
+## 2       Jul-12  국내산           1    전통시장    140000      중구
+## 3       Jul-12  국내산           1    전통시장    140000      중구
+## 4       Jul-12  국내산           1    전통시장    140000      중구
+## 5       Jul-12  국내산           1    전통시장    140000      중구
+## 6       Jul-12  국내산           1    전통시장    140000      중구
+</code></pre>
+
+<hr/>
+
+<pre><code class="r">summary(market_price)
+</code></pre>
+
+<pre><code>##      P_SEQ            M_SEQ                   M_NAME         A_SEQ    
+##  Min.   :299094   Min.   :  1   2001아울렛 불광점:  48   Min.   : 13  
+##  1st Qu.:302232   1st Qu.: 49   경동시장         :  48   1st Qu.:134  
+##  Median :313531   Median : 94   고척근린시장     :  48   Median :266  
+##  Mean   :312873   Mean   :103   공릉 도깨비시장  :  48   Mean   :220  
+##  3rd Qu.:322914   3rd Qu.:145   광장시장         :  48   3rd Qu.:307  
+##  Max.   :324241   Max.   :222   구로시장         :  48   Max.   :317  
+##                                 (Other)          :4379                
+##                  A_NAME             A_UNIT        A_PRICE     
+##  오이(다다기)       : 264   1개        :1163   Min.   :    0  
+##  닭고기(육계)       : 254   1마리      : 391   1st Qu.: 1400  
+##  쇠고기(한우,불고기): 242   600g       : 386   Median : 2490  
+##  고등어(생물,국산)  : 237   10개       : 269   Mean   : 4274  
+##  달걀(왕란)         : 235   1포기      : 256   3rd Qu.: 4300  
+##  배(신고, 600g)     : 228   1마리(30cm): 135   Max.   :39000  
+##  (Other)            :3207   (Other)    :2067                  
+##  P_YEAR_MONTH     ADD_COL      M_TYPE_CODE     M_TYPE_NAME  
+##  Jul-12:1567          : 689   Min.   :1.00   대형마트:2383  
+##  Jun-12:1533   국내산 : 257   1st Qu.:1.00   전통시장:2284  
+##  May-12:1567   국산   :  96   Median :2.00                  
+##                제주   :  65   Mean   :1.51                  
+##                무안   :  59   3rd Qu.:2.00                  
+##                부산   :  43   Max.   :2.00                  
+##                (Other):3458                                 
+##    M_GU_CODE         M_GU_NAME   
+##  Min.   :110000   관악구  : 240  
+##  1st Qu.:260000   영등포구: 240  
+##  Median :410000   강동구  : 192  
+##  Mean   :424495   강북구  : 192  
+##  3rd Qu.:560000   강서구  : 192  
+##  Max.   :740000   광진구  : 192  
+##                   (Other) :3419
+</code></pre>
+
+<h3>3.1 <code>tapply</code> 사용 예</h3>
+
+<ul>
+<li><code>tapply(X, INDEX, FUN=NULL, ... , simplify=TRUE)</code>
+
+<ul>
+<li><code>X</code> : 우리가 확인하고자 하는 가격</li>
+<li><code>INDEX</code> : factor형으로 구성된 list (data.frame은 list이기도 함)</li>
+<li><code>FUN</code> : 함수명을 입력함 </li>
+</ul></li>
+</ul>
+
+<pre><code class="r">t.market &lt;- tapply(market_price$A_PRICE, market_price[, c(&quot;M_TYPE_NAME&quot;, &quot;A_NAME&quot;)], 
+    mean)
+head(t.market)
+</code></pre>
+
+<pre><code>##            A_NAME
+## M_TYPE_NAME 고등어 고등어(30cm,국산) 고등어(냉동,국산) 고등어(냉동,수입산)
+##    대형마트   1000              5335              2825                1500
+##    전통시장     NA              2667              3525                1750
+##            A_NAME
+## M_TYPE_NAME 고등어(생물,국산) 고등어(생물,수입산) 냉동참조기(20cm,국산)
+##    대형마트              4550                  NA                 824.7
+##    전통시장              3269                1500                    NA
+##            A_NAME
+## M_TYPE_NAME 달걀 달걀(왕란) 달걀(특란) 닭고기 닭고기(육계) 닭고기(중간)
+##    대형마트 2473       2614       2130   6573         7922         5580
+##    전통시장 2500       2094       2225   6058         5466           NA
+##            A_NAME
+## M_TYPE_NAME 동태 돼지고기(삼겹살) 돼지고기(생삼겹살) 명태 명태(45cm,국산)
+##    대형마트  990            13358              15045 1208               0
+##    전통시장 4900            12759              11769 1500              NA
+##            A_NAME
+## M_TYPE_NAME 명태(45cm,수입산) 명태(냉동,수입산) 명태(러시아,냉동)
+##    대형마트              2096              2385              2376
+##    전통시장              2872              3370              2282
+##            A_NAME
+## M_TYPE_NAME 명태(생물,수입산)   무 무(1kg) 무(세척무) 무(세척무, 중)   배
+##    대형마트             476.5 1616    1852       2156           1834 3961
+##    전통시장            2352.9 1398    1415       1311             NA 2944
+##            A_NAME
+## M_TYPE_NAME 배(신고) 배(신고),중급(대) 배(신고, 600g) 배(중품)
+##    대형마트     5997              3033           4375     3705
+##    전통시장     3546                NA           3099     3111
+##            A_NAME
+## M_TYPE_NAME 배(중품),신고 배추 배추(2.5~3kg) 배추(국산) 배추(중간) 사과
+##    대형마트          2187 2241          2470       2745       2273 2718
+##    전통시장          3750 2471          2724         NA       2129 2651
+##            A_NAME
+## M_TYPE_NAME 사과(부사) 사과(부사),중급(중) 사과(부사, 300g) 사과(중품)
+##    대형마트       2162                1650             3004       2534
+##    전통시장       2459                  NA             2524       2438
+##            A_NAME
+## M_TYPE_NAME 삼겹살   상추 상추(100g) 생닭 쇠고기 쇠고기(등심)
+##    대형마트     NA 1397.0     1155.5   NA  21720           NA
+##    전통시장  12500  871.1      686.8 6000     NA        12467
+##            A_NAME
+## M_TYPE_NAME 쇠고기(육우,불고기) 쇠고기(한우,불고기) 쇠고기(한우1등급)
+##    대형마트               23100               21263             19340
+##    전통시장               17325               17951             17800
+##            A_NAME
+## M_TYPE_NAME 쇠고기(한우2등급) 애호박 양파 양파(1.5kg망) 양파(작은망)  오이
+##    대형마트             12920 1036.7 3062          3009         3009 448.2
+##    전통시장             14600  627.9 2233          2209         2390 379.6
+##            A_NAME
+## M_TYPE_NAME 오이(다다기) 오징어 오징어(냉동) 오징어(냉동,국산)
+##    대형마트        528.7   2447         1548              1999
+##    전통시장        378.5   1660         1583              2328
+##            A_NAME
+## M_TYPE_NAME 오징어(냉동,수입산) 오징어(생물,국산) 오징어(생물,수입산) 조기
+##    대형마트                2120              2370                1680 6136
+##    전통시장                  NA              2153                  NA 2771
+##            A_NAME
+## M_TYPE_NAME 조기(국산,냉동) 조기(국산,생물) 조기(냉동,국산)
+##    대형마트            2884            3807            2104
+##    전통시장            1517            2223            1840
+##            A_NAME
+## M_TYPE_NAME 조기(냉동,수입산) 조기(생물,국산) 조기(생물,수입산)
+##    대형마트              4105            4165               990
+##    전통시장              3426            1872                NA
+##            A_NAME
+## M_TYPE_NAME 조기(중국산,생물)  호박 호박(인큐베이터)
+##    대형마트              1990 754.4            858.2
+##    전통시장              4500 559.2            787.8
+</code></pre>
+
+<hr/>
+
+<h3>3.2 <code>by</code> 사용 예</h3>
+
+<pre><code class="r">by(market_price$A_PRICE, market_price[, c(&quot;M_TYPE_NAME&quot;, &quot;A_NAME&quot;)], function(x) {
+    mean(x)
+})
+</code></pre>
+
+<pre><code>## M_TYPE_NAME: 대형마트
+## A_NAME: 고등어
+## [1] 1000
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 고등어
+## [1] NA
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 고등어(30cm,국산)
+## [1] 5335
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 고등어(30cm,국산)
+## [1] 2667
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 고등어(냉동,국산)
+## [1] 2825
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 고등어(냉동,국산)
+## [1] 3525
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 고등어(냉동,수입산)
+## [1] 1500
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 고등어(냉동,수입산)
+## [1] 1750
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 고등어(생물,국산)
+## [1] 4550
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 고등어(생물,국산)
+## [1] 3269
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 고등어(생물,수입산)
+## [1] NA
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 고등어(생물,수입산)
+## [1] 1500
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 냉동참조기(20cm,국산)
+## [1] 824.7
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 냉동참조기(20cm,국산)
+## [1] NA
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 달걀
+## [1] 2473
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 달걀
+## [1] 2500
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 달걀(왕란)
+## [1] 2614
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 달걀(왕란)
+## [1] 2094
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 달걀(특란)
+## [1] 2130
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 달걀(특란)
+## [1] 2225
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 닭고기
+## [1] 6573
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 닭고기
+## [1] 6058
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 닭고기(육계)
+## [1] 7922
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 닭고기(육계)
+## [1] 5466
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 닭고기(중간)
+## [1] 5580
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 닭고기(중간)
+## [1] NA
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 동태
+## [1] 990
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 동태
+## [1] 4900
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 돼지고기(삼겹살)
+## [1] 13358
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 돼지고기(삼겹살)
+## [1] 12759
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 돼지고기(생삼겹살)
+## [1] 15045
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 돼지고기(생삼겹살)
+## [1] 11769
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 명태
+## [1] 1208
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 명태
+## [1] 1500
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 명태(45cm,국산)
+## [1] 0
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 명태(45cm,국산)
+## [1] NA
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 명태(45cm,수입산)
+## [1] 2096
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 명태(45cm,수입산)
+## [1] 2872
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 명태(냉동,수입산)
+## [1] 2385
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 명태(냉동,수입산)
+## [1] 3370
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 명태(러시아,냉동)
+## [1] 2376
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 명태(러시아,냉동)
+## [1] 2282
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 명태(생물,수입산)
+## [1] 476.5
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 명태(생물,수입산)
+## [1] 2353
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 무
+## [1] 1616
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 무
+## [1] 1398
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 무(1kg)
+## [1] 1852
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 무(1kg)
+## [1] 1415
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 무(세척무)
+## [1] 2156
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 무(세척무)
+## [1] 1311
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 무(세척무, 중)
+## [1] 1834
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 무(세척무, 중)
+## [1] NA
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 배
+## [1] 3961
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 배
+## [1] 2944
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 배(신고)
+## [1] 5997
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 배(신고)
+## [1] 3546
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 배(신고),중급(대)
+## [1] 3033
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 배(신고),중급(대)
+## [1] NA
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 배(신고, 600g)
+## [1] 4375
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 배(신고, 600g)
+## [1] 3099
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 배(중품)
+## [1] 3705
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 배(중품)
+## [1] 3111
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 배(중품),신고
+## [1] 2187
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 배(중품),신고
+## [1] 3750
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 배추
+## [1] 2241
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 배추
+## [1] 2471
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 배추(2.5~3kg)
+## [1] 2470
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 배추(2.5~3kg)
+## [1] 2724
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 배추(국산)
+## [1] 2745
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 배추(국산)
+## [1] NA
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 배추(중간)
+## [1] 2273
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 배추(중간)
+## [1] 2129
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 사과
+## [1] 2718
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 사과
+## [1] 2651
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 사과(부사)
+## [1] 2162
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 사과(부사)
+## [1] 2459
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 사과(부사),중급(중)
+## [1] 1650
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 사과(부사),중급(중)
+## [1] NA
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 사과(부사, 300g)
+## [1] 3004
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 사과(부사, 300g)
+## [1] 2524
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 사과(중품)
+## [1] 2534
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 사과(중품)
+## [1] 2438
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 삼겹살
+## [1] NA
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 삼겹살
+## [1] 12500
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 상추
+## [1] 1397
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 상추
+## [1] 871.1
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 상추(100g)
+## [1] 1155
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 상추(100g)
+## [1] 686.8
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 생닭
+## [1] NA
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 생닭
+## [1] 6000
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 쇠고기
+## [1] 21720
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 쇠고기
+## [1] NA
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 쇠고기(등심)
+## [1] NA
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 쇠고기(등심)
+## [1] 12467
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 쇠고기(육우,불고기)
+## [1] 23100
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 쇠고기(육우,불고기)
+## [1] 17325
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 쇠고기(한우,불고기)
+## [1] 21263
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 쇠고기(한우,불고기)
+## [1] 17951
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 쇠고기(한우1등급)
+## [1] 19340
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 쇠고기(한우1등급)
+## [1] 17800
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 쇠고기(한우2등급)
+## [1] 12920
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 쇠고기(한우2등급)
+## [1] 14600
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 애호박
+## [1] 1037
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 애호박
+## [1] 627.9
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 양파
+## [1] 3062
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 양파
+## [1] 2233
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 양파(1.5kg망)
+## [1] 3009
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 양파(1.5kg망)
+## [1] 2209
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 양파(작은망)
+## [1] 3009
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 양파(작은망)
+## [1] 2390
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 오이
+## [1] 448.2
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 오이
+## [1] 379.6
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 오이(다다기)
+## [1] 528.7
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 오이(다다기)
+## [1] 378.5
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 오징어
+## [1] 2447
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 오징어
+## [1] 1660
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 오징어(냉동)
+## [1] 1548
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 오징어(냉동)
+## [1] 1583
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 오징어(냉동,국산)
+## [1] 1999
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 오징어(냉동,국산)
+## [1] 2328
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 오징어(냉동,수입산)
+## [1] 2120
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 오징어(냉동,수입산)
+## [1] NA
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 오징어(생물,국산)
+## [1] 2370
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 오징어(생물,국산)
+## [1] 2153
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 오징어(생물,수입산)
+## [1] 1680
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 오징어(생물,수입산)
+## [1] NA
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 조기
+## [1] 6136
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 조기
+## [1] 2771
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 조기(국산,냉동)
+## [1] 2884
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 조기(국산,냉동)
+## [1] 1517
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 조기(국산,생물)
+## [1] 3807
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 조기(국산,생물)
+## [1] 2223
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 조기(냉동,국산)
+## [1] 2104
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 조기(냉동,국산)
+## [1] 1840
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 조기(냉동,수입산)
+## [1] 4105
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 조기(냉동,수입산)
+## [1] 3426
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 조기(생물,국산)
+## [1] 4165
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 조기(생물,국산)
+## [1] 1872
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 조기(생물,수입산)
+## [1] 990
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 조기(생물,수입산)
+## [1] NA
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 조기(중국산,생물)
+## [1] 1990
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 조기(중국산,생물)
+## [1] 4500
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 호박
+## [1] 754.4
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 호박
+## [1] 559.2
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 대형마트
+## A_NAME: 호박(인큐베이터)
+## [1] 858.2
+## -------------------------------------------------------- 
+## M_TYPE_NAME: 전통시장
+## A_NAME: 호박(인큐베이터)
+## [1] 787.8
+</code></pre>
+
+<hr/>
+
+<h3>3.3 <code>aggregate</code> 사용 예</h3>
+
+<pre><code class="r">aggregate(market_price$A_PRICE, market_price[, c(&quot;M_TYPE_NAME&quot;, &quot;A_NAME&quot;)], 
+    mean)
+</code></pre>
+
+<pre><code>##     M_TYPE_NAME                A_NAME       x
+## 1      대형마트                고등어  1000.0
+## 2      대형마트     고등어(30cm,국산)  5335.0
+## 3      전통시장     고등어(30cm,국산)  2666.7
+## 4      대형마트     고등어(냉동,국산)  2825.0
+## 5      전통시장     고등어(냉동,국산)  3524.8
+## 6      대형마트   고등어(냉동,수입산)  1500.0
+## 7      전통시장   고등어(냉동,수입산)  1750.0
+## 8      대형마트     고등어(생물,국산)  4550.5
+## 9      전통시장     고등어(생물,국산)  3269.4
+## 10     전통시장   고등어(생물,수입산)  1500.0
+## 11     대형마트 냉동참조기(20cm,국산)   824.7
+## 12     대형마트                  달걀  2472.5
+## 13     전통시장                  달걀  2500.0
+## 14     대형마트            달걀(왕란)  2614.3
+## 15     전통시장            달걀(왕란)  2093.6
+## 16     대형마트            달걀(특란)  2130.0
+## 17     전통시장            달걀(특란)  2225.0
+## 18     대형마트                닭고기  6573.5
+## 19     전통시장                닭고기  6058.2
+## 20     대형마트          닭고기(육계)  7922.1
+## 21     전통시장          닭고기(육계)  5465.7
+## 22     대형마트          닭고기(중간)  5580.0
+## 23     대형마트                  동태   990.0
+## 24     전통시장                  동태  4900.0
+## 25     대형마트      돼지고기(삼겹살) 13358.3
+## 26     전통시장      돼지고기(삼겹살) 12758.6
+## 27     대형마트    돼지고기(생삼겹살) 15045.0
+## 28     전통시장    돼지고기(생삼겹살) 11769.1
+## 29     대형마트                  명태  1207.7
+## 30     전통시장                  명태  1500.0
+## 31     대형마트       명태(45cm,국산)     0.0
+## 32     대형마트     명태(45cm,수입산)  2095.6
+## 33     전통시장     명태(45cm,수입산)  2872.3
+## 34     대형마트     명태(냉동,수입산)  2384.6
+## 35     전통시장     명태(냉동,수입산)  3370.4
+## 36     대형마트     명태(러시아,냉동)  2376.0
+## 37     전통시장     명태(러시아,냉동)  2282.0
+## 38     대형마트     명태(생물,수입산)   476.5
+## 39     전통시장     명태(생물,수입산)  2352.9
+## 40     대형마트                    무  1616.4
+## 41     전통시장                    무  1397.9
+## 42     대형마트               무(1kg)  1852.5
+## 43     전통시장               무(1kg)  1415.3
+## 44     대형마트            무(세척무)  2156.0
+## 45     전통시장            무(세척무)  1311.1
+## 46     대형마트        무(세척무, 중)  1834.3
+## 47     대형마트                    배  3961.3
+## 48     전통시장                    배  2944.4
+## 49     대형마트              배(신고)  5997.0
+## 50     전통시장              배(신고)  3545.5
+## 51     대형마트     배(신고),중급(대)  3033.3
+## 52     대형마트        배(신고, 600g)  4374.8
+## 53     전통시장        배(신고, 600g)  3099.4
+## 54     대형마트              배(중품)  3705.3
+## 55     전통시장              배(중품)  3111.1
+## 56     대형마트         배(중품),신고  2186.7
+## 57     전통시장         배(중품),신고  3750.0
+## 58     대형마트                  배추  2240.9
+## 59     전통시장                  배추  2470.7
+## 60     대형마트         배추(2.5~3kg)  2470.2
+## 61     전통시장         배추(2.5~3kg)  2723.5
+## 62     대형마트            배추(국산)  2745.0
+## 63     대형마트            배추(중간)  2272.9
+## 64     전통시장            배추(중간)  2129.4
+## 65     대형마트                  사과  2718.0
+## 66     전통시장                  사과  2651.0
+## 67     대형마트            사과(부사)  2162.0
+## 68     전통시장            사과(부사)  2459.4
+## 69     대형마트   사과(부사),중급(중)  1650.0
+## 70     대형마트      사과(부사, 300g)  3003.9
+## 71     전통시장      사과(부사, 300g)  2524.4
+## 72     대형마트            사과(중품)  2533.6
+## 73     전통시장            사과(중품)  2437.5
+## 74     전통시장                삼겹살 12500.0
+## 75     대형마트                  상추  1397.0
+## 76     전통시장                  상추   871.1
+## 77     대형마트            상추(100g)  1155.5
+## 78     전통시장            상추(100g)   686.8
+## 79     전통시장                  생닭  6000.0
+## 80     대형마트                쇠고기 21720.0
+## 81     전통시장          쇠고기(등심) 12466.7
+## 82     대형마트   쇠고기(육우,불고기) 23100.0
+## 83     전통시장   쇠고기(육우,불고기) 17325.0
+## 84     대형마트   쇠고기(한우,불고기) 21262.7
+## 85     전통시장   쇠고기(한우,불고기) 17951.1
+## 86     대형마트     쇠고기(한우1등급) 19340.0
+## 87     전통시장     쇠고기(한우1등급) 17800.0
+## 88     대형마트     쇠고기(한우2등급) 12920.0
+## 89     전통시장     쇠고기(한우2등급) 14600.0
+## 90     대형마트                애호박  1036.7
+## 91     전통시장                애호박   627.9
+## 92     대형마트                  양파  3062.2
+## 93     전통시장                  양파  2233.3
+## 94     대형마트         양파(1.5kg망)  3009.4
+## 95     전통시장         양파(1.5kg망)  2209.4
+## 96     대형마트          양파(작은망)  3008.8
+## 97     전통시장          양파(작은망)  2389.8
+## 98     대형마트                  오이   448.2
+## 99     전통시장                  오이   379.6
+## 100    대형마트          오이(다다기)   528.7
+## 101    전통시장          오이(다다기)   378.5
+## 102    대형마트                오징어  2446.7
+## 103    전통시장                오징어  1660.0
+## 104    대형마트          오징어(냉동)  1548.0
+## 105    전통시장          오징어(냉동)  1583.3
+## 106    대형마트     오징어(냉동,국산)  1998.8
+## 107    전통시장     오징어(냉동,국산)  2327.7
+## 108    대형마트   오징어(냉동,수입산)  2120.0
+## 109    대형마트     오징어(생물,국산)  2369.8
+## 110    전통시장     오징어(생물,국산)  2152.7
+## 111    대형마트   오징어(생물,수입산)  1680.0
+## 112    대형마트                  조기  6136.0
+## 113    전통시장                  조기  2771.4
+## 114    대형마트       조기(국산,냉동)  2884.4
+## 115    전통시장       조기(국산,냉동)  1517.3
+## 116    대형마트       조기(국산,생물)  3807.0
+## 117    전통시장       조기(국산,생물)  2223.2
+## 118    대형마트       조기(냉동,국산)  2104.5
+## 119    전통시장       조기(냉동,국산)  1840.4
+## 120    대형마트     조기(냉동,수입산)  4105.0
+## 121    전통시장     조기(냉동,수입산)  3426.4
+## 122    대형마트       조기(생물,국산)  4165.0
+## 123    전통시장       조기(생물,국산)  1871.8
+## 124    대형마트     조기(생물,수입산)   990.0
+## 125    대형마트     조기(중국산,생물)  1990.0
+## 126    전통시장     조기(중국산,생물)  4500.0
+## 127    대형마트                  호박   754.4
+## 128    전통시장                  호박   559.2
+## 129    대형마트      호박(인큐베이터)   858.2
+## 130    전통시장      호박(인큐베이터)   787.8
+</code></pre>
+
+<h2>4. <code>plyr</code> Package</h2>
+
+<h3>4.1 Basic frame of <code>plyr</code></h3>
+
+<pre><code>ddply(.data, .variables, .fun=NULL, ..., .progress=&quot;none&quot;, .drop = TRUE, .parallel = FALSE)
+</code></pre>
+
+<ul>
+<li><strong><code>.data</code></strong> : data.frame</li>
+<li><strong><code>.variable</code></strong> : 쪼개는 기준값
+
+<ul>
+<li>문자벡터 : <code>c(&quot;M_GU_NAME&quot;, &quot;A_NAME&quot;)</code></li>
+<li>숫자벡터 : c(5, 13)</li>
+<li>수식 (formula) : <code>~ M_GU_NAME + A_NAME</code></li>
+<li>특별식 : <code>.(M_GU_NAME, N_NAME)</code></li>
+</ul></li>
+<li><strong><code>.fun</code></strong> : 함수명</li>
+<li><strong>&hellip;</strong> : 함수명에 추가되는 인자</li>
+<li><strong><code>.progress</code></strong> : 수행시간이 오래걸릴 경우를 대비, 진행상황을 표시</li>
+<li><strong><code>.drop=TRUE</code></strong> : 현재 쪼개는 조건이 데이터에 있는 경우들만 계산하여 출력. FALSE면 모든 가능조건에 대해 출력</li>
+<li><strong><code>.parallel</code></strong> : 머신의 멀티코어를 사용가능하게해주는 옵션</li>
+</ul>
+
+<hr/>
+
+<h3>4.2 Example of <code>plyr</code></h3>
+
+<pre><code class="r">library(plyr)
+head(ddply(market_price, .(A_NAME, M_TYPE_NAME), summarize, mean_price = mean(A_PRICE)))
+</code></pre>
+
+<pre><code>##                A_NAME M_TYPE_NAME mean_price
+## 1              고등어    대형마트       1000
+## 2   고등어(30cm,국산)    대형마트       5335
+## 3   고등어(30cm,국산)    전통시장       2667
+## 4   고등어(냉동,국산)    대형마트       2825
+## 5   고등어(냉동,국산)    전통시장       3525
+## 6 고등어(냉동,수입산)    대형마트       1500
+</code></pre>
+
+<ul>
+<li><code>summarize</code> 은 그룹화된 data.frame을 요약한다는 의미임</li>
+<li><code>summarize</code>이 외에 <code>transform</code>은 기존 data.frame에 새로운 열을 추가하거나 기존의 열을 다른 데이터로 채워넣을때 사용함</li>
+<li>즉, <code>summarize</code> 함수는 <code>mean_price</code>에 대한 하나의 열만 변환하지만, <code>transform</code>은 열을 추가한 data.frame 조각 전체를 반환함</li>
+</ul>
+
+<pre><code class="r">library(plyr)
+head(ddply(market_price, .(A_NAME, M_TYPE_NAME), transform, mean_price = mean(A_PRICE)))
+</code></pre>
+
+<pre><code>##    P_SEQ M_SEQ            M_NAME A_SEQ            A_NAME       A_UNIT
+## 1 301107    22   이마트 여의도점    13            고등어  1마리(30cm)
+## 2 322354    74   이마트 왕십리점   316 고등어(30cm,국산)  1마리(30cm)
+## 3 323250    56        롯데백화점   316 고등어(30cm,국산)        1마리
+## 4 323378    16 현대백화점 미아점   316 고등어(30cm,국산)        1마리
+## 5 323442    15     이마트 미아점   316 고등어(30cm,국산) 1마리 (30cm)
+## 6 313052    16 현대백화점 미아점   316 고등어(30cm,국산)        1마리
+##   A_PRICE P_YEAR_MONTH    ADD_COL M_TYPE_CODE M_TYPE_NAME M_GU_CODE
+## 1    1000       May-12     작은것           2    대형마트    560000
+## 2    2800       Jul-12 2마리 5600           2    대형마트    200000
+## 3    7000       Jul-12     국내산           2    대형마트    140000
+## 4    5000       Jul-12                      2    대형마트    290000
+## 5    2800       Jul-12                      2    대형마트    290000
+## 6    6000       Jun-12                      2    대형마트    290000
+##   M_GU_NAME mean_price
+## 1  영등포구       1000
+## 2    성동구       5335
+## 3      중구       5335
+## 4    성북구       5335
+## 5    성북구       5335
+## 6    성북구       5335
+</code></pre>
+
+<h2>5. <code>data.table</code> Package</h2>
+
+<h3>5.1 Basic frame of <code>data.table</code></h3>
+
+<pre><code>dt[i,j,mult={&#39;first&#39;,&#39;last&#39;,&#39;all&#39;},nomatch={0,NA},roll={FALSE,TRUE},by=&#39;colname&#39;]
+</code></pre>
+
+<ul>
+<li><strong><code>i,j</code></strong> : i에는 행을 선택하는 문법, j에는 열을 선택하는 문법이 들어감</li>
+<li><strong><code>mult</code></strong> : &#39;JOIN&#39;연산 시, 키매칭의 처음, 마지막, 모두를 리턴하는 옵션</li>
+<li><strong><code>nomatch</code></strong> : &#39;OUTER JOIN&#39;을 사용할 때 주로 정해주는 옵션으로 매칭되지 않을 경우 리턴될 값을 명시</li>
+<li><strong><code>roll</code></strong> : 시계열 데이터에 대한 &#39;rolling join&#39;을 하게될 때 주로 사용함</li>
+</ul>
+
+<hr/>
+
+<h3>5.2 <code>data.table</code> vs. <code>data.frame</code></h3>
+
+<ul>
+<li><strong><code>data.table</code>을 사용한 경우</strong></li>
+</ul>
+
+<pre><code class="r">library(data.table)
+market_price.dt &lt;- data.table(market_price)
+market_price.dt[2, list(M_NAME)]
+</code></pre>
+
+<pre><code>##          M_NAME
+## 1: 서울중앙시장
+</code></pre>
+
+<hr/>
+
+<ul>
+<li><strong><code>data.frame</code>을 사용한 경우</strong></li>
+</ul>
+
+<pre><code class="r">market_price[2, &quot;M_NAME&quot;, drop = F]
+</code></pre>
+
+<pre><code>##         M_NAME
+## 2 서울중앙시장
+</code></pre>
+
+<hr/>
+
+<pre><code class="r">class(market_price.dt[2, list(M_NAME)])
+</code></pre>
+
+<pre><code>## [1] &quot;data.table&quot; &quot;data.frame&quot;
+</code></pre>
+
+<pre><code class="r">class(market_price[2, &quot;M_NAME&quot;, drop = F])
+</code></pre>
+
+<pre><code>## [1] &quot;data.frame&quot;
+</code></pre>
+
+<pre><code class="r">class(market_price[2, &quot;M_NAME&quot;, drop = T])
+</code></pre>
+
+<pre><code>## [1] &quot;factor&quot;
+</code></pre>
+
+<ul>
+<li><p><code>data.frame</code>은 한 열을 리턴할 때 벡터로 리턴하고, 두 개 이상의 열을 리턴할 때 data.frame으로 리턴하는 특이한 방식을 사용하기 때문에 <code>drop=F</code>를 사용해주어야 한다.</p></li>
+<li><p><code>data.table</code>은 리스트로 열 이름을 받게하고 모든 경우에 <code>data.table</code>로 리턴한다.</p></li>
+</ul>
+
+<hr/>
+
+<pre><code class="r">market_price.dt[, list(avg = mean(A_PRICE)), by = list(M_TYPE_NAME, A_NAME)]
+</code></pre>
+
+<pre><code>##      M_TYPE_NAME              A_NAME  avg
+##   1:    전통시장    사과(부사, 300g) 2524
+##   2:    전통시장      배(신고, 600g) 3099
+##   3:    전통시장       배추(2.5~3kg) 2724
+##   4:    전통시장             무(1kg) 1415
+##   5:    전통시장       양파(1.5kg망) 2209
+##  ---                                     
+## 126:    전통시장              오징어 1660
+## 127:    대형마트 고등어(냉동,수입산) 1500
+## 128:    대형마트              고등어 1000
+## 129:    전통시장 고등어(생물,수입산) 1500
+## 130:    대형마트 오징어(생물,수입산) 1680
+</code></pre>
+
+<ul>
+<li><code>list</code>로 묶인 변수들에 의해 <strong>GROUP BY</strong>된 각각의 <code>data.table</code>에 <code>avg</code>열을 입력해 <code>A_PRICE</code>의 평균값을 넣음</li>
+</ul>
+
+<h3>5.3 <code>sqldf</code></h3>
+
+<pre><code class="r">library(sqldf)
+sqldf(&quot;select M_TYPE_NAME, A_NAME, avg(A_PRICE) as avg from market_price group by M_TYPE_NAME,A_NAME limit 10&quot;)
+</code></pre>
+
+<pre><code>##    M_TYPE_NAME                A_NAME    avg
+## 1     대형마트                고등어 1000.0
+## 2     대형마트     고등어(30cm,국산) 5335.0
+## 3     대형마트     고등어(냉동,국산) 2825.0
+## 4     대형마트   고등어(냉동,수입산) 1500.0
+## 5     대형마트     고등어(생물,국산) 4550.5
+## 6     대형마트 냉동참조기(20cm,국산)  824.7
+## 7     대형마트                  달걀 2472.5
+## 8     대형마트            달걀(왕란) 2614.3
+## 9     대형마트            달걀(특란) 2130.0
+## 10    대형마트                닭고기 6573.5
+</code></pre>
+
+<ul>
+<li><strong>sqldf</strong> 는 data.frame을 흡사 데이터베이스의 테이블 처럼 여기며, SQL문으로 조작할 수 있는 인터페이스를 제공함</li>
+</ul>
+
+<h3>5.4 <code>ddply</code> vs. <code>data.table</code> vs. <code>sqldf</code></h3>
+
+<ul>
+<li><strong><code>ddply</code></strong></li>
+</ul>
+
+<pre><code class="r">system.time(ddply(market_price, .(M_TYPE_NAME, A_NAME), summarise, avg = mean(A_PRICE)))
+</code></pre>
+
+<pre><code>##    user  system elapsed 
+##    0.08    0.00    0.08
+</code></pre>
+
+<ul>
+<li><strong><code>data.table</code></strong></li>
+</ul>
+
+<pre><code class="r">system.time(market_price.dt[, list(avg = mean(A_PRICE)), by = list(M_TYPE_NAME, 
+    A_NAME)])
+</code></pre>
+
+<pre><code>##    user  system elapsed 
+##    0.02    0.00    0.02
+</code></pre>
+
+<ul>
+<li><strong><code>sqldf</code></strong></li>
+</ul>
+
+<pre><code class="r">system.time(sqldf(&quot;select M_TYPE_NAME,A_NAME, avg(A_PRICE) as avg from market_price group by M_TYPE_NAME, A_NAME&quot;))
+</code></pre>
+
+<pre><code>##    user  system elapsed 
+##    0.03    0.00    0.05
+</code></pre>
+
+<ul>
+<li><code>data.table</code> &gt;&gt; <code>sqldf</code> &gt;&gt; <code>plyr</code> 순으로 속도가 빠른것을 알 수 있음</li>
+</ul>
+
+<h2>6. Reson of Munging</h2>
+
+<pre><code>library(ggplot2)
+res &lt;- ddply(market_price, .(M_TYPE_NAME, A_NAME), summarise, avg = mean(A_PRICE))
+ggplot(res, aes(A_NAME, M_TYPE_NAME)) + geom_tile(aes(fill = avg)) 
++theme(axis.text.x = element_text(angle = 75, hjust = 1)) 
++scale_fill_gradient(low = &quot;green&quot;, high = &quot;red&quot;)
+</code></pre>
+
+<ul>
+<li>원데이터로는 표현하기 힘든 분류된 시각화를 수행할 수 있음</li>
+</ul>
+
+<blockquote>
+<p>본 자료는 &#39;R로 하는 데이터 시각화 (전희원 지음)을 참고 및 인용하여 작성한 것임</p>
+
+<p>관련 참고사이트 <a href="https://github.com/haven-jeon/R_based_visualization">https://github.com/haven-jeon/R_based_visualization</a></p>
+</blockquote>
+
+</body>
+
+</html>
+

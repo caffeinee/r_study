@@ -1,0 +1,1820 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>R 패키지 ggplot2의 이해</title>
+
+<!-- Styles for R syntax highlighter -->
+<style type="text/css">
+   pre .operator,
+   pre .paren {
+     color: rgb(104, 118, 135)
+   }
+
+   pre .literal {
+     color: #990073
+   }
+
+   pre .number {
+     color: #099;
+   }
+
+   pre .comment {
+     color: #998;
+     font-style: italic
+   }
+
+   pre .keyword {
+     color: #900;
+     font-weight: bold
+   }
+
+   pre .identifier {
+     color: rgb(0, 0, 0);
+   }
+
+   pre .string {
+     color: #d14;
+   }
+</style>
+
+<!-- R syntax highlighter -->
+<script type="text/javascript">
+var hljs=new function(){function m(p){return p.replace(/&/gm,"&amp;").replace(/</gm,"&lt;")}function f(r,q,p){return RegExp(q,"m"+(r.cI?"i":"")+(p?"g":""))}function b(r){for(var p=0;p<r.childNodes.length;p++){var q=r.childNodes[p];if(q.nodeName=="CODE"){return q}if(!(q.nodeType==3&&q.nodeValue.match(/\s+/))){break}}}function h(t,s){var p="";for(var r=0;r<t.childNodes.length;r++){if(t.childNodes[r].nodeType==3){var q=t.childNodes[r].nodeValue;if(s){q=q.replace(/\n/g,"")}p+=q}else{if(t.childNodes[r].nodeName=="BR"){p+="\n"}else{p+=h(t.childNodes[r])}}}if(/MSIE [678]/.test(navigator.userAgent)){p=p.replace(/\r/g,"\n")}return p}function a(s){var r=s.className.split(/\s+/);r=r.concat(s.parentNode.className.split(/\s+/));for(var q=0;q<r.length;q++){var p=r[q].replace(/^language-/,"");if(e[p]){return p}}}function c(q){var p=[];(function(s,t){for(var r=0;r<s.childNodes.length;r++){if(s.childNodes[r].nodeType==3){t+=s.childNodes[r].nodeValue.length}else{if(s.childNodes[r].nodeName=="BR"){t+=1}else{if(s.childNodes[r].nodeType==1){p.push({event:"start",offset:t,node:s.childNodes[r]});t=arguments.callee(s.childNodes[r],t);p.push({event:"stop",offset:t,node:s.childNodes[r]})}}}}return t})(q,0);return p}function k(y,w,x){var q=0;var z="";var s=[];function u(){if(y.length&&w.length){if(y[0].offset!=w[0].offset){return(y[0].offset<w[0].offset)?y:w}else{return w[0].event=="start"?y:w}}else{return y.length?y:w}}function t(D){var A="<"+D.nodeName.toLowerCase();for(var B=0;B<D.attributes.length;B++){var C=D.attributes[B];A+=" "+C.nodeName.toLowerCase();if(C.value!==undefined&&C.value!==false&&C.value!==null){A+='="'+m(C.value)+'"'}}return A+">"}while(y.length||w.length){var v=u().splice(0,1)[0];z+=m(x.substr(q,v.offset-q));q=v.offset;if(v.event=="start"){z+=t(v.node);s.push(v.node)}else{if(v.event=="stop"){var p,r=s.length;do{r--;p=s[r];z+=("</"+p.nodeName.toLowerCase()+">")}while(p!=v.node);s.splice(r,1);while(r<s.length){z+=t(s[r]);r++}}}}return z+m(x.substr(q))}function j(){function q(x,y,v){if(x.compiled){return}var u;var s=[];if(x.k){x.lR=f(y,x.l||hljs.IR,true);for(var w in x.k){if(!x.k.hasOwnProperty(w)){continue}if(x.k[w] instanceof Object){u=x.k[w]}else{u=x.k;w="keyword"}for(var r in u){if(!u.hasOwnProperty(r)){continue}x.k[r]=[w,u[r]];s.push(r)}}}if(!v){if(x.bWK){x.b="\\b("+s.join("|")+")\\s"}x.bR=f(y,x.b?x.b:"\\B|\\b");if(!x.e&&!x.eW){x.e="\\B|\\b"}if(x.e){x.eR=f(y,x.e)}}if(x.i){x.iR=f(y,x.i)}if(x.r===undefined){x.r=1}if(!x.c){x.c=[]}x.compiled=true;for(var t=0;t<x.c.length;t++){if(x.c[t]=="self"){x.c[t]=x}q(x.c[t],y,false)}if(x.starts){q(x.starts,y,false)}}for(var p in e){if(!e.hasOwnProperty(p)){continue}q(e[p].dM,e[p],true)}}function d(B,C){if(!j.called){j();j.called=true}function q(r,M){for(var L=0;L<M.c.length;L++){if((M.c[L].bR.exec(r)||[null])[0]==r){return M.c[L]}}}function v(L,r){if(D[L].e&&D[L].eR.test(r)){return 1}if(D[L].eW){var M=v(L-1,r);return M?M+1:0}return 0}function w(r,L){return L.i&&L.iR.test(r)}function K(N,O){var M=[];for(var L=0;L<N.c.length;L++){M.push(N.c[L].b)}var r=D.length-1;do{if(D[r].e){M.push(D[r].e)}r--}while(D[r+1].eW);if(N.i){M.push(N.i)}return f(O,M.join("|"),true)}function p(M,L){var N=D[D.length-1];if(!N.t){N.t=K(N,E)}N.t.lastIndex=L;var r=N.t.exec(M);return r?[M.substr(L,r.index-L),r[0],false]:[M.substr(L),"",true]}function z(N,r){var L=E.cI?r[0].toLowerCase():r[0];var M=N.k[L];if(M&&M instanceof Array){return M}return false}function F(L,P){L=m(L);if(!P.k){return L}var r="";var O=0;P.lR.lastIndex=0;var M=P.lR.exec(L);while(M){r+=L.substr(O,M.index-O);var N=z(P,M);if(N){x+=N[1];r+='<span class="'+N[0]+'">'+M[0]+"</span>"}else{r+=M[0]}O=P.lR.lastIndex;M=P.lR.exec(L)}return r+L.substr(O,L.length-O)}function J(L,M){if(M.sL&&e[M.sL]){var r=d(M.sL,L);x+=r.keyword_count;return r.value}else{return F(L,M)}}function I(M,r){var L=M.cN?'<span class="'+M.cN+'">':"";if(M.rB){y+=L;M.buffer=""}else{if(M.eB){y+=m(r)+L;M.buffer=""}else{y+=L;M.buffer=r}}D.push(M);A+=M.r}function G(N,M,Q){var R=D[D.length-1];if(Q){y+=J(R.buffer+N,R);return false}var P=q(M,R);if(P){y+=J(R.buffer+N,R);I(P,M);return P.rB}var L=v(D.length-1,M);if(L){var O=R.cN?"</span>":"";if(R.rE){y+=J(R.buffer+N,R)+O}else{if(R.eE){y+=J(R.buffer+N,R)+O+m(M)}else{y+=J(R.buffer+N+M,R)+O}}while(L>1){O=D[D.length-2].cN?"</span>":"";y+=O;L--;D.length--}var r=D[D.length-1];D.length--;D[D.length-1].buffer="";if(r.starts){I(r.starts,"")}return R.rE}if(w(M,R)){throw"Illegal"}}var E=e[B];var D=[E.dM];var A=0;var x=0;var y="";try{var s,u=0;E.dM.buffer="";do{s=p(C,u);var t=G(s[0],s[1],s[2]);u+=s[0].length;if(!t){u+=s[1].length}}while(!s[2]);if(D.length>1){throw"Illegal"}return{r:A,keyword_count:x,value:y}}catch(H){if(H=="Illegal"){return{r:0,keyword_count:0,value:m(C)}}else{throw H}}}function g(t){var p={keyword_count:0,r:0,value:m(t)};var r=p;for(var q in e){if(!e.hasOwnProperty(q)){continue}var s=d(q,t);s.language=q;if(s.keyword_count+s.r>r.keyword_count+r.r){r=s}if(s.keyword_count+s.r>p.keyword_count+p.r){r=p;p=s}}if(r.language){p.second_best=r}return p}function i(r,q,p){if(q){r=r.replace(/^((<[^>]+>|\t)+)/gm,function(t,w,v,u){return w.replace(/\t/g,q)})}if(p){r=r.replace(/\n/g,"<br>")}return r}function n(t,w,r){var x=h(t,r);var v=a(t);var y,s;if(v){y=d(v,x)}else{return}var q=c(t);if(q.length){s=document.createElement("pre");s.innerHTML=y.value;y.value=k(q,c(s),x)}y.value=i(y.value,w,r);var u=t.className;if(!u.match("(\\s|^)(language-)?"+v+"(\\s|$)")){u=u?(u+" "+v):v}if(/MSIE [678]/.test(navigator.userAgent)&&t.tagName=="CODE"&&t.parentNode.tagName=="PRE"){s=t.parentNode;var p=document.createElement("div");p.innerHTML="<pre><code>"+y.value+"</code></pre>";t=p.firstChild.firstChild;p.firstChild.cN=s.cN;s.parentNode.replaceChild(p.firstChild,s)}else{t.innerHTML=y.value}t.className=u;t.result={language:v,kw:y.keyword_count,re:y.r};if(y.second_best){t.second_best={language:y.second_best.language,kw:y.second_best.keyword_count,re:y.second_best.r}}}function o(){if(o.called){return}o.called=true;var r=document.getElementsByTagName("pre");for(var p=0;p<r.length;p++){var q=b(r[p]);if(q){n(q,hljs.tabReplace)}}}function l(){if(window.addEventListener){window.addEventListener("DOMContentLoaded",o,false);window.addEventListener("load",o,false)}else{if(window.attachEvent){window.attachEvent("onload",o)}else{window.onload=o}}}var e={};this.LANGUAGES=e;this.highlight=d;this.highlightAuto=g;this.fixMarkup=i;this.highlightBlock=n;this.initHighlighting=o;this.initHighlightingOnLoad=l;this.IR="[a-zA-Z][a-zA-Z0-9_]*";this.UIR="[a-zA-Z_][a-zA-Z0-9_]*";this.NR="\\b\\d+(\\.\\d+)?";this.CNR="\\b(0[xX][a-fA-F0-9]+|(\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)";this.BNR="\\b(0b[01]+)";this.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|\\.|-|-=|/|/=|:|;|<|<<|<<=|<=|=|==|===|>|>=|>>|>>=|>>>|>>>=|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~";this.ER="(?![\\s\\S])";this.BE={b:"\\\\.",r:0};this.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[this.BE],r:0};this.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[this.BE],r:0};this.CLCM={cN:"comment",b:"//",e:"$"};this.CBLCLM={cN:"comment",b:"/\\*",e:"\\*/"};this.HCM={cN:"comment",b:"#",e:"$"};this.NM={cN:"number",b:this.NR,r:0};this.CNM={cN:"number",b:this.CNR,r:0};this.BNM={cN:"number",b:this.BNR,r:0};this.inherit=function(r,s){var p={};for(var q in r){p[q]=r[q]}if(s){for(var q in s){p[q]=s[q]}}return p}}();hljs.LANGUAGES.cpp=function(){var a={keyword:{"false":1,"int":1,"float":1,"while":1,"private":1,"char":1,"catch":1,"export":1,virtual:1,operator:2,sizeof:2,dynamic_cast:2,typedef:2,const_cast:2,"const":1,struct:1,"for":1,static_cast:2,union:1,namespace:1,unsigned:1,"long":1,"throw":1,"volatile":2,"static":1,"protected":1,bool:1,template:1,mutable:1,"if":1,"public":1,friend:2,"do":1,"return":1,"goto":1,auto:1,"void":2,"enum":1,"else":1,"break":1,"new":1,extern:1,using:1,"true":1,"class":1,asm:1,"case":1,typeid:1,"short":1,reinterpret_cast:2,"default":1,"double":1,register:1,explicit:1,signed:1,typename:1,"try":1,"this":1,"switch":1,"continue":1,wchar_t:1,inline:1,"delete":1,alignof:1,char16_t:1,char32_t:1,constexpr:1,decltype:1,noexcept:1,nullptr:1,static_assert:1,thread_local:1,restrict:1,_Bool:1,complex:1},built_in:{std:1,string:1,cin:1,cout:1,cerr:1,clog:1,stringstream:1,istringstream:1,ostringstream:1,auto_ptr:1,deque:1,list:1,queue:1,stack:1,vector:1,map:1,set:1,bitset:1,multiset:1,multimap:1,unordered_set:1,unordered_map:1,unordered_multiset:1,unordered_multimap:1,array:1,shared_ptr:1}};return{dM:{k:a,i:"</",c:[hljs.CLCM,hljs.CBLCLM,hljs.QSM,{cN:"string",b:"'\\\\?.",e:"'",i:"."},{cN:"number",b:"\\b(\\d+(\\.\\d*)?|\\.\\d+)(u|U|l|L|ul|UL|f|F)"},hljs.CNM,{cN:"preprocessor",b:"#",e:"$"},{cN:"stl_container",b:"\\b(deque|list|queue|stack|vector|map|set|bitset|multiset|multimap|unordered_map|unordered_set|unordered_multiset|unordered_multimap|array)\\s*<",e:">",k:a,r:10,c:["self"]}]}}}();hljs.LANGUAGES.r={dM:{c:[hljs.HCM,{cN:"number",b:"\\b0[xX][0-9a-fA-F]+[Li]?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+(?:[eE][+\\-]?\\d*)?L\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+\\.(?!\\d)(?:i\\b)?",e:hljs.IMMEDIATE_RE,r:1},{cN:"number",b:"\\b\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\.\\d+(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"keyword",b:"(?:tryCatch|library|setGeneric|setGroupGeneric)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\.",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\d+(?![\\w.])",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\b(?:function)",e:hljs.IMMEDIATE_RE,r:2},{cN:"keyword",b:"(?:if|in|break|next|repeat|else|for|return|switch|while|try|stop|warning|require|attach|detach|source|setMethod|setClass)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"literal",b:"(?:NA|NA_integer_|NA_real_|NA_character_|NA_complex_)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"literal",b:"(?:NULL|TRUE|FALSE|T|F|Inf|NaN)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"identifier",b:"[a-zA-Z.][a-zA-Z0-9._]*\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"<\\-(?!\\s*\\d)",e:hljs.IMMEDIATE_RE,r:2},{cN:"operator",b:"\\->|<\\-",e:hljs.IMMEDIATE_RE,r:1},{cN:"operator",b:"%%|~",e:hljs.IMMEDIATE_RE},{cN:"operator",b:">=|<=|==|!=|\\|\\||&&|=|\\+|\\-|\\*|/|\\^|>|<|!|&|\\||\\$|:",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"%",e:"%",i:"\\n",r:1},{cN:"identifier",b:"`",e:"`",r:0},{cN:"string",b:'"',e:'"',c:[hljs.BE],r:0},{cN:"string",b:"'",e:"'",c:[hljs.BE],r:0},{cN:"paren",b:"[[({\\])}]",e:hljs.IMMEDIATE_RE,r:0}]}};
+hljs.initHighlightingOnLoad();
+</script>
+
+<!-- MathJax scripts -->
+<script type="text/javascript" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 13px;
+}
+
+body {
+  max-width: 800px;
+  margin: auto;
+  padding: 1em;
+  line-height: 20px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 {
+   font-size:2.2em;
+}
+
+h2 {
+   font-size:1.8em;
+}
+
+h3 {
+   font-size:1.4em;
+}
+
+h4 {
+   font-size:1.0em;
+}
+
+h5 {
+   font-size:0.9em;
+}
+
+h6 {
+   font-size:0.8em;
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre, img {
+  max-width: 100%;
+}
+
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code {
+  font-size: 92%;
+  border: 1px solid #ccc;
+}
+
+code[class] {
+  background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * {
+      background: transparent !important;
+      color: black !important;
+      filter:none !important;
+      -ms-filter: none !important;
+   }
+
+   body {
+      font-size:12pt;
+      max-width:100%;
+   }
+
+   a, a:visited {
+      text-decoration: underline;
+   }
+
+   hr {
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote {
+      padding-right: 1em;
+      page-break-inside: avoid;
+   }
+
+   tr, img {
+      page-break-inside: avoid;
+   }
+
+   img {
+      max-width: 100% !important;
+   }
+
+   @page :left {
+      margin: 15mm 20mm 15mm 10mm;
+   }
+
+   @page :right {
+      margin: 15mm 10mm 15mm 20mm;
+   }
+
+   p, h2, h3 {
+      orphans: 3; widows: 3;
+   }
+
+   h2, h3 {
+      page-break-after: avoid;
+   }
+}
+</style>
+
+
+
+</head>
+
+<body>
+<h1>R 패키지 ggplot2의 이해</h1>
+
+<p>Version 2014-01-18</p>
+
+<h2>1. 목적</h2>
+
+<ul>
+<li><p>ggplot2는 데이터 시각화를 위한 그래픽 라이브러리로는 현재까지 가장 많이 사용되고 있음</p></li>
+<li><p>명령어 형식의 ggplot2의 특징은 </p>
+
+<ul>
+<li>ggplot2(Grammer of Graphic)의 약자와 같이 grammer 기반의 명령어를 제공하여 </li>
+<li>문장 형성을 통해  사용자는 데이터 시각화를 가능하게 함</li>
+<li>지속적인 update와 </li>
+<li>커뮤니티를 통한 우스한 사례 공유가 가능함</li>
+</ul></li>
+<li><p>ggplot2의 활용 예를 통해 데이터 시각화의 컴포넌트와 실제 데이터와의 연결을 이해함</p></li>
+</ul>
+
+<h2>2. 원리 및 용어</h2>
+
+<ul>
+<li><p><strong>ggplot</strong> : 메인 함수로 데이터 셋과 표현할 데이터 변수명을 정의함</p></li>
+<li><p><strong>geoms</strong> : 실제 어떤 데이터 시각화를 할지 정의하는 기하학적 객체</p>
+
+<ul>
+<li>geom_point(), geom_bar(), geom_density(), geom_line(), geom_area() </li>
+</ul></li>
+<li><p><strong>aes</strong> : aesthetics (미학적)</p>
+
+<ul>
+<li>형태, 투명도, 색상, 채우기, 라인의 형태 등을 정의</li>
+</ul></li>
+<li><p><strong>scales</strong> : 데이터가 어떻게 표현될지를 정의</p>
+
+<ul>
+<li>연속형, 이산형, log 등</li>
+</ul></li>
+</ul>
+
+<h2>3. ggplot2의 활용 이해</h2>
+
+<h3>3.1 iris 데이터</h3>
+
+<ul>
+<li>iris 데이터는 3가지 종(species)에 대하여 4가치 측정치(변수)에 대하여 각각 50회 반복 측정한 데이터임</li>
+<li>즉, 3개의 종 (Setosa, Versicolor, Virginica)에 대하여 Sepal length, Sepal width, Petal length, Petal width에 대하여 가각 50회씩 측정한 데이터임</li>
+</ul>
+
+<pre><code class="r">str(iris)
+</code></pre>
+
+<pre><code>## &#39;data.frame&#39;:    150 obs. of  5 variables:
+##  $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
+##  $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
+##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
+##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
+##  $ Species     : Factor w/ 3 levels &quot;setosa&quot;,&quot;versicolor&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
+</code></pre>
+
+<pre><code class="r">iris
+</code></pre>
+
+<pre><code>##     Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
+## 1            5.1         3.5          1.4         0.2     setosa
+## 2            4.9         3.0          1.4         0.2     setosa
+## 3            4.7         3.2          1.3         0.2     setosa
+## 4            4.6         3.1          1.5         0.2     setosa
+## 5            5.0         3.6          1.4         0.2     setosa
+## 6            5.4         3.9          1.7         0.4     setosa
+## 7            4.6         3.4          1.4         0.3     setosa
+## 8            5.0         3.4          1.5         0.2     setosa
+## 9            4.4         2.9          1.4         0.2     setosa
+## 10           4.9         3.1          1.5         0.1     setosa
+## 11           5.4         3.7          1.5         0.2     setosa
+## 12           4.8         3.4          1.6         0.2     setosa
+## 13           4.8         3.0          1.4         0.1     setosa
+## 14           4.3         3.0          1.1         0.1     setosa
+## 15           5.8         4.0          1.2         0.2     setosa
+## 16           5.7         4.4          1.5         0.4     setosa
+## 17           5.4         3.9          1.3         0.4     setosa
+## 18           5.1         3.5          1.4         0.3     setosa
+## 19           5.7         3.8          1.7         0.3     setosa
+## 20           5.1         3.8          1.5         0.3     setosa
+## 21           5.4         3.4          1.7         0.2     setosa
+## 22           5.1         3.7          1.5         0.4     setosa
+## 23           4.6         3.6          1.0         0.2     setosa
+## 24           5.1         3.3          1.7         0.5     setosa
+## 25           4.8         3.4          1.9         0.2     setosa
+## 26           5.0         3.0          1.6         0.2     setosa
+## 27           5.0         3.4          1.6         0.4     setosa
+## 28           5.2         3.5          1.5         0.2     setosa
+## 29           5.2         3.4          1.4         0.2     setosa
+## 30           4.7         3.2          1.6         0.2     setosa
+## 31           4.8         3.1          1.6         0.2     setosa
+## 32           5.4         3.4          1.5         0.4     setosa
+## 33           5.2         4.1          1.5         0.1     setosa
+## 34           5.5         4.2          1.4         0.2     setosa
+## 35           4.9         3.1          1.5         0.2     setosa
+## 36           5.0         3.2          1.2         0.2     setosa
+## 37           5.5         3.5          1.3         0.2     setosa
+## 38           4.9         3.6          1.4         0.1     setosa
+## 39           4.4         3.0          1.3         0.2     setosa
+## 40           5.1         3.4          1.5         0.2     setosa
+## 41           5.0         3.5          1.3         0.3     setosa
+## 42           4.5         2.3          1.3         0.3     setosa
+## 43           4.4         3.2          1.3         0.2     setosa
+## 44           5.0         3.5          1.6         0.6     setosa
+## 45           5.1         3.8          1.9         0.4     setosa
+## 46           4.8         3.0          1.4         0.3     setosa
+## 47           5.1         3.8          1.6         0.2     setosa
+## 48           4.6         3.2          1.4         0.2     setosa
+## 49           5.3         3.7          1.5         0.2     setosa
+## 50           5.0         3.3          1.4         0.2     setosa
+## 51           7.0         3.2          4.7         1.4 versicolor
+## 52           6.4         3.2          4.5         1.5 versicolor
+## 53           6.9         3.1          4.9         1.5 versicolor
+## 54           5.5         2.3          4.0         1.3 versicolor
+## 55           6.5         2.8          4.6         1.5 versicolor
+## 56           5.7         2.8          4.5         1.3 versicolor
+## 57           6.3         3.3          4.7         1.6 versicolor
+## 58           4.9         2.4          3.3         1.0 versicolor
+## 59           6.6         2.9          4.6         1.3 versicolor
+## 60           5.2         2.7          3.9         1.4 versicolor
+## 61           5.0         2.0          3.5         1.0 versicolor
+## 62           5.9         3.0          4.2         1.5 versicolor
+## 63           6.0         2.2          4.0         1.0 versicolor
+## 64           6.1         2.9          4.7         1.4 versicolor
+## 65           5.6         2.9          3.6         1.3 versicolor
+## 66           6.7         3.1          4.4         1.4 versicolor
+## 67           5.6         3.0          4.5         1.5 versicolor
+## 68           5.8         2.7          4.1         1.0 versicolor
+## 69           6.2         2.2          4.5         1.5 versicolor
+## 70           5.6         2.5          3.9         1.1 versicolor
+## 71           5.9         3.2          4.8         1.8 versicolor
+## 72           6.1         2.8          4.0         1.3 versicolor
+## 73           6.3         2.5          4.9         1.5 versicolor
+## 74           6.1         2.8          4.7         1.2 versicolor
+## 75           6.4         2.9          4.3         1.3 versicolor
+## 76           6.6         3.0          4.4         1.4 versicolor
+## 77           6.8         2.8          4.8         1.4 versicolor
+## 78           6.7         3.0          5.0         1.7 versicolor
+## 79           6.0         2.9          4.5         1.5 versicolor
+## 80           5.7         2.6          3.5         1.0 versicolor
+## 81           5.5         2.4          3.8         1.1 versicolor
+## 82           5.5         2.4          3.7         1.0 versicolor
+## 83           5.8         2.7          3.9         1.2 versicolor
+## 84           6.0         2.7          5.1         1.6 versicolor
+## 85           5.4         3.0          4.5         1.5 versicolor
+## 86           6.0         3.4          4.5         1.6 versicolor
+## 87           6.7         3.1          4.7         1.5 versicolor
+## 88           6.3         2.3          4.4         1.3 versicolor
+## 89           5.6         3.0          4.1         1.3 versicolor
+## 90           5.5         2.5          4.0         1.3 versicolor
+## 91           5.5         2.6          4.4         1.2 versicolor
+## 92           6.1         3.0          4.6         1.4 versicolor
+## 93           5.8         2.6          4.0         1.2 versicolor
+## 94           5.0         2.3          3.3         1.0 versicolor
+## 95           5.6         2.7          4.2         1.3 versicolor
+## 96           5.7         3.0          4.2         1.2 versicolor
+## 97           5.7         2.9          4.2         1.3 versicolor
+## 98           6.2         2.9          4.3         1.3 versicolor
+## 99           5.1         2.5          3.0         1.1 versicolor
+## 100          5.7         2.8          4.1         1.3 versicolor
+## 101          6.3         3.3          6.0         2.5  virginica
+## 102          5.8         2.7          5.1         1.9  virginica
+## 103          7.1         3.0          5.9         2.1  virginica
+## 104          6.3         2.9          5.6         1.8  virginica
+## 105          6.5         3.0          5.8         2.2  virginica
+## 106          7.6         3.0          6.6         2.1  virginica
+## 107          4.9         2.5          4.5         1.7  virginica
+## 108          7.3         2.9          6.3         1.8  virginica
+## 109          6.7         2.5          5.8         1.8  virginica
+## 110          7.2         3.6          6.1         2.5  virginica
+## 111          6.5         3.2          5.1         2.0  virginica
+## 112          6.4         2.7          5.3         1.9  virginica
+## 113          6.8         3.0          5.5         2.1  virginica
+## 114          5.7         2.5          5.0         2.0  virginica
+## 115          5.8         2.8          5.1         2.4  virginica
+## 116          6.4         3.2          5.3         2.3  virginica
+## 117          6.5         3.0          5.5         1.8  virginica
+## 118          7.7         3.8          6.7         2.2  virginica
+## 119          7.7         2.6          6.9         2.3  virginica
+## 120          6.0         2.2          5.0         1.5  virginica
+## 121          6.9         3.2          5.7         2.3  virginica
+## 122          5.6         2.8          4.9         2.0  virginica
+## 123          7.7         2.8          6.7         2.0  virginica
+## 124          6.3         2.7          4.9         1.8  virginica
+## 125          6.7         3.3          5.7         2.1  virginica
+## 126          7.2         3.2          6.0         1.8  virginica
+## 127          6.2         2.8          4.8         1.8  virginica
+## 128          6.1         3.0          4.9         1.8  virginica
+## 129          6.4         2.8          5.6         2.1  virginica
+## 130          7.2         3.0          5.8         1.6  virginica
+## 131          7.4         2.8          6.1         1.9  virginica
+## 132          7.9         3.8          6.4         2.0  virginica
+## 133          6.4         2.8          5.6         2.2  virginica
+## 134          6.3         2.8          5.1         1.5  virginica
+## 135          6.1         2.6          5.6         1.4  virginica
+## 136          7.7         3.0          6.1         2.3  virginica
+## 137          6.3         3.4          5.6         2.4  virginica
+## 138          6.4         3.1          5.5         1.8  virginica
+## 139          6.0         3.0          4.8         1.8  virginica
+## 140          6.9         3.1          5.4         2.1  virginica
+## 141          6.7         3.1          5.6         2.4  virginica
+## 142          6.9         3.1          5.1         2.3  virginica
+## 143          5.8         2.7          5.1         1.9  virginica
+## 144          6.8         3.2          5.9         2.3  virginica
+## 145          6.7         3.3          5.7         2.5  virginica
+## 146          6.7         3.0          5.2         2.3  virginica
+## 147          6.3         2.5          5.0         1.9  virginica
+## 148          6.5         3.0          5.2         2.0  virginica
+## 149          6.2         3.4          5.4         2.3  virginica
+## 150          5.9         3.0          5.1         1.8  virginica
+</code></pre>
+
+<h3>3.2 Example을 통한 기초 이해</h3>
+
+<pre><code class="r">library(ggplot2)
+ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width)) + geom_point()
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-2.png" alt="plot of chunk unnamed-chunk-2"/> </p>
+
+<h3>3.3 기초 구조의 이해</h3>
+
+<pre><code>myplot &lt;- ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width))
+myplot + geom_point()
+</code></pre>
+
+<ul>
+<li>함수 <code>ggplot</code> 안에서 데이터와 변수를 정의함</li>
+<li>일종의 백지 위에 그림을 그릴 대상을 정의한 즉, 데이터 시각화를 위한 셋팅 부분임</li>
+<li>그 이후 어떤 시각화를 할지의 구체적인 데이터 시각화 컴포넌트 대상, 통계모형, 판넬(panels) 등을 백지 상에 레이어 형태로 그림을 그리는 것임 </li>
+</ul>
+
+<h3>3.4 Further examples</h3>
+
+<h4>3.4.1 Increase the size of points</h4>
+
+<pre><code class="r">ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width)) + geom_point(size = 3)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-3.png" alt="plot of chunk unnamed-chunk-3"/> </p>
+
+<h4>3.4.2 Add some color</h4>
+
+<pre><code class="r">ggplot(iris, aes(Sepal.Length, Sepal.Width, color = Species)) + geom_point(size = 3)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-4.png" alt="plot of chunk unnamed-chunk-4"/> </p>
+
+<h4>3.4.3 Differentiate points by shape</h4>
+
+<pre><code class="r">ggplot(iris, aes(Sepal.Length, Sepal.Width, color = Species)) + geom_point(aes(shape = Species), size = 3)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-5.png" alt="plot of chunk unnamed-chunk-5"/> </p>
+
+<h2>4. 데이터 시각화 컴포넌트들</h2>
+
+<h3>4.1 Box plots</h3>
+
+<pre><code class="r">library(MASS)
+str(birthwt)
+</code></pre>
+
+<pre><code>## &#39;data.frame&#39;:    189 obs. of  10 variables:
+##  $ low  : int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ age  : int  19 33 20 21 18 21 22 17 29 26 ...
+##  $ lwt  : int  182 155 105 108 107 124 118 103 123 113 ...
+##  $ race : int  2 3 1 1 1 3 1 3 1 1 ...
+##  $ smoke: int  0 0 1 1 1 0 0 0 1 1 ...
+##  $ ptl  : int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ ht   : int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ ui   : int  1 0 0 1 1 0 0 0 0 0 ...
+##  $ ftv  : int  0 3 1 2 0 0 1 1 1 0 ...
+##  $ bwt  : int  2523 2551 2557 2594 2600 2622 2637 2637 2663 2665 ...
+</code></pre>
+
+<pre><code class="r">head(birthwt)
+</code></pre>
+
+<pre><code>##    low age lwt race smoke ptl ht ui ftv  bwt
+## 85   0  19 182    2     0   0  0  1   0 2523
+## 86   0  33 155    3     0   0  0  0   3 2551
+## 87   0  20 105    1     1   0  0  0   1 2557
+## 88   0  21 108    1     1   0  0  1   2 2594
+## 89   0  18 107    1     1   0  0  1   0 2600
+## 91   0  21 124    3     0   0  0  0   0 2622
+</code></pre>
+
+<pre><code class="r">ggplot(birthwt, aes(factor(race), bwt)) + geom_boxplot()
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-6.png" alt="plot of chunk unnamed-chunk-6"/> </p>
+
+<h3>4.2 Histograms</h3>
+
+<pre><code class="r">str(faithful)
+</code></pre>
+
+<pre><code>## &#39;data.frame&#39;:    272 obs. of  2 variables:
+##  $ eruptions: num  3.6 1.8 3.33 2.28 4.53 ...
+##  $ waiting  : num  79 54 74 62 85 55 88 85 51 85 ...
+</code></pre>
+
+<pre><code class="r">head(faithful)
+</code></pre>
+
+<pre><code>##   eruptions waiting
+## 1     3.600      79
+## 2     1.800      54
+## 3     3.333      74
+## 4     2.283      62
+## 5     4.533      85
+## 6     2.883      55
+</code></pre>
+
+<pre><code class="r">h &lt;- ggplot(faithful, aes(x = waiting))
+h + geom_histogram(binwidth = 30, colour = &quot;black&quot;)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-7.png" alt="plot of chunk unnamed-chunk-7"/> </p>
+
+<pre><code class="r">h &lt;- ggplot(faithful, aes(x = waiting))
+h + geom_histogram(binwidth = 8, fill = &quot;steelblue&quot;, colour = &quot;black&quot;)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-8.png" alt="plot of chunk unnamed-chunk-8"/> </p>
+
+<pre><code class="r">h &lt;- ggplot(faithful, aes(x = waiting))
+h + geom_histogram(binwidth = 8, fill = &quot;steelblue&quot;, colour = &quot;yellow&quot;)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-9.png" alt="plot of chunk unnamed-chunk-9"/> </p>
+
+<h3>4.3 Line plots</h3>
+
+<pre><code class="r">climate &lt;- read.csv(&quot;climate.csv&quot;, header = T)
+</code></pre>
+
+<pre><code>## Warning: 파일 &#39;climate.csv&#39;를 여는데 실패했습니다: No such file or
+## directory
+</code></pre>
+
+<pre><code>## Error: 커넥션을 열 수 없습니다
+</code></pre>
+
+<pre><code class="r">str(climate)
+</code></pre>
+
+<pre><code>## Error: 객체 &#39;climate&#39;를 찾을 수 없습니다
+</code></pre>
+
+<pre><code class="r">head(climate)
+</code></pre>
+
+<pre><code>## Error: 객체 &#39;climate&#39;를 찾을 수 없습니다
+</code></pre>
+
+<pre><code class="r">ggplot(climate, aes(Year, Anomaly10y)) + geom_line()
+</code></pre>
+
+<pre><code>## Error: 객체 &#39;climate&#39;를 찾을 수 없습니다
+</code></pre>
+
+<pre><code class="r">dfn &lt;- read.table(header=T, text=&#39;
+supp dose length
+  OJ  0.5  13.23
+  OJ  1.0  22.70
+  OJ  2.0  26.06
+  VC  0.5   7.98
+  VC  1.0  16.77
+  VC  2.0  26.14
+&#39;)
+
+dfn
+</code></pre>
+
+<pre><code>##   supp dose length
+## 1   OJ  0.5  13.23
+## 2   OJ  1.0  22.70
+## 3   OJ  2.0  26.06
+## 4   VC  0.5   7.98
+## 5   VC  1.0  16.77
+## 6   VC  2.0  26.14
+</code></pre>
+
+<pre><code class="r">ggplot(data=dfn, aes(x=dose, y=length, group=supp, colour=supp)) + geom_line() + geom_point()
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-11.png" alt="plot of chunk unnamed-chunk-11"/> </p>
+
+<pre><code class="r">ggplot(climate, aes(Year, Anomaly10y)) + geom_ribbon(aes(ymin = Anomaly10y - Unc10y, ymax = Anomaly10y + Unc10y),
+   fill = &quot;blue&quot;, alpha = .1) +
+   geom_line(color = &quot;steelblue&quot;)
+</code></pre>
+
+<pre><code>## Error: 객체 &#39;climate&#39;를 찾을 수 없습니다
+</code></pre>
+
+<pre><code class="r">cplot &lt;- ggplot(climate, aes(Year, Anomaly10y))
+</code></pre>
+
+<pre><code>## Error: 객체 &#39;climate&#39;를 찾을 수 없습니다
+</code></pre>
+
+<pre><code class="r">cplot &lt;- cplot + geom_line(size = 0.7, color = &quot;black&quot;)
+</code></pre>
+
+<pre><code>## Error: 객체 &#39;cplot&#39;를 찾을 수 없습니다
+</code></pre>
+
+<pre><code class="r">cplot &lt;- cplot + geom_line(aes(Year, Anomaly10y + Unc10y), linetype = &quot;dashed&quot;, size = 0.7, color = &quot;red&quot;)
+</code></pre>
+
+<pre><code>## Error: 객체 &#39;cplot&#39;를 찾을 수 없습니다
+</code></pre>
+
+<pre><code class="r">cplot &lt;- cplot + geom_line(aes(Year, Anomaly10y - Unc10y), linetype = &quot;dashed&quot;, size = 0.7, color = &quot;red&quot;)
+</code></pre>
+
+<pre><code>## Error: 객체 &#39;cplot&#39;를 찾을 수 없습니다
+</code></pre>
+
+<pre><code class="r">cplot + theme_gray()
+</code></pre>
+
+<pre><code>## Error: 객체 &#39;cplot&#39;를 찾을 수 없습니다
+</code></pre>
+
+<h3>4.5 Bar plots</h3>
+
+<h4>4.5.1 plyr과 reshape</h4>
+
+<ul>
+<li>R에서 매우 유용한 두 가지 패키지는 다음과 같음
+
+<ul>
+<li><strong>plyr</strong>  - <code>ddply</code>, <code>llply</code>, <code>join</code></li>
+<li><strong>reshape</strong>  - <code>melt</code>, <code>dcast</code>, <code>acast</code> </li>
+</ul></li>
+</ul>
+
+<pre><code class="r">ggplot(iris, aes(Species, Sepal.Length)) + geom_bar(stat = &quot;identity&quot;)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-14.png" alt="plot of chunk unnamed-chunk-14"/> </p>
+
+<pre><code class="r">library(reshape)
+</code></pre>
+
+<pre><code>## Error: there is no package called &#39;reshape&#39;
+</code></pre>
+
+<pre><code class="r">df &lt;- melt(iris, id.vars = &quot;Species&quot;)
+df
+</code></pre>
+
+<pre><code>##        Species     variable value
+## 1       setosa Sepal.Length   5.1
+## 2       setosa Sepal.Length   4.9
+## 3       setosa Sepal.Length   4.7
+## 4       setosa Sepal.Length   4.6
+## 5       setosa Sepal.Length   5.0
+## 6       setosa Sepal.Length   5.4
+## 7       setosa Sepal.Length   4.6
+## 8       setosa Sepal.Length   5.0
+## 9       setosa Sepal.Length   4.4
+## 10      setosa Sepal.Length   4.9
+## 11      setosa Sepal.Length   5.4
+## 12      setosa Sepal.Length   4.8
+## 13      setosa Sepal.Length   4.8
+## 14      setosa Sepal.Length   4.3
+## 15      setosa Sepal.Length   5.8
+## 16      setosa Sepal.Length   5.7
+## 17      setosa Sepal.Length   5.4
+## 18      setosa Sepal.Length   5.1
+## 19      setosa Sepal.Length   5.7
+## 20      setosa Sepal.Length   5.1
+## 21      setosa Sepal.Length   5.4
+## 22      setosa Sepal.Length   5.1
+## 23      setosa Sepal.Length   4.6
+## 24      setosa Sepal.Length   5.1
+## 25      setosa Sepal.Length   4.8
+## 26      setosa Sepal.Length   5.0
+## 27      setosa Sepal.Length   5.0
+## 28      setosa Sepal.Length   5.2
+## 29      setosa Sepal.Length   5.2
+## 30      setosa Sepal.Length   4.7
+## 31      setosa Sepal.Length   4.8
+## 32      setosa Sepal.Length   5.4
+## 33      setosa Sepal.Length   5.2
+## 34      setosa Sepal.Length   5.5
+## 35      setosa Sepal.Length   4.9
+## 36      setosa Sepal.Length   5.0
+## 37      setosa Sepal.Length   5.5
+## 38      setosa Sepal.Length   4.9
+## 39      setosa Sepal.Length   4.4
+## 40      setosa Sepal.Length   5.1
+## 41      setosa Sepal.Length   5.0
+## 42      setosa Sepal.Length   4.5
+## 43      setosa Sepal.Length   4.4
+## 44      setosa Sepal.Length   5.0
+## 45      setosa Sepal.Length   5.1
+## 46      setosa Sepal.Length   4.8
+## 47      setosa Sepal.Length   5.1
+## 48      setosa Sepal.Length   4.6
+## 49      setosa Sepal.Length   5.3
+## 50      setosa Sepal.Length   5.0
+## 51  versicolor Sepal.Length   7.0
+## 52  versicolor Sepal.Length   6.4
+## 53  versicolor Sepal.Length   6.9
+## 54  versicolor Sepal.Length   5.5
+## 55  versicolor Sepal.Length   6.5
+## 56  versicolor Sepal.Length   5.7
+## 57  versicolor Sepal.Length   6.3
+## 58  versicolor Sepal.Length   4.9
+## 59  versicolor Sepal.Length   6.6
+## 60  versicolor Sepal.Length   5.2
+## 61  versicolor Sepal.Length   5.0
+## 62  versicolor Sepal.Length   5.9
+## 63  versicolor Sepal.Length   6.0
+## 64  versicolor Sepal.Length   6.1
+## 65  versicolor Sepal.Length   5.6
+## 66  versicolor Sepal.Length   6.7
+## 67  versicolor Sepal.Length   5.6
+## 68  versicolor Sepal.Length   5.8
+## 69  versicolor Sepal.Length   6.2
+## 70  versicolor Sepal.Length   5.6
+## 71  versicolor Sepal.Length   5.9
+## 72  versicolor Sepal.Length   6.1
+## 73  versicolor Sepal.Length   6.3
+## 74  versicolor Sepal.Length   6.1
+## 75  versicolor Sepal.Length   6.4
+## 76  versicolor Sepal.Length   6.6
+## 77  versicolor Sepal.Length   6.8
+## 78  versicolor Sepal.Length   6.7
+## 79  versicolor Sepal.Length   6.0
+## 80  versicolor Sepal.Length   5.7
+## 81  versicolor Sepal.Length   5.5
+## 82  versicolor Sepal.Length   5.5
+## 83  versicolor Sepal.Length   5.8
+## 84  versicolor Sepal.Length   6.0
+## 85  versicolor Sepal.Length   5.4
+## 86  versicolor Sepal.Length   6.0
+## 87  versicolor Sepal.Length   6.7
+## 88  versicolor Sepal.Length   6.3
+## 89  versicolor Sepal.Length   5.6
+## 90  versicolor Sepal.Length   5.5
+## 91  versicolor Sepal.Length   5.5
+## 92  versicolor Sepal.Length   6.1
+## 93  versicolor Sepal.Length   5.8
+## 94  versicolor Sepal.Length   5.0
+## 95  versicolor Sepal.Length   5.6
+## 96  versicolor Sepal.Length   5.7
+## 97  versicolor Sepal.Length   5.7
+## 98  versicolor Sepal.Length   6.2
+## 99  versicolor Sepal.Length   5.1
+## 100 versicolor Sepal.Length   5.7
+## 101  virginica Sepal.Length   6.3
+## 102  virginica Sepal.Length   5.8
+## 103  virginica Sepal.Length   7.1
+## 104  virginica Sepal.Length   6.3
+## 105  virginica Sepal.Length   6.5
+## 106  virginica Sepal.Length   7.6
+## 107  virginica Sepal.Length   4.9
+## 108  virginica Sepal.Length   7.3
+## 109  virginica Sepal.Length   6.7
+## 110  virginica Sepal.Length   7.2
+## 111  virginica Sepal.Length   6.5
+## 112  virginica Sepal.Length   6.4
+## 113  virginica Sepal.Length   6.8
+## 114  virginica Sepal.Length   5.7
+## 115  virginica Sepal.Length   5.8
+## 116  virginica Sepal.Length   6.4
+## 117  virginica Sepal.Length   6.5
+## 118  virginica Sepal.Length   7.7
+## 119  virginica Sepal.Length   7.7
+## 120  virginica Sepal.Length   6.0
+## 121  virginica Sepal.Length   6.9
+## 122  virginica Sepal.Length   5.6
+## 123  virginica Sepal.Length   7.7
+## 124  virginica Sepal.Length   6.3
+## 125  virginica Sepal.Length   6.7
+## 126  virginica Sepal.Length   7.2
+## 127  virginica Sepal.Length   6.2
+## 128  virginica Sepal.Length   6.1
+## 129  virginica Sepal.Length   6.4
+## 130  virginica Sepal.Length   7.2
+## 131  virginica Sepal.Length   7.4
+## 132  virginica Sepal.Length   7.9
+## 133  virginica Sepal.Length   6.4
+## 134  virginica Sepal.Length   6.3
+## 135  virginica Sepal.Length   6.1
+## 136  virginica Sepal.Length   7.7
+## 137  virginica Sepal.Length   6.3
+## 138  virginica Sepal.Length   6.4
+## 139  virginica Sepal.Length   6.0
+## 140  virginica Sepal.Length   6.9
+## 141  virginica Sepal.Length   6.7
+## 142  virginica Sepal.Length   6.9
+## 143  virginica Sepal.Length   5.8
+## 144  virginica Sepal.Length   6.8
+## 145  virginica Sepal.Length   6.7
+## 146  virginica Sepal.Length   6.7
+## 147  virginica Sepal.Length   6.3
+## 148  virginica Sepal.Length   6.5
+## 149  virginica Sepal.Length   6.2
+## 150  virginica Sepal.Length   5.9
+## 151     setosa  Sepal.Width   3.5
+## 152     setosa  Sepal.Width   3.0
+## 153     setosa  Sepal.Width   3.2
+## 154     setosa  Sepal.Width   3.1
+## 155     setosa  Sepal.Width   3.6
+## 156     setosa  Sepal.Width   3.9
+## 157     setosa  Sepal.Width   3.4
+## 158     setosa  Sepal.Width   3.4
+## 159     setosa  Sepal.Width   2.9
+## 160     setosa  Sepal.Width   3.1
+## 161     setosa  Sepal.Width   3.7
+## 162     setosa  Sepal.Width   3.4
+## 163     setosa  Sepal.Width   3.0
+## 164     setosa  Sepal.Width   3.0
+## 165     setosa  Sepal.Width   4.0
+## 166     setosa  Sepal.Width   4.4
+## 167     setosa  Sepal.Width   3.9
+## 168     setosa  Sepal.Width   3.5
+## 169     setosa  Sepal.Width   3.8
+## 170     setosa  Sepal.Width   3.8
+## 171     setosa  Sepal.Width   3.4
+## 172     setosa  Sepal.Width   3.7
+## 173     setosa  Sepal.Width   3.6
+## 174     setosa  Sepal.Width   3.3
+## 175     setosa  Sepal.Width   3.4
+## 176     setosa  Sepal.Width   3.0
+## 177     setosa  Sepal.Width   3.4
+## 178     setosa  Sepal.Width   3.5
+## 179     setosa  Sepal.Width   3.4
+## 180     setosa  Sepal.Width   3.2
+## 181     setosa  Sepal.Width   3.1
+## 182     setosa  Sepal.Width   3.4
+## 183     setosa  Sepal.Width   4.1
+## 184     setosa  Sepal.Width   4.2
+## 185     setosa  Sepal.Width   3.1
+## 186     setosa  Sepal.Width   3.2
+## 187     setosa  Sepal.Width   3.5
+## 188     setosa  Sepal.Width   3.6
+## 189     setosa  Sepal.Width   3.0
+## 190     setosa  Sepal.Width   3.4
+## 191     setosa  Sepal.Width   3.5
+## 192     setosa  Sepal.Width   2.3
+## 193     setosa  Sepal.Width   3.2
+## 194     setosa  Sepal.Width   3.5
+## 195     setosa  Sepal.Width   3.8
+## 196     setosa  Sepal.Width   3.0
+## 197     setosa  Sepal.Width   3.8
+## 198     setosa  Sepal.Width   3.2
+## 199     setosa  Sepal.Width   3.7
+## 200     setosa  Sepal.Width   3.3
+## 201 versicolor  Sepal.Width   3.2
+## 202 versicolor  Sepal.Width   3.2
+## 203 versicolor  Sepal.Width   3.1
+## 204 versicolor  Sepal.Width   2.3
+## 205 versicolor  Sepal.Width   2.8
+## 206 versicolor  Sepal.Width   2.8
+## 207 versicolor  Sepal.Width   3.3
+## 208 versicolor  Sepal.Width   2.4
+## 209 versicolor  Sepal.Width   2.9
+## 210 versicolor  Sepal.Width   2.7
+## 211 versicolor  Sepal.Width   2.0
+## 212 versicolor  Sepal.Width   3.0
+## 213 versicolor  Sepal.Width   2.2
+## 214 versicolor  Sepal.Width   2.9
+## 215 versicolor  Sepal.Width   2.9
+## 216 versicolor  Sepal.Width   3.1
+## 217 versicolor  Sepal.Width   3.0
+## 218 versicolor  Sepal.Width   2.7
+## 219 versicolor  Sepal.Width   2.2
+## 220 versicolor  Sepal.Width   2.5
+## 221 versicolor  Sepal.Width   3.2
+## 222 versicolor  Sepal.Width   2.8
+## 223 versicolor  Sepal.Width   2.5
+## 224 versicolor  Sepal.Width   2.8
+## 225 versicolor  Sepal.Width   2.9
+## 226 versicolor  Sepal.Width   3.0
+## 227 versicolor  Sepal.Width   2.8
+## 228 versicolor  Sepal.Width   3.0
+## 229 versicolor  Sepal.Width   2.9
+## 230 versicolor  Sepal.Width   2.6
+## 231 versicolor  Sepal.Width   2.4
+## 232 versicolor  Sepal.Width   2.4
+## 233 versicolor  Sepal.Width   2.7
+## 234 versicolor  Sepal.Width   2.7
+## 235 versicolor  Sepal.Width   3.0
+## 236 versicolor  Sepal.Width   3.4
+## 237 versicolor  Sepal.Width   3.1
+## 238 versicolor  Sepal.Width   2.3
+## 239 versicolor  Sepal.Width   3.0
+## 240 versicolor  Sepal.Width   2.5
+## 241 versicolor  Sepal.Width   2.6
+## 242 versicolor  Sepal.Width   3.0
+## 243 versicolor  Sepal.Width   2.6
+## 244 versicolor  Sepal.Width   2.3
+## 245 versicolor  Sepal.Width   2.7
+## 246 versicolor  Sepal.Width   3.0
+## 247 versicolor  Sepal.Width   2.9
+## 248 versicolor  Sepal.Width   2.9
+## 249 versicolor  Sepal.Width   2.5
+## 250 versicolor  Sepal.Width   2.8
+## 251  virginica  Sepal.Width   3.3
+## 252  virginica  Sepal.Width   2.7
+## 253  virginica  Sepal.Width   3.0
+## 254  virginica  Sepal.Width   2.9
+## 255  virginica  Sepal.Width   3.0
+## 256  virginica  Sepal.Width   3.0
+## 257  virginica  Sepal.Width   2.5
+## 258  virginica  Sepal.Width   2.9
+## 259  virginica  Sepal.Width   2.5
+## 260  virginica  Sepal.Width   3.6
+## 261  virginica  Sepal.Width   3.2
+## 262  virginica  Sepal.Width   2.7
+## 263  virginica  Sepal.Width   3.0
+## 264  virginica  Sepal.Width   2.5
+## 265  virginica  Sepal.Width   2.8
+## 266  virginica  Sepal.Width   3.2
+## 267  virginica  Sepal.Width   3.0
+## 268  virginica  Sepal.Width   3.8
+## 269  virginica  Sepal.Width   2.6
+## 270  virginica  Sepal.Width   2.2
+## 271  virginica  Sepal.Width   3.2
+## 272  virginica  Sepal.Width   2.8
+## 273  virginica  Sepal.Width   2.8
+## 274  virginica  Sepal.Width   2.7
+## 275  virginica  Sepal.Width   3.3
+## 276  virginica  Sepal.Width   3.2
+## 277  virginica  Sepal.Width   2.8
+## 278  virginica  Sepal.Width   3.0
+## 279  virginica  Sepal.Width   2.8
+## 280  virginica  Sepal.Width   3.0
+## 281  virginica  Sepal.Width   2.8
+## 282  virginica  Sepal.Width   3.8
+## 283  virginica  Sepal.Width   2.8
+## 284  virginica  Sepal.Width   2.8
+## 285  virginica  Sepal.Width   2.6
+## 286  virginica  Sepal.Width   3.0
+## 287  virginica  Sepal.Width   3.4
+## 288  virginica  Sepal.Width   3.1
+## 289  virginica  Sepal.Width   3.0
+## 290  virginica  Sepal.Width   3.1
+## 291  virginica  Sepal.Width   3.1
+## 292  virginica  Sepal.Width   3.1
+## 293  virginica  Sepal.Width   2.7
+## 294  virginica  Sepal.Width   3.2
+## 295  virginica  Sepal.Width   3.3
+## 296  virginica  Sepal.Width   3.0
+## 297  virginica  Sepal.Width   2.5
+## 298  virginica  Sepal.Width   3.0
+## 299  virginica  Sepal.Width   3.4
+## 300  virginica  Sepal.Width   3.0
+## 301     setosa Petal.Length   1.4
+## 302     setosa Petal.Length   1.4
+## 303     setosa Petal.Length   1.3
+## 304     setosa Petal.Length   1.5
+## 305     setosa Petal.Length   1.4
+## 306     setosa Petal.Length   1.7
+## 307     setosa Petal.Length   1.4
+## 308     setosa Petal.Length   1.5
+## 309     setosa Petal.Length   1.4
+## 310     setosa Petal.Length   1.5
+## 311     setosa Petal.Length   1.5
+## 312     setosa Petal.Length   1.6
+## 313     setosa Petal.Length   1.4
+## 314     setosa Petal.Length   1.1
+## 315     setosa Petal.Length   1.2
+## 316     setosa Petal.Length   1.5
+## 317     setosa Petal.Length   1.3
+## 318     setosa Petal.Length   1.4
+## 319     setosa Petal.Length   1.7
+## 320     setosa Petal.Length   1.5
+## 321     setosa Petal.Length   1.7
+## 322     setosa Petal.Length   1.5
+## 323     setosa Petal.Length   1.0
+## 324     setosa Petal.Length   1.7
+## 325     setosa Petal.Length   1.9
+## 326     setosa Petal.Length   1.6
+## 327     setosa Petal.Length   1.6
+## 328     setosa Petal.Length   1.5
+## 329     setosa Petal.Length   1.4
+## 330     setosa Petal.Length   1.6
+## 331     setosa Petal.Length   1.6
+## 332     setosa Petal.Length   1.5
+## 333     setosa Petal.Length   1.5
+## 334     setosa Petal.Length   1.4
+## 335     setosa Petal.Length   1.5
+## 336     setosa Petal.Length   1.2
+## 337     setosa Petal.Length   1.3
+## 338     setosa Petal.Length   1.4
+## 339     setosa Petal.Length   1.3
+## 340     setosa Petal.Length   1.5
+## 341     setosa Petal.Length   1.3
+## 342     setosa Petal.Length   1.3
+## 343     setosa Petal.Length   1.3
+## 344     setosa Petal.Length   1.6
+## 345     setosa Petal.Length   1.9
+## 346     setosa Petal.Length   1.4
+## 347     setosa Petal.Length   1.6
+## 348     setosa Petal.Length   1.4
+## 349     setosa Petal.Length   1.5
+## 350     setosa Petal.Length   1.4
+## 351 versicolor Petal.Length   4.7
+## 352 versicolor Petal.Length   4.5
+## 353 versicolor Petal.Length   4.9
+## 354 versicolor Petal.Length   4.0
+## 355 versicolor Petal.Length   4.6
+## 356 versicolor Petal.Length   4.5
+## 357 versicolor Petal.Length   4.7
+## 358 versicolor Petal.Length   3.3
+## 359 versicolor Petal.Length   4.6
+## 360 versicolor Petal.Length   3.9
+## 361 versicolor Petal.Length   3.5
+## 362 versicolor Petal.Length   4.2
+## 363 versicolor Petal.Length   4.0
+## 364 versicolor Petal.Length   4.7
+## 365 versicolor Petal.Length   3.6
+## 366 versicolor Petal.Length   4.4
+## 367 versicolor Petal.Length   4.5
+## 368 versicolor Petal.Length   4.1
+## 369 versicolor Petal.Length   4.5
+## 370 versicolor Petal.Length   3.9
+## 371 versicolor Petal.Length   4.8
+## 372 versicolor Petal.Length   4.0
+## 373 versicolor Petal.Length   4.9
+## 374 versicolor Petal.Length   4.7
+## 375 versicolor Petal.Length   4.3
+## 376 versicolor Petal.Length   4.4
+## 377 versicolor Petal.Length   4.8
+## 378 versicolor Petal.Length   5.0
+## 379 versicolor Petal.Length   4.5
+## 380 versicolor Petal.Length   3.5
+## 381 versicolor Petal.Length   3.8
+## 382 versicolor Petal.Length   3.7
+## 383 versicolor Petal.Length   3.9
+## 384 versicolor Petal.Length   5.1
+## 385 versicolor Petal.Length   4.5
+## 386 versicolor Petal.Length   4.5
+## 387 versicolor Petal.Length   4.7
+## 388 versicolor Petal.Length   4.4
+## 389 versicolor Petal.Length   4.1
+## 390 versicolor Petal.Length   4.0
+## 391 versicolor Petal.Length   4.4
+## 392 versicolor Petal.Length   4.6
+## 393 versicolor Petal.Length   4.0
+## 394 versicolor Petal.Length   3.3
+## 395 versicolor Petal.Length   4.2
+## 396 versicolor Petal.Length   4.2
+## 397 versicolor Petal.Length   4.2
+## 398 versicolor Petal.Length   4.3
+## 399 versicolor Petal.Length   3.0
+## 400 versicolor Petal.Length   4.1
+## 401  virginica Petal.Length   6.0
+## 402  virginica Petal.Length   5.1
+## 403  virginica Petal.Length   5.9
+## 404  virginica Petal.Length   5.6
+## 405  virginica Petal.Length   5.8
+## 406  virginica Petal.Length   6.6
+## 407  virginica Petal.Length   4.5
+## 408  virginica Petal.Length   6.3
+## 409  virginica Petal.Length   5.8
+## 410  virginica Petal.Length   6.1
+## 411  virginica Petal.Length   5.1
+## 412  virginica Petal.Length   5.3
+## 413  virginica Petal.Length   5.5
+## 414  virginica Petal.Length   5.0
+## 415  virginica Petal.Length   5.1
+## 416  virginica Petal.Length   5.3
+## 417  virginica Petal.Length   5.5
+## 418  virginica Petal.Length   6.7
+## 419  virginica Petal.Length   6.9
+## 420  virginica Petal.Length   5.0
+## 421  virginica Petal.Length   5.7
+## 422  virginica Petal.Length   4.9
+## 423  virginica Petal.Length   6.7
+## 424  virginica Petal.Length   4.9
+## 425  virginica Petal.Length   5.7
+## 426  virginica Petal.Length   6.0
+## 427  virginica Petal.Length   4.8
+## 428  virginica Petal.Length   4.9
+## 429  virginica Petal.Length   5.6
+## 430  virginica Petal.Length   5.8
+## 431  virginica Petal.Length   6.1
+## 432  virginica Petal.Length   6.4
+## 433  virginica Petal.Length   5.6
+## 434  virginica Petal.Length   5.1
+## 435  virginica Petal.Length   5.6
+## 436  virginica Petal.Length   6.1
+## 437  virginica Petal.Length   5.6
+## 438  virginica Petal.Length   5.5
+## 439  virginica Petal.Length   4.8
+## 440  virginica Petal.Length   5.4
+## 441  virginica Petal.Length   5.6
+## 442  virginica Petal.Length   5.1
+## 443  virginica Petal.Length   5.1
+## 444  virginica Petal.Length   5.9
+## 445  virginica Petal.Length   5.7
+## 446  virginica Petal.Length   5.2
+## 447  virginica Petal.Length   5.0
+## 448  virginica Petal.Length   5.2
+## 449  virginica Petal.Length   5.4
+## 450  virginica Petal.Length   5.1
+## 451     setosa  Petal.Width   0.2
+## 452     setosa  Petal.Width   0.2
+## 453     setosa  Petal.Width   0.2
+## 454     setosa  Petal.Width   0.2
+## 455     setosa  Petal.Width   0.2
+## 456     setosa  Petal.Width   0.4
+## 457     setosa  Petal.Width   0.3
+## 458     setosa  Petal.Width   0.2
+## 459     setosa  Petal.Width   0.2
+## 460     setosa  Petal.Width   0.1
+## 461     setosa  Petal.Width   0.2
+## 462     setosa  Petal.Width   0.2
+## 463     setosa  Petal.Width   0.1
+## 464     setosa  Petal.Width   0.1
+## 465     setosa  Petal.Width   0.2
+## 466     setosa  Petal.Width   0.4
+## 467     setosa  Petal.Width   0.4
+## 468     setosa  Petal.Width   0.3
+## 469     setosa  Petal.Width   0.3
+## 470     setosa  Petal.Width   0.3
+## 471     setosa  Petal.Width   0.2
+## 472     setosa  Petal.Width   0.4
+## 473     setosa  Petal.Width   0.2
+## 474     setosa  Petal.Width   0.5
+## 475     setosa  Petal.Width   0.2
+## 476     setosa  Petal.Width   0.2
+## 477     setosa  Petal.Width   0.4
+## 478     setosa  Petal.Width   0.2
+## 479     setosa  Petal.Width   0.2
+## 480     setosa  Petal.Width   0.2
+## 481     setosa  Petal.Width   0.2
+## 482     setosa  Petal.Width   0.4
+## 483     setosa  Petal.Width   0.1
+## 484     setosa  Petal.Width   0.2
+## 485     setosa  Petal.Width   0.2
+## 486     setosa  Petal.Width   0.2
+## 487     setosa  Petal.Width   0.2
+## 488     setosa  Petal.Width   0.1
+## 489     setosa  Petal.Width   0.2
+## 490     setosa  Petal.Width   0.2
+## 491     setosa  Petal.Width   0.3
+## 492     setosa  Petal.Width   0.3
+## 493     setosa  Petal.Width   0.2
+## 494     setosa  Petal.Width   0.6
+## 495     setosa  Petal.Width   0.4
+## 496     setosa  Petal.Width   0.3
+## 497     setosa  Petal.Width   0.2
+## 498     setosa  Petal.Width   0.2
+## 499     setosa  Petal.Width   0.2
+## 500     setosa  Petal.Width   0.2
+## 501 versicolor  Petal.Width   1.4
+## 502 versicolor  Petal.Width   1.5
+## 503 versicolor  Petal.Width   1.5
+## 504 versicolor  Petal.Width   1.3
+## 505 versicolor  Petal.Width   1.5
+## 506 versicolor  Petal.Width   1.3
+## 507 versicolor  Petal.Width   1.6
+## 508 versicolor  Petal.Width   1.0
+## 509 versicolor  Petal.Width   1.3
+## 510 versicolor  Petal.Width   1.4
+## 511 versicolor  Petal.Width   1.0
+## 512 versicolor  Petal.Width   1.5
+## 513 versicolor  Petal.Width   1.0
+## 514 versicolor  Petal.Width   1.4
+## 515 versicolor  Petal.Width   1.3
+## 516 versicolor  Petal.Width   1.4
+## 517 versicolor  Petal.Width   1.5
+## 518 versicolor  Petal.Width   1.0
+## 519 versicolor  Petal.Width   1.5
+## 520 versicolor  Petal.Width   1.1
+## 521 versicolor  Petal.Width   1.8
+## 522 versicolor  Petal.Width   1.3
+## 523 versicolor  Petal.Width   1.5
+## 524 versicolor  Petal.Width   1.2
+## 525 versicolor  Petal.Width   1.3
+## 526 versicolor  Petal.Width   1.4
+## 527 versicolor  Petal.Width   1.4
+## 528 versicolor  Petal.Width   1.7
+## 529 versicolor  Petal.Width   1.5
+## 530 versicolor  Petal.Width   1.0
+## 531 versicolor  Petal.Width   1.1
+## 532 versicolor  Petal.Width   1.0
+## 533 versicolor  Petal.Width   1.2
+## 534 versicolor  Petal.Width   1.6
+## 535 versicolor  Petal.Width   1.5
+## 536 versicolor  Petal.Width   1.6
+## 537 versicolor  Petal.Width   1.5
+## 538 versicolor  Petal.Width   1.3
+## 539 versicolor  Petal.Width   1.3
+## 540 versicolor  Petal.Width   1.3
+## 541 versicolor  Petal.Width   1.2
+## 542 versicolor  Petal.Width   1.4
+## 543 versicolor  Petal.Width   1.2
+## 544 versicolor  Petal.Width   1.0
+## 545 versicolor  Petal.Width   1.3
+## 546 versicolor  Petal.Width   1.2
+## 547 versicolor  Petal.Width   1.3
+## 548 versicolor  Petal.Width   1.3
+## 549 versicolor  Petal.Width   1.1
+## 550 versicolor  Petal.Width   1.3
+## 551  virginica  Petal.Width   2.5
+## 552  virginica  Petal.Width   1.9
+## 553  virginica  Petal.Width   2.1
+## 554  virginica  Petal.Width   1.8
+## 555  virginica  Petal.Width   2.2
+## 556  virginica  Petal.Width   2.1
+## 557  virginica  Petal.Width   1.7
+## 558  virginica  Petal.Width   1.8
+## 559  virginica  Petal.Width   1.8
+## 560  virginica  Petal.Width   2.5
+## 561  virginica  Petal.Width   2.0
+## 562  virginica  Petal.Width   1.9
+## 563  virginica  Petal.Width   2.1
+## 564  virginica  Petal.Width   2.0
+## 565  virginica  Petal.Width   2.4
+## 566  virginica  Petal.Width   2.3
+## 567  virginica  Petal.Width   1.8
+## 568  virginica  Petal.Width   2.2
+## 569  virginica  Petal.Width   2.3
+## 570  virginica  Petal.Width   1.5
+## 571  virginica  Petal.Width   2.3
+## 572  virginica  Petal.Width   2.0
+## 573  virginica  Petal.Width   2.0
+## 574  virginica  Petal.Width   1.8
+## 575  virginica  Petal.Width   2.1
+## 576  virginica  Petal.Width   1.8
+## 577  virginica  Petal.Width   1.8
+## 578  virginica  Petal.Width   1.8
+## 579  virginica  Petal.Width   2.1
+## 580  virginica  Petal.Width   1.6
+## 581  virginica  Petal.Width   1.9
+## 582  virginica  Petal.Width   2.0
+## 583  virginica  Petal.Width   2.2
+## 584  virginica  Petal.Width   1.5
+## 585  virginica  Petal.Width   1.4
+## 586  virginica  Petal.Width   2.3
+## 587  virginica  Petal.Width   2.4
+## 588  virginica  Petal.Width   1.8
+## 589  virginica  Petal.Width   1.8
+## 590  virginica  Petal.Width   2.1
+## 591  virginica  Petal.Width   2.4
+## 592  virginica  Petal.Width   2.3
+## 593  virginica  Petal.Width   1.9
+## 594  virginica  Petal.Width   2.3
+## 595  virginica  Petal.Width   2.5
+## 596  virginica  Petal.Width   2.3
+## 597  virginica  Petal.Width   1.9
+## 598  virginica  Petal.Width   2.0
+## 599  virginica  Petal.Width   2.3
+## 600  virginica  Petal.Width   1.8
+</code></pre>
+
+<pre><code class="r">ggplot(df, aes(Species, value, fill = variable)) + geom_bar(stat = &quot;identity&quot;)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-15.png" alt="plot of chunk unnamed-chunk-15"/> </p>
+
+<pre><code class="r">ggplot(df, aes(Species, value, fill = variable)) +
+geom_bar(stat = &quot;identity&quot;, position = &quot;dodge&quot;)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-16.png" alt="plot of chunk unnamed-chunk-16"/> </p>
+
+<h4>4.5.2 Bar graph 기본</h4>
+
+<ul>
+<li>Bar plots를 그리는데 y축이 해당 x-축 값에 대한 count와 column의 값으로 표현되는 방법이 있음</li>
+</ul>
+
+<table><thead>
+<tr>
+<th>x축</th>
+<th>y축 값의 높이</th>
+<th>데이터 시각화 방법</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>연속형(numeric)</td>
+<td>Count</td>
+<td>Histogram</td>
+</tr>
+<tr>
+<td>이산형(factor)</td>
+<td>Count</td>
+<td>Bar plot</td>
+</tr>
+<tr>
+<td>연속형(numeric)</td>
+<td>Value</td>
+<td>Bar plot</td>
+</tr>
+<tr>
+<td>이산형(factor)</td>
+<td>Value</td>
+<td>Bar plot</td>
+</tr>
+</tbody></table>
+
+<pre><code class="r">df &lt;- data.frame(time = factor(c(&quot;Lunch&quot;,&quot;Dinner&quot;), levels=c(&quot;Lunch&quot;,&quot;Dinner&quot;)),
+                 total_bill = c(14.89, 17.23))
+df
+</code></pre>
+
+<pre><code>##     time total_bill
+## 1  Lunch      14.89
+## 2 Dinner      17.23
+</code></pre>
+
+<pre><code class="r"># Add a black outline
+ggplot(data=df, aes(x=time, y=total_bill, fill=time)) + geom_bar(colour=&quot;black&quot;, stat=&quot;identity&quot;)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-181.png" alt="plot of chunk unnamed-chunk-18"/> </p>
+
+<pre><code class="r"># No legend, since the information is redundant
+ggplot(data=df, aes(x=time, y=total_bill, fill=time)) +
+    geom_bar(colour=&quot;black&quot;, stat=&quot;identity&quot;) +
+    guides(fill=FALSE)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-182.png" alt="plot of chunk unnamed-chunk-18"/> </p>
+
+<pre><code class="r">library(reshape2)
+str(tips)
+</code></pre>
+
+<pre><code>## &#39;data.frame&#39;:    244 obs. of  7 variables:
+##  $ total_bill: num  17 10.3 21 23.7 24.6 ...
+##  $ tip       : num  1.01 1.66 3.5 3.31 3.61 4.71 2 3.12 1.96 3.23 ...
+##  $ sex       : Factor w/ 2 levels &quot;Female&quot;,&quot;Male&quot;: 1 2 2 2 1 2 2 2 2 2 ...
+##  $ smoker    : Factor w/ 2 levels &quot;No&quot;,&quot;Yes&quot;: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ day       : Factor w/ 4 levels &quot;Fri&quot;,&quot;Sat&quot;,&quot;Sun&quot;,..: 3 3 3 3 3 3 3 3 3 3 ...
+##  $ time      : Factor w/ 2 levels &quot;Dinner&quot;,&quot;Lunch&quot;: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ size      : int  2 3 3 2 4 4 2 4 2 2 ...
+</code></pre>
+
+<pre><code class="r">head(tips)
+</code></pre>
+
+<pre><code>##   total_bill  tip    sex smoker day   time size
+## 1      16.99 1.01 Female     No Sun Dinner    2
+## 2      10.34 1.66   Male     No Sun Dinner    3
+## 3      21.01 3.50   Male     No Sun Dinner    3
+## 4      23.68 3.31   Male     No Sun Dinner    2
+## 5      24.59 3.61 Female     No Sun Dinner    4
+## 6      25.29 4.71   Male     No Sun Dinner    4
+</code></pre>
+
+<pre><code class="r"># Bar graph of counts
+ggplot(data=tips, aes(x=day)) + geom_bar(stat=&quot;bin&quot;)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-201.png" alt="plot of chunk unnamed-chunk-20"/> </p>
+
+<pre><code class="r"># Equivalent to this, since stat=&quot;bin&quot; is the default:
+ggplot(data=tips, aes(x=day)) + geom_bar()
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-202.png" alt="plot of chunk unnamed-chunk-20"/> </p>
+
+<h4>4.5.3 More examples</h4>
+
+<pre><code class="r">df1 &lt;- data.frame(sex       = factor(c(&quot;Female&quot;,&quot;Female&quot;,&quot;Male&quot;,&quot;Male&quot;)),
+                 time       = factor(c(&quot;Lunch&quot;,&quot;Dinner&quot;,&quot;Lunch&quot;,&quot;Dinner&quot;), levels=c(&quot;Lunch&quot;,&quot;Dinner&quot;)),
+                 total_bill = c(13.53, 16.81, 16.24, 17.42))
+df1
+</code></pre>
+
+<pre><code>##      sex   time total_bill
+## 1 Female  Lunch      13.53
+## 2 Female Dinner      16.81
+## 3   Male  Lunch      16.24
+## 4   Male Dinner      17.42
+</code></pre>
+
+<pre><code class="r"># Stacked bar graph -- this is probably not what you want
+ggplot(data=df1, aes(x=time, y=total_bill, fill=sex)) + geom_bar(stat=&quot;identity&quot;)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-221.png" alt="plot of chunk unnamed-chunk-22"/> </p>
+
+<pre><code class="r"># Bar graph, time on x-axis, color fill grouped by sex -- use position_dodge()
+ggplot(data=df1, aes(x=time, y=total_bill, fill=sex)) + geom_bar(stat=&quot;identity&quot;, position=position_dodge())
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-222.png" alt="plot of chunk unnamed-chunk-22"/> </p>
+
+<pre><code class="r">d2 &lt;- diamonds[sample(1:dim(diamonds)[1], 1000), ]
+head(d2)
+</code></pre>
+
+<pre><code>##       carat     cut color clarity depth table price    x    y    z
+## 36843  0.37 Premium     F     VS2  59.7    59   957 4.68 4.64 2.78
+## 36064  0.32   Ideal     D    VVS1  62.1    54   924 4.40 4.43 2.74
+## 30125  0.32   Ideal     G     VS2  62.0    57   720 4.40 4.37 2.72
+## 43389  0.50   Ideal     E     SI1  62.2    57  1410 5.06 5.10 3.16
+## 24568  2.03 Premium     J     SI1  62.1    59 12862 8.06 8.12 5.02
+## 28207  0.38   Ideal     G     SI1  61.3    56   666 4.63 4.67 2.85
+</code></pre>
+
+<pre><code class="r">ggplot(d2, aes(clarity, fill = cut)) +
+geom_bar(position = &quot;dodge&quot;,stat = &quot;bin&quot;) + theme_gray()
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-23.png" alt="plot of chunk unnamed-chunk-23"/> </p>
+
+<pre><code class="r">climate$sign &lt;- ifelse(climate$Anomaly10y&lt;0, FALSE, TRUE)
+</code></pre>
+
+<pre><code>## Error: 객체 &#39;climate&#39;를 찾을 수 없습니다
+</code></pre>
+
+<pre><code class="r"># or as simple as
+# clim$sign &lt;- climate$Anomaly10y &lt; 0
+head(climate)
+</code></pre>
+
+<pre><code>## Error: 객체 &#39;climate&#39;를 찾을 수 없습니다
+</code></pre>
+
+<pre><code class="r">ggplot(climate, aes(Year, Anomaly10y)) + geom_bar(stat = &quot;identity&quot;, aes(fill = sign)) + theme_gray()
+</code></pre>
+
+<pre><code>## Error: 객체 &#39;climate&#39;를 찾을 수 없습니다
+</code></pre>
+
+<h4>4.5.4 Line plots와의 관계</h4>
+
+<pre><code class="r"># Basic line graph. These both have the same result.
+ggplot(data=df, aes(x=time, y=total_bill, group=1)) + geom_line()
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-251.png" alt="plot of chunk unnamed-chunk-25"/> </p>
+
+<pre><code class="r"># Add points
+ggplot(data=df, aes(x=time, y=total_bill, group=1)) + geom_line() + geom_point()
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-252.png" alt="plot of chunk unnamed-chunk-25"/> </p>
+
+<pre><code class="r"># Change color of both line and points
+# Change line type and point type, and use thicker line and larger points
+# Change points to circles with white fill
+ggplot(data=df, aes(x=time, y=total_bill, group=1)) + 
+    geom_line(colour=&quot;red&quot;, linetype=&quot;dotted&quot;, size=1.5) + 
+    geom_point(colour=&quot;red&quot;, size=4, shape=21, fill=&quot;white&quot;)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-253.png" alt="plot of chunk unnamed-chunk-25"/> </p>
+
+<h3>4.6 Density plots</h3>
+
+<pre><code class="r">head(faithful)
+</code></pre>
+
+<pre><code>##   eruptions waiting
+## 1     3.600      79
+## 2     1.800      54
+## 3     3.333      74
+## 4     2.283      62
+## 5     4.533      85
+## 6     2.883      55
+</code></pre>
+
+<pre><code class="r">ggplot(faithful, aes(waiting)) + geom_density()
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-26.png" alt="plot of chunk unnamed-chunk-26"/> </p>
+
+<pre><code class="r">ggplot(faithful, aes(waiting)) +
+geom_density(fill = &quot;blue&quot;, alpha = 0.1)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-27.png" alt="plot of chunk unnamed-chunk-27"/> </p>
+
+<pre><code class="r">ggplot(faithful, aes(waiting)) +
+geom_line(stat = &quot;density&quot;)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-28.png" alt="plot of chunk unnamed-chunk-28"/> </p>
+
+<h3>4.7 Polar coordinates</h3>
+
+<pre><code class="r">head(mtcars)
+</code></pre>
+
+<pre><code>##                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
+## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+## Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+## Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+## Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+## Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+## Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1
+</code></pre>
+
+<pre><code class="r">p.tmp &lt;- ggplot(mtcars, aes(x=factor(1), fill=factor(cyl))) + geom_bar(width=1)
+p.tmp
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-301.png" alt="plot of chunk unnamed-chunk-30"/> </p>
+
+<pre><code class="r">p.tmp + coord_polar(theta=&quot;y&quot;)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-302.png" alt="plot of chunk unnamed-chunk-30"/> </p>
+
+<pre><code class="r">p.tmp + coord_polar(theta=&quot;x&quot;)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-303.png" alt="plot of chunk unnamed-chunk-30"/> </p>
+
+<pre><code class="r">ggplot(mtcars, aes(factor(cyl), fill=factor(cyl))) + geom_bar(width=1) + coord_polar()
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-304.png" alt="plot of chunk unnamed-chunk-30"/> </p>
+
+<pre><code class="r"># Hadley&#39;s favourite pie chart
+df &lt;- data.frame(
+  variable = c(&quot;resembles&quot;, &quot;does not resemble&quot;),
+  value = c(80, 20)
+)
+ggplot(df, aes(x = &quot;&quot;, y = value, fill = variable)) +
+  geom_bar(width = 1, stat = &quot;identity&quot;) +
+  scale_fill_manual(values = c(&quot;red&quot;, &quot;yellow&quot;)) +
+  coord_polar(&quot;y&quot;, start = pi / 3) +
+  labs(title = &quot;Pac man&quot;)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-31.png" alt="plot of chunk unnamed-chunk-31"/> </p>
+
+<h2>5. 데이터의 변형 - reshape를 중심으로</h2>
+
+<ul>
+<li><p><strong>reshape</strong> 패키지는 데이터 형태의 재배열, coningency table 생성, 데이터 summarising등을 할 수 있게 해줌</p></li>
+<li><p>사용하는 data frame은 <strong>reshape</strong> 패키지 내의 <em>smiths</em> 데이터를 사용함</p></li>
+<li><p>본 내용은 <a href="http://www.jstatsoft.org/v21/i12/paper">Journal of Stiatical Software</a>에 게재된 내용을 <a href="http://rpubs.com/chayong/reshape">차 용</a>이 정리한 것을 바탕으로 작성함</p></li>
+</ul>
+
+<h3>5.1 <code>melt()</code></h3>
+
+<ul>
+<li><code>melt()</code> function을 사용할 때 <strong>identifier</strong>(이하 id)와 <strong>measured variable</strong>을 구분하는 것은 매우 중요함</li>
+<li><p>즉, 어떤 변수가 <strong>measured variable</strong>인지 <strong>id variable</strong>인지 알아야 할 필요가 있음</p>
+
+<ul>
+<li><strong>identifier</strong>(id variable) : 보통 이산형이나 고정값. 특별히 지정해 주지 않으면 factor or integer column을 id variable로 인식한다.</li>
+<li><strong>measured variable</strong> : 측정 대상이 되는 변수. 쉽게 말하면 categorize되는 변수</li>
+</ul></li>
+<li><p><code>melt()</code> 는 <strong>id variable</strong>을 기준으로 하고 <strong>measured variable</strong>를 categorize하여 <code>variable</code>이라는 새로운 column을 생성하고 <code>value</code>라는 column에 Variable에 해당하는 값들을 넣어 주어 새로이 Data frame을 만들어 줌</p></li>
+</ul>
+
+<pre><code class="r">smiths
+</code></pre>
+
+<pre><code>##      subject time age weight height
+## 1 John Smith    1  33     90   1.87
+## 2 Mary Smith    1  NA     NA   1.54
+</code></pre>
+
+<ul>
+<li>위의 데이터를 <code>melt()</code>를 이용하여 변환되는 것을 살펴봄</li>
+</ul>
+
+<pre><code class="r">melt(smiths, id = c(&quot;subject&quot;, &quot;time&quot;), measured = c(&quot;age&quot;, &quot;weight&quot;, &quot;height&quot;))
+</code></pre>
+
+<pre><code>##      subject time variable value
+## 1 John Smith    1      age 33.00
+## 2 Mary Smith    1      age    NA
+## 3 John Smith    1   weight 90.00
+## 4 Mary Smith    1   weight    NA
+## 5 John Smith    1   height  1.87
+## 6 Mary Smith    1   height  1.54
+</code></pre>
+
+<ul>
+<li><code>id</code>로 지정된 변수에 대하여 <code>measured</code>에 해당하는 변수들에 대하여 melted된 데이터에는 
+
+<ul>
+<li><code>variable</code>에는 해당 변수이름이 값으로 채워지고 </li>
+<li><code>value</code>라는 변수에는 <code>variable</code>에 해당하는 변수의 값이 채워짐</li>
+</ul></li>
+</ul>
+
+<pre><code class="r">melt(smiths, id = c(&quot;subject&quot;, &quot;time&quot;))
+</code></pre>
+
+<pre><code>##      subject time variable value
+## 1 John Smith    1      age 33.00
+## 2 Mary Smith    1      age    NA
+## 3 John Smith    1   weight 90.00
+## 4 Mary Smith    1   weight    NA
+## 5 John Smith    1   height  1.87
+## 6 Mary Smith    1   height  1.54
+</code></pre>
+
+<ul>
+<li><code>measured</code>를 지정하지 않으면 data frame 내에 <code>id</code> 이외의 모든 다른 변수들이 사용됨</li>
+</ul>
+
+<pre><code class="r">melt(smiths, id = 1:2, na.rm = T)
+</code></pre>
+
+<pre><code>##      subject time variable value
+## 1 John Smith    1      age 33.00
+## 3 John Smith    1   weight 90.00
+## 5 John Smith    1   height  1.87
+## 6 Mary Smith    1   height  1.54
+</code></pre>
+
+<ul>
+<li>옵션 <code>na.rm=T</code> 은 melted된 <strong>value</strong> 가 NA인 케이스를 remove함을 의미함</li>
+</ul>
+
+<h3>5.2 <code>cast()</code></h3>
+
+<ul>
+<li><code>cast()</code>는 <code>melt()</code> function을 적용한 data frame(혹은 object)을 사용자가 원하는 모양으로 재배열을 할 수 있게 해주는 함수임</li>
+</ul>
+
+<pre><code>&gt; two required arguments
+  - data : the molten data set to reshape
+  - formula : basic form (col_var_1 + col_var_2 ~ row_var_1 + row_var_2)
+  - 만약 formula를 지정해 주지 않으면 
+    1. measured variables in the columns,
+    2. all other id variables in the rows.
+&gt; optional arguments
+  - fun.aggregate : length(default), mean, sum, ...
+  - margins : sub total, grand total (&quot;grand_row&quot;, &quot;grand_col&quot;)
+&gt; Basic use
+  - &#39;.&#39; corresponds to no variable. ex) &#39;. ~ x&#39; or &#39;x ~ .&#39;, that is, a single row or column.
+  - &#39;...&#39; represents all variables
+</code></pre>
+
+<ul>
+<li> <code>melt()</code>에서 melting한 데이터를 중심으로 살펴봄</li>
+</ul>
+
+<pre><code class="r">smithsm &lt;- melt(smiths, id = 1:2)  # smithsm : molten data &#39;smiths&#39;
+smithsm
+</code></pre>
+
+<pre><code>##      subject time variable value
+## 1 John Smith    1      age 33.00
+## 2 Mary Smith    1      age    NA
+## 3 John Smith    1   weight 90.00
+## 4 Mary Smith    1   weight    NA
+## 5 John Smith    1   height  1.87
+## 6 Mary Smith    1   height  1.54
+</code></pre>
+
+<pre><code class="r">cast(smithsm, subject + time ~ variable)
+</code></pre>
+
+<pre><code>## Error: 함수 &quot;cast&quot;를 찾을 수 없습니다
+</code></pre>
+
+<ul>
+<li>즉, <code>subject</code>와 <code>time</code>별로 <code>variable</code>의 변수 값을 나열하라는 의미임</li>
+<li><code>subject</code>와 <code>time</code> 조합은 열 방향, variable 값은 행 방향의 변수명을 구성함</li>
+</ul>
+
+<pre><code class="r">cast(smithsm, ... ~ subject, sum, margins = c(&quot;grand_row&quot;, &quot;grand_col&quot;))
+</code></pre>
+
+<pre><code>## Error: 함수 &quot;cast&quot;를 찾을 수 없습니다
+</code></pre>
+
+<ul>
+<li><code>subject</code>를 제외한 <code>time</code>과 <code>variable</code>에 대하여 <code>subject</code>의 값을 변수명으로 펼쳐 sum을 계산하라는 의미임</li>
+<li><code>margin</code>은 행, 열방향의 합을 구하라는 것임</li>
+</ul>
+
+<h3>5.3 <code>cast()</code> example</h3>
+
+<pre><code class="r">#Air quality example
+names(airquality) &lt;- tolower(names(airquality))
+head(airquality)
+</code></pre>
+
+<pre><code>##   ozone solar.r wind temp month day
+## 1    41     190  7.4   67     5   1
+## 2    36     118  8.0   72     5   2
+## 3    12     149 12.6   74     5   3
+## 4    18     313 11.5   62     5   4
+## 5    NA      NA 14.3   56     5   5
+## 6    28      NA 14.9   66     5   6
+</code></pre>
+
+<pre><code class="r">aqm &lt;- melt(airquality, id=c(&quot;month&quot;, &quot;day&quot;), na.rm=TRUE)
+head(aqm)
+</code></pre>
+
+<pre><code>##   month day variable value
+## 1     5   1    ozone    41
+## 2     5   2    ozone    36
+## 3     5   3    ozone    12
+## 4     5   4    ozone    18
+## 6     5   6    ozone    28
+## 7     5   7    ozone    23
+</code></pre>
+
+<pre><code class="r">cast(aqm, day ~ month ~ variable)
+</code></pre>
+
+<pre><code>## Error: 함수 &quot;cast&quot;를 찾을 수 없습니다
+</code></pre>
+
+<pre><code class="r">cast(aqm, month ~ variable, mean)
+</code></pre>
+
+<pre><code>## Error: 함수 &quot;cast&quot;를 찾을 수 없습니다
+</code></pre>
+
+<pre><code class="r">cast(aqm, month ~ . | variable, mean)
+</code></pre>
+
+<pre><code>## Error: 함수 &quot;cast&quot;를 찾을 수 없습니다
+</code></pre>
+
+<pre><code class="r">cast(aqm, month ~ variable, mean, margins=c(&quot;grand_row&quot;, &quot;grand_col&quot;))
+</code></pre>
+
+<pre><code>## Error: 함수 &quot;cast&quot;를 찾을 수 없습니다
+</code></pre>
+
+<pre><code class="r">cast(aqm, day ~ month, mean, subset=variable==&quot;ozone&quot;)
+</code></pre>
+
+<pre><code>## Error: 함수 &quot;cast&quot;를 찾을 수 없습니다
+</code></pre>
+
+<pre><code class="r">cast(aqm, month ~ variable, range)
+</code></pre>
+
+<pre><code>## Error: 함수 &quot;cast&quot;를 찾을 수 없습니다
+</code></pre>
+
+<pre><code class="r">cast(aqm, month ~ variable + result_variable, range)
+</code></pre>
+
+<pre><code>## Error: 함수 &quot;cast&quot;를 찾을 수 없습니다
+</code></pre>
+
+<pre><code class="r">cast(aqm, variable ~ month ~ result_variable,range)
+</code></pre>
+
+<pre><code>## Error: 함수 &quot;cast&quot;를 찾을 수 없습니다
+</code></pre>
+
+<h2>6. Trellis graphics</h2>
+
+<ul>
+<li>Trellis란 정원에 장미 덩굴 등을 올리기 위한 격가 모양의 틀로 다차원의 데이터를 disply하기 위한 일종의 framework임</li>
+<li>다차원의 데이터를 2차원으로 표현하는데 있어 조건(R의 factor 레벨)으로 격자를 이룬 후 같은 스케일로 동일한 그래프를 고려 비교하는 것이 특징임</li>
+<li><code>ggplot2</code> 패키지에서는 <strong>facet</strong> 계열 명령어를 통해 Trellis display를 구현할 수 있음</li>
+</ul>
+
+<h3>6.1 <code>facet_wrap</code> / <code>facet_grid</code> example</h3>
+
+<pre><code class="r">p.tmp &lt;- ggplot(mtcars, aes(mpg, wt)) + geom_point()
+p.tmp + facet_wrap(~cyl)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-411.png" alt="plot of chunk unnamed-chunk-41"/> </p>
+
+<pre><code class="r">p.tmp + facet_wrap(~cyl, nrow=3)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-412.png" alt="plot of chunk unnamed-chunk-41"/> </p>
+
+<pre><code class="r">p.tmp + facet_grid(gear~cyl)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-413.png" alt="plot of chunk unnamed-chunk-41"/> </p>
+
+<pre><code class="r">p.tmp + facet_wrap(~cyl+gear)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-414.png" alt="plot of chunk unnamed-chunk-41"/> </p>
+
+<h3>6.2 controlling scales in facets (default: <code>scales=&quot;&lt;U+FB01&gt;xed&quot;</code>)</h3>
+
+<ul>
+<li><code>ggplot2</code>에서는 전통적인 Trellis와는 달리 scale을 데이터 분포에 따라 변경하는 것임</li>
+<li>기본적으로는 <strong>facet</strong>은 <code>scales=&quot;fixed&quot;</code>가 사용됨</li>
+</ul>
+
+<pre><code class="r">p.tmp + facet_wrap(~cyl, scales=&quot;free&quot;)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-421.png" alt="plot of chunk unnamed-chunk-42"/> </p>
+
+<pre><code class="r">p.tmp + facet_wrap(~cyl, scales=&quot;free_x&quot;)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-422.png" alt="plot of chunk unnamed-chunk-42"/> </p>
+
+<pre><code class="r">p.tmp + facet_wrap(~cyl, scales=&quot;fixed&quot;)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-423.png" alt="plot of chunk unnamed-chunk-42"/> </p>
+
+<pre><code class="r"># contstraint on facet_grid (all rows,columns same scale)
+p.tmp + facet_grid(gear~cyl, scales=&quot;free_x&quot;)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-431.png" alt="plot of chunk unnamed-chunk-43"/> </p>
+
+<pre><code class="r">p.tmp + facet_grid(gear~cyl, scales=&quot;free&quot;, space=&quot;free&quot;)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-432.png" alt="plot of chunk unnamed-chunk-43"/> </p>
+
+</body>
+
+</html>

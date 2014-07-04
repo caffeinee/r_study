@@ -1,0 +1,338 @@
+
+Data Munging
+=============
+Version 2014-06-12
+
+1. What Data Munging
+----------------
+* munging =  mash until no good에서 파생된 단어
+* 전처리, 파싱, 필터링과 같이 데이터를 핸들링 한다는 것을 뜻함
+* 이와 동일한 작업을 할 수 있는 데이터 패키지로는 `data.table`, `sqldf`, `plyr` 패키지가 있음
+
+2. 단정한 데이터 (tidy data)
+------------------------------
+ * 데이터 전처리를 위해 패턴화한 데이터
+ * 단정한 데이터의 기준
+    1. 각 변수의 개별 column(열)이 있다.  
+    2. 각 관측치는 row(행)을 구성한다.  
+    3. 각 테이블은 단 하나의 관측기준에 따라 조직된 데이터를 저장한다.  
+  * 단정한 데이터를 만들기 위해 reshaping하여야 함
+
+### 2-1. `melt()`
+
+```{r}
+load("D:/SDSEDU/munging/pew.RData")
+head(raw, 5)
+```
+
+* 위의 자료는 '단정한 데이터'가 아님
+* 수입(income)에 대해 세분화한 열을 제공함으로써, 단정한 데이터의 첫번째 기준을 위반했기 때문임 
+* 따라서 이 데이터를 '단정한 데이터'로 변환해 줄 필요가 있음
+
+
+```{r}
+library(reshape2)
+melt.raw <- melt(raw, measure.vars = c(2, 3, 4, 5, 6, 7, 8, 9, 10, 11), variable= "income", value="freq")
+head(melt.raw, 10)
+```
+
+
+* melt() 함수를 사용하여 각 변수에 해당하는 column을 만듦으로써, 단정한 데이터가 된 것을 확인 할 수 있음 
+
+```{r, echo=F, message=FALSE}
+library(reshape)
+```
+```{r,block4}
+data(french_fries)
+head(french_fries,3)
+```
+ 
+* reshape2 패키지에 내장되어 있는 french_fries데이터에 melt함수를 적용함 
+  - treatment(1,2,3) : 서로 다른 3개의 frying oil
+  - rep (1,2) : 각 frying oil 별 다른 2개의 fryers
+  - subject(1,2, …, 12) : 실험에 참가한 12명의 참가자
+  - time(1,2, …,10) : 참가자들이 실험을 한 각기 다른 10개의 날
+  - id variable: 보통 이산형이나 고정값을 말하는데 특별히 지정해주지 않으면 factor 혹은 integer column을 id variable로 인식함
+ - measure variable: categorize되는 변수임
+* `melt` 함수를 적용한 french_fries data는 다음과 같이 변형됨 
+
+```{r}
+library(data.table)
+french.melt<- melt(french_fries, id=c(1:4), measure=c(5:9), na.rm=T)
+head(french.melt,20)
+french.dt<-data.table(french.melt)
+```
+
+*  `melt()` 는 id variable를 기준으로 measure variable을 범주화 하여 
+  * `variable` 이라는 새로운 column 만들고 
+  * 그에 따른 `value` 에는  해당 데이터 값들을 넣어 새로은 data frame (: 여기서는 data table)을 생성함
+
+
+```{r,block6,echo=T}
+str(french_fries)
+```
+
+```{r,block7,echo=T}
+str(french.dt)
+```
+
+* 'potato', ... ,'painty'를 `melt()`를 이용하여 numeric을  categorize 해준 결과  factor인자로 바뀐 것을 확인 할 수 있음  
+
+
+### 2-2. `cast()`
+ 
+ * V1은 treatment와 variable별 value의 평균을 나타냄 
+
+```{r}
+value <- as.numeric(french.dt$value)
+head(value)
+mean <- french.dt[, mean(value), by = c("treatment", "variable")]
+head(mean, 10)
+``` 
+ 
+
+
+* `cast()`는 `melt` function을 이용해 만든 data frame을, 사용자가 원하는 모양으로 재배열 할 수 있게 해주는  함수임 
+* 즉, (아래의) data는 각 treatment와 variable에 따른 평균을 나타낸 표로 재구성될 수 있음
+
+```{r,block9,echo=T,message=F}
+cast(mean, treatment ~ variable)
+```
+
+
+
+### 2.3 Graph
+
+
+* `ggplot2` 패키지를 사용하기 위선 단정한 데이터가 필요하기 때문에 위의 과정들을 실행했다고 볼 수 있음
+
+****************************
+
+### 종교에 따른 소득 분포
+```{r, fig.height=4,fig.width=8}
+library(ggplot2)
+head(melt.raw)
+ggplot(melt.raw, aes(religion, value))+geom_bar(aes(fill=income),stat="identity")+
+  theme(axis.text.x=element_text(angle=45))
+```
+
+*************************
+
+### 종교별 소득 비율
+```{r,block11,echo=T,fig.height=5,fig.width=8,message=F}
+library(plyr)
+melt.raw<- ddply(melt.raw,.(religion), mutate, freq_sum=sum(value))
+head(melt.raw)
+melt.freq<- ddply(melt.raw, .(religion,income), summarise,freq_percent=value/freq_sum)
+head(melt.freq)
+ggplot(melt.freq, aes(religion, freq_percent))+geom_bar(aes(fill=income),stat="identity")+theme(axis.text.x=element_text(angle=45))
+```
+
+3. `tapply`/ `aggregate`/ `by` Function
+---------------------------------------
+
+* R은 특정 데이터 집단에 함수를 적용하는 `tapply`,`by`,`aggregate`등의 함수를 제공함
+* 이들의 원리는 __split-apply-comebine__ 이라는 전략을 사용함
+* 즉, 특정 기준에 따라 데이터를 나눠(__split__) 그룹화 한 후,  개별적으로 처리해(__apply__) 마지막에 남은 결과를 결합(__combine__)하는 효율적인 방식임
+
+> __MapReduce개념과도 비슷함__
+
+******************
+
+### Market price
+
+* 서울시의 전통시장과 대형마트에서 생필품이 얼마나 판매되고 있는지를 조사한 자료임 
+
+
+```{r}
+name.ENG <- c("P_SEQ", "M_SEQ", "M_NAME", "A_SEQ", "A_NAME", "A_UNIT", "A_PRICE", 
+    "P_YEAR_MONTH", "ADD_COL", "M_TYPE_CODE", "M_TYPE_NAME", "M_GU_CODE", "M_GU_NAME")
+name.KOR <- c("일련번호", "시장/마트번호", "시장/마트이름", "품목번호", "품목이름", 
+    "실판매규격", "가격", "월-년도", "비고", "시장유형구분코드", "시장유형구분이름", 
+    "자치구 코드", "자치구이름")
+name <- matrix(c(name.ENG, name.KOR), 13, 2)
+name
+```
+
+***************
+```{r}
+market_price <- read.csv("d:/SDSEDU/munging/requisites.csv", fileEncoding = "euc-kr")
+head(market_price)
+```
+
+****************
+```{r}
+summary(market_price)
+```
+
+### 3.1 `tapply` 사용 예
+
+* `tapply(X, INDEX, FUN=NULL, ... , simplify=TRUE)`
+  * `X` : 우리가 확인하고자 하는 가격
+  * `INDEX` : factor형으로 구성된 list (data.frame은 list이기도 함)
+  * `FUN` : 함수명을 입력함 
+
+```{r}
+t.market <- tapply(market_price$A_PRICE, market_price[, c("M_TYPE_NAME", "A_NAME")], mean)
+head(t.market)
+```
+
+****************
+
+### 3.2 `by` 사용 예
+
+```{r}
+by(market_price$A_PRICE, market_price[,c("M_TYPE_NAME","A_NAME")],function(x){mean(x)})
+```
+
+********************
+
+### 3.3 `aggregate` 사용 예
+
+```{r}
+aggregate(market_price$A_PRICE, market_price[,c("M_TYPE_NAME","A_NAME")],mean)
+```
+
+
+4. `plyr` Package
+-------------------
+
+### 4.1 Basic frame of `plyr`
+
+```
+ddply(.data, .variables, .fun=NULL, ..., .progress="none", .drop = TRUE, .parallel = FALSE)
+```
+
+- **`.data`** : data.frame
+- **`.variable`** : 쪼개는 기준값
+  - 문자벡터 : `c("M_GU_NAME", "A_NAME")`
+  - 숫자벡터 : `c(5, 13)
+  - 수식 (formula) : `~ M_GU_NAME + A_NAME `
+  - 특별식 : `.(M_GU_NAME, N_NAME)`
+- **`.fun`** : 함수명
+- **...** : 함수명에 추가되는 인자
+- **`.progress`** : 수행시간이 오래걸릴 경우를 대비, 진행상황을 표시
+- **`.drop=TRUE`** : 현재 쪼개는 조건이 데이터에 있는 경우들만 계산하여 출력. FALSE면 모든 가능조건에 대해 출력
+- **`.parallel`** : 머신의 멀티코어를 사용가능하게해주는 옵션
+
+
+***********************
+### 4.2 Example of `plyr`
+
+```{r,tidy=TRUE}
+library(plyr)
+head(ddply(market_price, .(A_NAME, M_TYPE_NAME), summarize, mean_price=mean(A_PRICE)))
+```
+- `summarize` 은 그룹화된 data.frame을 요약한다는 의미임
+- `summarize`이 외에 `transform`은 기존 data.frame에 새로운 열을 추가하거나 기존의 열을 다른 데이터로 채워넣을때 사용함
+- 즉, `summarize` 함수는 `mean_price`에 대한 하나의 열만 변환하지만, `transform`은 열을 추가한 data.frame 조각 전체를 반환함
+
+```{r,tidy=TRUE}
+library(plyr)
+head(ddply(market_price, .(A_NAME, M_TYPE_NAME), transform, mean_price=mean(A_PRICE)))
+```
+
+5. `data.table` Package
+-------------------------
+
+### 5.1 Basic frame of `data.table`
+
+```
+dt[i,j,mult={'first','last','all'},nomatch={0,NA},roll={FALSE,TRUE},by='colname']
+```
+
+- **`i,j`** : i에는 행을 선택하는 문법, j에는 열을 선택하는 문법이 들어감
+- **`mult`** : 'JOIN'연산 시, 키매칭의 처음, 마지막, 모두를 리턴하는 옵션
+- **`nomatch`** : 'OUTER JOIN'을 사용할 때 주로 정해주는 옵션으로 매칭되지 않을 경우 리턴될 값을 명시
+- **`roll`** : 시계열 데이터에 대한 'rolling join'을 하게될 때 주로 사용함
+
+--- 
+### 5.2 `data.table` vs. `data.frame`
+
+* __`data.table`을 사용한 경우__
+
+```{r}
+library(data.table)
+market_price.dt <- data.table(market_price)
+market_price.dt[2,list(M_NAME)]
+```
+
+*************************
+
+* __`data.frame`을 사용한 경우__
+
+```{r}
+market_price[2,"M_NAME",drop=F]
+```
+
+***************************
+
+```{r}
+class(market_price.dt[2,list(M_NAME)])
+class(market_price[2,"M_NAME",drop=F])
+class(market_price[2,"M_NAME",drop=T])
+```
+
+- `data.frame`은 한 열을 리턴할 때 벡터로 리턴하고, 두 개 이상의 열을 리턴할 때 data.frame으로 리턴하는 특이한 방식을 사용하기 때문에 `drop=F`를 사용해주어야 한다.
+
+- `data.table`은 리스트로 열 이름을 받게하고 모든 경우에 `data.table`로 리턴한다.
+
+************************
+
+```{r}
+market_price.dt[,list(avg = mean(A_PRICE)), by = list(M_TYPE_NAME, A_NAME)]
+```
+
+* `list`로 묶인 변수들에 의해 __GROUP BY__된 각각의 `data.table`에 `avg`열을 입력해 `A_PRICE`의 평균값을 넣음
+
+
+
+### 5.3 `sqldf`
+
+```{r, cache=FALSE,message=FALSE, warning=FALSE}
+library(sqldf)
+sqldf("select M_TYPE_NAME, A_NAME, avg(A_PRICE) as avg from market_price group by M_TYPE_NAME,A_NAME limit 10")
+```
+
+- **sqldf** 는 data.frame을 흡사 데이터베이스의 테이블 처럼 여기며, SQL문으로 조작할 수 있는 인터페이스를 제공함
+
+
+### 5.4 `ddply` vs. `data.table` vs. `sqldf`
+
+* __`ddply`__
+```{r}
+system.time(ddply(market_price, .(M_TYPE_NAME, A_NAME), summarise, avg = mean(A_PRICE)))
+```
+
+* __`data.table`__
+```{r}
+system.time(market_price.dt[,list(avg=mean(A_PRICE)),by=list(M_TYPE_NAME,A_NAME)])
+```
+
+* __`sqldf`__
+```{r}
+system.time(sqldf("select M_TYPE_NAME,A_NAME, avg(A_PRICE) as avg from market_price group by M_TYPE_NAME, A_NAME"))
+```
+
+* `data.table` >> `sqldf` >> `plyr` 순으로 속도가 빠른것을 알 수 있음
+
+
+
+6. Reson of Munging
+---------------------
+
+```
+library(ggplot2)
+res <- ddply(market_price, .(M_TYPE_NAME, A_NAME), summarise, avg = mean(A_PRICE))
+ggplot(res, aes(A_NAME, M_TYPE_NAME)) + geom_tile(aes(fill = avg)) 
++theme(axis.text.x = element_text(angle = 75, hjust = 1)) 
++scale_fill_gradient(low = "green", high = "red")
+```
+- 원데이터로는 표현하기 힘든 분류된 시각화를 수행할 수 있음
+
+
+> 본 자료는 'R로 하는 데이터 시각화 (전희원 지음)`을 참고 및 인용하여 작성한 것임
+
+> 관련 참고사이트 [https://github.com/haven-jeon/R_based_visualization](https://github.com/haven-jeon/R_based_visualization)
+
+

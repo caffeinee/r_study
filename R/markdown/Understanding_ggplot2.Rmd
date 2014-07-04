@@ -1,0 +1,462 @@
+R 패키지 ggplot2의 이해
+========================================================
+Version 2014-01-18
+
+1. 목적
+--------
+
+* ggplot2는 데이터 시각화를 위한 그래픽 라이브러리로는 현재까지 가장 많이 사용되고 있음
+
+* 명령어 형식의 ggplot2의 특징은 
+  * ggplot2(Grammer of Graphic)의 약자와 같이 grammer 기반의 명령어를 제공하여 
+  * 문장 형성을 통해  사용자는 데이터 시각화를 가능하게 함
+  * 지속적인 update와 
+  * 커뮤니티를 통한 우스한 사례 공유가 가능함
+
+* ggplot2의 활용 예를 통해 데이터 시각화의 컴포넌트와 실제 데이터와의 연결을 이해함
+
+2. 원리 및 용어
+---------------
+* __ggplot__ : 메인 함수로 데이터 셋과 표현할 데이터 변수명을 정의함
+
+* __geoms__ : 실제 어떤 데이터 시각화를 할지 정의하는 기하학적 객체
+  * geom_point(), geom_bar(), geom_density(), geom_line(), geom_area() 
+
+* __aes__ : aesthetics (미학적)
+  * 형태, 투명도, 색상, 채우기, 라인의 형태 등을 정의
+
+* __scales__ : 데이터가 어떻게 표현될지를 정의
+  * 연속형, 이산형, log 등
+  
+3. ggplot2의 활용 이해
+----------------------
+
+### 3.1 iris 데이터
+
+* iris 데이터는 3가지 종(species)에 대하여 4가치 측정치(변수)에 대하여 각각 50회 반복 측정한 데이터임
+* 즉, 3개의 종 (Setosa, Versicolor, Virginica)에 대하여 Sepal length, Sepal width, Petal length, Petal width에 대하여 가각 50회씩 측정한 데이터임
+```{r}
+str(iris)
+iris
+```
+
+### 3.2 Example을 통한 기초 이해
+
+```{r fig.width=7, fig.height=4}
+library(ggplot2)
+ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width)) + geom_point()
+```
+
+### 3.3 기초 구조의 이해
+
+```
+myplot <- ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width))
+myplot + geom_point()
+```
+
+* 함수 `ggplot` 안에서 데이터와 변수를 정의함
+* 일종의 백지 위에 그림을 그릴 대상을 정의한 즉, 데이터 시각화를 위한 셋팅 부분임
+* 그 이후 어떤 시각화를 할지의 구체적인 데이터 시각화 컴포넌트 대상, 통계모형, 판넬(panels) 등을 백지 상에 레이어 형태로 그림을 그리는 것임 
+
+
+### 3.4 Further examples
+
+#### 3.4.1 Increase the size of points
+
+```{r fig.width=7, fig.height=4}
+ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width)) + geom_point(size = 3)
+```
+
+
+#### 3.4.2 Add some color
+
+```{r fig.width=7, fig.height=4}
+ggplot(iris, aes(Sepal.Length, Sepal.Width, color = Species)) + geom_point(size = 3)
+```
+
+
+#### 3.4.3 Differentiate points by shape
+
+```{r fig.width=7, fig.height=4}
+ggplot(iris, aes(Sepal.Length, Sepal.Width, color = Species)) + geom_point(aes(shape = Species), size = 3)
+```
+
+
+4. 데이터 시각화 컴포넌트들
+---------------------------
+
+### 4.1 Box plots
+
+```{r fig.width=7, fig.height=4}
+library(MASS)
+str(birthwt)
+head(birthwt)
+ggplot(birthwt, aes(factor(race), bwt)) + geom_boxplot()
+```
+
+### 4.2 Histograms
+
+```{r fig.width=7, fig.height=4}
+str(faithful)
+head(faithful)
+h <- ggplot(faithful, aes(x = waiting))
+h + geom_histogram(binwidth = 30, colour = "black")
+```
+
+```{r fig.width=7, fig.height=4}
+h <- ggplot(faithful, aes(x = waiting))
+h + geom_histogram(binwidth = 8, fill = "steelblue", colour = "black")
+```
+
+```{r fig.width=7, fig.height=4}
+h <- ggplot(faithful, aes(x = waiting))
+h + geom_histogram(binwidth = 8, fill = "steelblue", colour = "yellow")
+```
+
+### 4.3 Line plots
+
+```{r fig.width=7, fig.height=4}
+climate <- read.csv("climate.csv", header = T)
+str(climate)
+head(climate)
+ggplot(climate, aes(Year, Anomaly10y)) + geom_line()
+```
+
+```{r fig.width=7, fig.height=4}
+dfn <- read.table(header=T, text='
+supp dose length
+  OJ  0.5  13.23
+  OJ  1.0  22.70
+  OJ  2.0  26.06
+  VC  0.5   7.98
+  VC  1.0  16.77
+  VC  2.0  26.14
+')
+
+dfn
+
+ggplot(data=dfn, aes(x=dose, y=length, group=supp, colour=supp)) + geom_line() + geom_point()
+```
+
+
+```{r fig.width=7, fig.height=4}
+ggplot(climate, aes(Year, Anomaly10y)) + geom_ribbon(aes(ymin = Anomaly10y - Unc10y, ymax = Anomaly10y + Unc10y),
+   fill = "blue", alpha = .1) +
+   geom_line(color = "steelblue")
+```
+
+```{r fig.width=7, fig.height=4}
+cplot <- ggplot(climate, aes(Year, Anomaly10y))
+cplot <- cplot + geom_line(size = 0.7, color = "black")
+cplot <- cplot + geom_line(aes(Year, Anomaly10y + Unc10y), linetype = "dashed", size = 0.7, color = "red")
+cplot <- cplot + geom_line(aes(Year, Anomaly10y - Unc10y), linetype = "dashed", size = 0.7, color = "red")
+cplot + theme_gray()
+```
+
+
+
+### 4.5 Bar plots
+
+#### 4.5.1 plyr과 reshape
+
+* R에서 매우 유용한 두 가지 패키지는 다음과 같음
+  * __plyr__  - `ddply`, `llply`, `join`
+  * __reshape__  - `melt`, `dcast`, `acast` 
+
+```{r fig.width=7, fig.height=4}
+ggplot(iris, aes(Species, Sepal.Length)) + geom_bar(stat = "identity")
+```
+
+```{r fig.width=7, fig.height=4}
+library(reshape)
+df <- melt(iris, id.vars = "Species")
+df
+ggplot(df, aes(Species, value, fill = variable)) + geom_bar(stat = "identity")
+```
+
+  
+```{r fig.width=7, fig.height=4}
+ggplot(df, aes(Species, value, fill = variable)) +
+geom_bar(stat = "identity", position = "dodge")
+```
+
+#### 4.5.2 Bar graph 기본
+
+* Bar plots를 그리는데 y축이 해당 x-축 값에 대한 count와 column의 값으로 표현되는 방법이 있음
+
+x축 | y축 값의 높이 | 데이터 시각화 방법
+----|---------------|-------------------
+연속형(numeric) | Count | Histogram
+이산형(factor) | Count | Bar plot
+연속형(numeric) | Value | Bar plot
+이산형(factor) | Value | Bar plot
+
+```{r}
+df <- data.frame(time = factor(c("Lunch","Dinner"), levels=c("Lunch","Dinner")),
+                 total_bill = c(14.89, 17.23))
+df
+```
+
+```{r fig.width=7, fig.height=4}
+# Add a black outline
+ggplot(data=df, aes(x=time, y=total_bill, fill=time)) + geom_bar(colour="black", stat="identity")
+
+# No legend, since the information is redundant
+ggplot(data=df, aes(x=time, y=total_bill, fill=time)) +
+    geom_bar(colour="black", stat="identity") +
+    guides(fill=FALSE)
+```
+
+```{r}
+library(reshape2)
+str(tips)
+head(tips)
+```
+
+```{r fig.width=7, fig.height=4}
+# Bar graph of counts
+ggplot(data=tips, aes(x=day)) + geom_bar(stat="bin")
+# Equivalent to this, since stat="bin" is the default:
+ggplot(data=tips, aes(x=day)) + geom_bar()
+```
+
+
+#### 4.5.3 More examples
+
+```{r fig.width=7, fig.height=4}
+df1 <- data.frame(sex       = factor(c("Female","Female","Male","Male")),
+                 time       = factor(c("Lunch","Dinner","Lunch","Dinner"), levels=c("Lunch","Dinner")),
+                 total_bill = c(13.53, 16.81, 16.24, 17.42))
+df1
+```
+
+```{r fig.width=7, fig.height=4}
+# Stacked bar graph -- this is probably not what you want
+ggplot(data=df1, aes(x=time, y=total_bill, fill=sex)) + geom_bar(stat="identity")
+
+# Bar graph, time on x-axis, color fill grouped by sex -- use position_dodge()
+ggplot(data=df1, aes(x=time, y=total_bill, fill=sex)) + geom_bar(stat="identity", position=position_dodge())
+```
+
+
+
+```{r fig.width=7, fig.height=4}
+d2 <- diamonds[sample(1:dim(diamonds)[1], 1000), ]
+head(d2)
+ggplot(d2, aes(clarity, fill = cut)) +
+geom_bar(position = "dodge",stat = "bin") + theme_gray()
+```
+
+```{r fig.width=7, fig.height=4}    
+climate$sign <- ifelse(climate$Anomaly10y<0, FALSE, TRUE)
+# or as simple as
+# clim$sign <- climate$Anomaly10y < 0
+head(climate)
+ggplot(climate, aes(Year, Anomaly10y)) + geom_bar(stat = "identity", aes(fill = sign)) + theme_gray()
+```
+
+
+#### 4.5.4 Line plots와의 관계
+
+```{r fig.width=7, fig.height=4}
+# Basic line graph. These both have the same result.
+ggplot(data=df, aes(x=time, y=total_bill, group=1)) + geom_line()
+
+# Add points
+ggplot(data=df, aes(x=time, y=total_bill, group=1)) + geom_line() + geom_point()
+
+# Change color of both line and points
+# Change line type and point type, and use thicker line and larger points
+# Change points to circles with white fill
+ggplot(data=df, aes(x=time, y=total_bill, group=1)) + 
+    geom_line(colour="red", linetype="dotted", size=1.5) + 
+    geom_point(colour="red", size=4, shape=21, fill="white")
+```
+
+
+
+### 4.6 Density plots
+
+```{r fig.width=7, fig.height=4}
+head(faithful)
+ggplot(faithful, aes(waiting)) + geom_density()
+```
+
+```{r fig.width=7, fig.height=4}
+ggplot(faithful, aes(waiting)) +
+geom_density(fill = "blue", alpha = 0.1)
+```
+
+```{r fig.width=7, fig.height=4}
+ggplot(faithful, aes(waiting)) +
+geom_line(stat = "density")
+```
+
+
+### 4.7 Polar coordinates
+
+```{r}
+head(mtcars)
+```
+
+
+```{r fig.width=7, fig.height=4}
+p.tmp <- ggplot(mtcars, aes(x=factor(1), fill=factor(cyl))) + geom_bar(width=1)
+p.tmp
+p.tmp + coord_polar(theta="y")
+p.tmp + coord_polar(theta="x")
+ggplot(mtcars, aes(factor(cyl), fill=factor(cyl))) + geom_bar(width=1) + coord_polar()
+```
+
+
+```{r fig.width=7, fig.height=4}
+# Hadley's favourite pie chart
+df <- data.frame(
+  variable = c("resembles", "does not resemble"),
+  value = c(80, 20)
+)
+ggplot(df, aes(x = "", y = value, fill = variable)) +
+  geom_bar(width = 1, stat = "identity") +
+  scale_fill_manual(values = c("red", "yellow")) +
+  coord_polar("y", start = pi / 3) +
+  labs(title = "Pac man")
+```
+
+5. 데이터의 변형 - reshape를 중심으로
+--------------------------------------
+
+* __reshape__ 패키지는 데이터 형태의 재배열, coningency table 생성, 데이터 summarising등을 할 수 있게 해줌
+
+* 사용하는 data frame은 __reshape__ 패키지 내의 _smiths_ 데이터를 사용함
+
+* 본 내용은 [Journal of Stiatical Software](http://www.jstatsoft.org/v21/i12/paper)에 게재된 내용을 [차 용](http://rpubs.com/chayong/reshape)이 정리한 것을 바탕으로 작성함
+
+### 5.1 `melt()`
+* `melt()` function을 사용할 때 __identifier__(이하 id)와 __measured variable__을 구분하는 것은 매우 중요함
+* 즉, 어떤 변수가 __measured variable__인지 __id variable__인지 알아야 할 필요가 있음
+
+  * __identifier__(id variable) : 보통 이산형이나 고정값. 특별히 지정해 주지 않으면 factor or integer column을 id variable로 인식한다.
+  * __measured variable__ : 측정 대상이 되는 변수. 쉽게 말하면 categorize되는 변수
+
+* `melt()` 는 __id variable__을 기준으로 하고 __measured variable__를 categorize하여 `variable`이라는 새로운 column을 생성하고 `value`라는 column에 Variable에 해당하는 값들을 넣어 주어 새로이 Data frame을 만들어 줌
+
+```{r}
+smiths
+```
+
+* 위의 데이터를 `melt()`를 이용하여 변환되는 것을 살펴봄
+
+```{r}
+melt(smiths, id = c("subject", "time"), measured = c("age", "weight", "height"))
+```
+
+* `id`로 지정된 변수에 대하여 `measured`에 해당하는 변수들에 대하여 melted된 데이터에는 
+  * `variable`에는 해당 변수이름이 값으로 채워지고 
+  * `value`라는 변수에는 `variable`에 해당하는 변수의 값이 채워짐
+  
+```{r}
+melt(smiths, id = c("subject", "time"))
+```
+* `measured`를 지정하지 않으면 data frame 내에 `id` 이외의 모든 다른 변수들이 사용됨
+
+```{r}
+melt(smiths, id = 1:2, na.rm = T)
+```
+* 옵션 `na.rm=T` 은 melted된 __value__ 가 NA인 케이스를 remove함을 의미함
+
+### 5.2 `cast()`
+
+* `cast()`는 `melt()` function을 적용한 data frame(혹은 object)을 사용자가 원하는 모양으로 재배열을 할 수 있게 해주는 함수임
+
+```
+> two required arguments
+  - data : the molten data set to reshape
+  - formula : basic form (col_var_1 + col_var_2 ~ row_var_1 + row_var_2)
+  - 만약 formula를 지정해 주지 않으면 
+    1. measured variables in the columns,
+    2. all other id variables in the rows.
+> optional arguments
+  - fun.aggregate : length(default), mean, sum, ...
+  - margins : sub total, grand total ("grand_row", "grand_col")
+> Basic use
+  - '.' corresponds to no variable. ex) '. ~ x' or 'x ~ .', that is, a single row or column.
+  - '...' represents all variables
+```
+
+*  `melt()`에서 melting한 데이터를 중심으로 살펴봄
+
+```{r}
+smithsm <- melt(smiths, id = 1:2)  # smithsm : molten data 'smiths'
+smithsm
+```
+
+```{r}
+cast(smithsm, subject + time ~ variable)
+```
+
+* 즉, `subject`와 `time`별로 `variable`의 변수 값을 나열하라는 의미임
+* `subject`와 `time` 조합은 열 방향, variable 값은 행 방향의 변수명을 구성함
+```{r}
+cast(smithsm, ... ~ subject, sum, margins = c("grand_row", "grand_col"))
+```
+
+* `subject`를 제외한 `time`과 `variable`에 대하여 `subject`의 값을 변수명으로 펼쳐 sum을 계산하라는 의미임
+* `margin`은 행, 열방향의 합을 구하라는 것임
+
+### 5.3 `cast()` example
+
+```{r}
+#Air quality example
+names(airquality) <- tolower(names(airquality))
+head(airquality)
+aqm <- melt(airquality, id=c("month", "day"), na.rm=TRUE)
+head(aqm)
+```
+
+```{r}
+cast(aqm, day ~ month ~ variable)
+cast(aqm, month ~ variable, mean)
+cast(aqm, month ~ . | variable, mean)
+cast(aqm, month ~ variable, mean, margins=c("grand_row", "grand_col"))
+cast(aqm, day ~ month, mean, subset=variable=="ozone")
+cast(aqm, month ~ variable, range)
+cast(aqm, month ~ variable + result_variable, range)
+cast(aqm, variable ~ month ~ result_variable,range)
+```
+
+6. Trellis graphics
+--------------------
+
+* Trellis란 정원에 장미 덩굴 등을 올리기 위한 격가 모양의 틀로 다차원의 데이터를 display하기 위한 일종의 framework임
+* 다차원의 데이터를 2차원으로 표현하는데 있어 조건(R의 factor 레벨)으로 격자를 이룬 후 같은 스케일로 동일한 그래프를 고려 비교하는 것이 특징임
+* `ggplot2` 패키지에서는 __facet__ 계열 명령어를 통해 Trellis display를 구현할 수 있음
+
+### 6.1 `facet_wrap` / `facet_grid` example
+
+```{r fig.width=7, fig.height=4}
+p.tmp <- ggplot(mtcars, aes(mpg, wt)) + geom_point()
+p.tmp + facet_wrap(~cyl)
+p.tmp + facet_wrap(~cyl, nrow=3)
+p.tmp + facet_grid(gear~cyl)
+p.tmp + facet_wrap(~cyl+gear)
+```
+
+### 6.2 controlling scales in facets (default: `scales="ﬁxed"`)
+
+* `ggplot2`에서는 전통적인 Trellis와는 달리 scale을 데이터 분포에 따라 변경하는 것임
+* 기본적으로는 __facet__은 `scales="fixed"`가 사용됨
+
+```{r fig.width=7, fig.height=4}
+p.tmp + facet_wrap(~cyl, scales="free")
+p.tmp + facet_wrap(~cyl, scales="free_x")
+p.tmp + facet_wrap(~cyl, scales="fixed")
+```
+
+```{r}
+# contstraint on facet_grid (all rows,columns same scale)
+p.tmp + facet_grid(gear~cyl, scales="free_x")
+p.tmp + facet_grid(gear~cyl, scales="free", space="free")
+```
+
+
+
