@@ -1,0 +1,232 @@
+German Credit Data로 Scorecard 만들기
+========================================================
+
+0. German Credit Data
+----------------------
+
+* [UCI Machine Learning Repository](http://archive.ics.uci.edu/ml/datasets/Statlog+(German+Credit+Data))
+
+
+1. German Credit Data의 load
+---------------------------
+* 파일 이름이 `german.RData`인 R portable 파일을 loading 함
+
+```{r}
+load("d:/SDSEDU/german.RData")
+```
+
+
+2. 함수 `rpart`를 활용한 중요변수 파악 및 classing
+----------------------------------------------------
+
+### 2.1 중요변수 파악
+
+* rpart를 사용하여 german 데이터에서 
+* 타겟변수 good.bad를 설명하여 주요 변수들을 quick하게 파악함
+
+```{r}
+library(rpart)
+# Information, 즉 entropy 기준 split 옵션 선택
+german.rpart <- rpart(good.bad ~., parm=list(split="information"), data=german)
+german.rpart
+plot(german.rpart)
+text(german.rpart)
+summary(german.rpart)
+```
+
+**********************
+
+#### 2.2 연속형 (`numeric`) 변수의 classing
+
+```{r}
+gr.duration <- rpart(good.bad~duration, parm=list(split='information'), data=german)
+gr.duration
+```
+
+
+
+3. 패키지 `partykit`을 활용한 예쁜 나무 모형 그리기
+----------------------------------------------
+
+```{r fig.width=15, message=FALSE}
+library(partykit)
+german.party <- as.party(german.rpart)
+print(german.party)
+
+plot(german.party, type="simple")
+plot(german.party, type="extended")
+```
+
+***************************
+
+```{r fig.width=7, fig.height=4, message=FALSE}
+gr.duration.party <- as.party(gr.duration)
+print(gr.duration.party)
+
+plot(gr.duration.party, type="extended")
+```
+
+
+ 4. `glm` 함수를 이용한 Logistic regresion
+--------------------------------------
+ * `glm` = generalized linear model
+
+```{r}
+logit.german <- glm(good.bad ~., data=german, family=binomial())
+summary(logit.german)
+```
+
+* `glm` 함수는 data frame 내에 factor변수가 있으면 자동으로 dummay 변수로 변환하여 모델링함
+* 본 과정에서는 분석과정에서 인위적으로 만든 dummay 변수 활용을 권장함
+
+
+5. Training vs. Validation 데이터
+-------------------------------
+
+* 본 과정에서 1000개 관측치로 구성된 german 데이터를 tranin: validation=7:3 으로 나눈 index를 생성함
+* 즉, 
+  * __`tr.index`__ : 전채 데이터 중 70%를 샘플링한 tranin index 
+  * __`german.tr`__ : traning data
+  * __`german.val`__ : validation data
+
+```{r}
+tr.index <- sample(1:1000, round(1000*0.7))
+german.tr <- german[tr.index, ]
+german.val <- german[-tr.index, ]
+```
+
+6. `ggplot2` 를 활용한 데이터 탐색
+------------------------------
+* Train과 vaidation 데이터를 target variable인 good.bad 분포 관점에서 유사함을 살펴봄
+
+```{r fig.width=7, fig.height=4}
+library(ggplot2)
+
+# 함수 qplot은 ggplot 명령어의 quick plot 버젼임
+qplot(good.bad, data=german.tr, geom="bar", fill=good.bad)
+qplot(good.bad, data=german.val, geom="bar", fill=good.bad)
+```
+
+### 6.1 `checking` 변수에 대한 Good vs. Bad의 비교
+
+```{r fig.width=7, fig.height=4}
+ggplot(german, aes(checking, fill = factor(checking))) + geom_bar()
+
+ggplot(german, aes(checking, fill = factor(checking))) + geom_bar() + facet_grid(. ~ good.bad)
+
+ggplot(german, aes(factor(checking), fill = factor(checking))) + geom_bar() + 
+  coord_polar()
+
+ggplot(german, aes(factor(checking), fill = factor(checking))) + geom_bar() + 
+  coord_polar()+ facet_grid(. ~ good.bad)
+```
+
+********************
+
+```{r fig.width=7, fig.height=4}
+gr.checking <- as.data.frame(table(german$good.bad, german$checking))
+gr.checking
+library(plyr)
+gr.checking.mutate <- ddply(gr.checking, .(Var1), mutate, freq.sum=sum(Freq))
+gr.checking.mutate
+gr.checking.freq <- ddply(gr.checking.mutate, .(Var1, Var2), summarise, freq.percent=Freq/freq.sum)
+gr.checking.freq
+ggplot(gr.checking.freq, aes(Var1, freq.percent))+geom_bar(aes(fill=Var2), stat="identity")
+```
+
+### 6.2 box plot을 활용한 분포 비교
+```{r fig.width=7, fig.height=4}
+p <- ggplot(german, aes(good.bad, age)) 
+p + geom_boxplot()
+
+p <- ggplot(german, aes(good.bad, amount)) 
+p + geom_boxplot()
+```
+
+### 6.3  `amount`에 대한 density plot
+
+```{r fig.width=7, fig.height=4}
+pp <- ggplot(german, aes(amount))
+pp + geom_density()
+```
+
+* `amount` 변수의 분포가 우측으로 길게 꼬리가 늘어져 있어 함수 log를 취해 (가능하면) 좌우대칭 분포로 변환함
+
+```{r fig.width=7, fig.height=4}
+logpp <- ggplot(german, aes(log(amount)))
+logpp + geom_density()
+logpp + geom_density() + facet_grid(. ~ good.bad)
+```
+
+7. Classing
+-----------
+
+* 각 변수별로 classing을 시도함
+* `age`의 경우, `ggplot` 결과와 같이 `good.bad` 예측에 도움이 되지 않아 `rpart`에서 split이 일어나지 않음
+
+```{r}
+rpart(good.bad ~ age, german.tr, parm=list(split="information"))
+rpart(good.bad ~ amount, german.tr, parm=list(split="information"))
+rpart(good.bad ~ amount, german.tr, 
+      control=rpart.control(minsplit=5), parm=list(split="information"))
+```
+
+
+8. dummay variable 만들기
+-----------------------
+
+* 예를 들어, `saving` 변수(levels=1,2,3,4,5)에 대하여 level=1,2를 하나로 grouping하여 총 4개의 level에 대한 dummay 변수를 만들 경우, 총 3개의 dummay 변수를 만들어야 함
+
+```{r}
+german.savings <- german$savings
+savings.d1 <- (german.savings=="1" | german.savings=="2")*1
+savings.d2 <- (german.savings=="3")*1
+savings.d3 <- (german.savings=="4")*1
+```
+
+* `cbind`를 활용하여 `matrix`를 구성함
+* 이때 `matrix`는 `savings.d1`, `savings.d2`, `savings.d3`라는 변수이름을 보유함
+
+```{r}
+savings.dummy <- cbind(savings.d1, savings.d2, savings.d3)
+head(savings.dummy)
+```
+
+* 기존의 `german`이라는 data frame과 dummy variable로 구성된 matrix를 결합하여 새로운 german.cp라는 data frame을 구성함 
+
+```{r}
+german.cp <- cbind(german,savings.dummy)
+```
+
+
+* Dummay 변수에 대하여 traning 데이터를 활용하여 로지스틱 회귀모형을 적용함
+```{r}
+logit.german.cp <- glm(good.bad ~ savings.d1+savings.d2+savings.d3, data=german.cp[tr.index, ], family=binomial())
+logit.german.cp
+```
+
+* Validation 데이터에 대하여 socring을 구하고
+* Good vs. bad 정보를 바인딩함
+```{r}
+scr.val <- predict(logit.german.cp , newdata=german.cp[-tr.index, ])
+data.frame(log.odds=scr.val, good.bad=german.cp[-tr.index, "good.bad"])
+
+cbind(log.odds=scr.val, good.bad=german.cp[-tr.index, "good.bad"])
+```
+
+9. `riv` 패키지를 이용한 auto binning
+--------------------------------------
+```{r fig.width=7, fig.height=4, message=FALSE}
+library(devtools)
+# install_github("riv","tomasgreif")
+library(woe)
+str(german_data)
+iv.mult(german_data,"gb",TRUE)
+iv.plot.summary(iv.mult(german_data,"gb",TRUE))
+options(digits=2)
+iv.mult(german_data,"gb",vars=c("housing","duration"))
+iv.num(german_data,"duration","gb",rcontrol=rpart.control(cp=.02))
+iv.num(german_data,"duration","gb",rcontrol=rpart.control(cp=.005))
+iv.num(german_data,"duration","gb",rcontrol=rpart.control(cp=.001))
+```
+
